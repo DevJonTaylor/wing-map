@@ -1,0 +1,145 @@
+/* Welcome to Wings CSS style document
+made by: Dominique Akers, John Damaso, Jon Taylor, & Kevin Bugusky
+Table of contents: 
+    0) Unversal selector & Variables lines: 10-145
+    1) Element type selectors
+    2) Class selectors
+    3) ID selectors
+*/
+
+/* Variables and Universal */
+* {
+    border: 0px;
+  }
+/* Variables for team colors to alter css dynamically 
+    Here is the source of colors https://teamcolorcodes.com/kansas-city-chiefs-color-codes/*/
+:root {
+/* Ari Cardinals */
+--ariCardPrimary: #97233f;
+--ariCardSecondary: #000000;
+--ariCardTertiary: #ffffff;
+/* Atl Falcons */
+--atlFalPrimary: #A71930;
+--atlFalSecondary: #000000;
+--atlFalTertiary: #A5ACAF;
+/* Balt Ravens */
+--balrRavPrimary: #241773;;
+--balrRavSecondary: #000000;
+--balrRavTertiary: #9E7C0C;
+/* Buff Bills */
+--buffBillPrimary: #00338D;
+--buffBillSecondary: #C60C30;
+--buffBillTertiary: #A5ACAF;
+/* Chi Bears */
+--chiBearPrimary: #0B162A;
+--chiBearSecondary: #C83803;
+--chiBearTertiary: #ffff;
+/* Car Panthers */
+--carPantPrimary: #42ff4b;
+--carPantSecondary: #010708;
+--carPantTertiary: #A5ACAF;
+/* Cin Bengals */
+--cinBengPrimary: #FB4F14;
+--cinBengSecondary: #000000;
+--cinBengTertiary: #A5ACAF;
+/* Cle Brown */
+--cleBrownPrimary: #311D00;
+--cleBrownSecondary: #FF3C00;
+--cleBrownTertiary: #FFFFFF;
+/* Dal Cowboys */
+--dalCowPrimary: #003594;
+--dalCowSecondary: #869397;
+--dalCowTertiary: #FFFFFF;
+/* Den Broncos */
+--denBrocPrimary: #FB4F14;
+--denBroncSecondary: #002244;
+--denBroncTertiary: #FFFFFF;
+/* Det Lions */
+--detLionPrimary: #0076B6;
+--detLionSecondary: #B0B7BC;
+--detLionTertiary: #000000;
+/* GreenBay Packers (sidenote: green doesn't look right) */
+--greenBayPrimary: #203731;
+--greenBaySecondary: #FFB612;
+--greenBayTertiary: #FFFFFF;
+/* Hou Texans */
+--houTexPrimary: #03202F;
+--houTexSecondary: #A71930;
+--houTexTertiary: #FFFFFF;
+/* Ind Colts */
+--indyColtsPrimary: #002C5F;
+--indyColtsSecondary: #A2AAAD;
+--indyColtsTertiary: #FFFFFF;
+/* Jax Jaguars */
+--jaxJagPrimary: #006778;
+--jaxJagSecondary: #D7A22A;
+--jaxJagTertiary: #101820;
+/* KC Chiefs */
+--kcChiefPrimary: #E31837;
+--kcChiefSecondary: #FFB81C;
+--kcChiefTertiary: #FFFFFF;
+/* La Chargers */
+--laChargePrimary: #0080C6;
+--laChargeSecondary: #FFC20E;
+--laChargeTertiary: #FFFFFF;
+/* La Rams */
+--laRamsPrimary: #003594;
+--laRamsSecondary: #FFA300;
+--laRamsTertiary: #FFD100;
+/* Mia Dolphins */
+--miaDolphPrimary: #008E97;
+--miaDolphSecondary: #FC4C02;
+--miaDolphTertiary:  #005778;
+/* Min Vikings */
+--minVikPrimary: #4F2683;
+--minVikSecondary: #FFC62F;
+--minVikTertiary: #FFFFFF;
+/* New Patriots */
+--newPatPrimary: #002244;
+--newPatSecondary: #C60C30;
+--newPatTertiary: #B0B7BC;
+/* New Saints */
+--newSaintPrimary: #D3BC8D;
+--newSaintSecondary: #101820;
+--newSaintTertiary: #FFFFFF;
+/* NY Giants */
+--nyGiantPrimary: #0B2265;
+--nyGiantSecondary: #A71930;
+--nyGiantTertiary: #A5ACAF;
+/* NY Jets */
+--nyJetPrimary: #125740;
+--nyJetSecondary: #000000;
+--nyJetTertiary: #FFFFFF;
+/* Oak Raiders */
+--oakRadPrimary: #000000;
+--oakRadSecondary: #A5ACAF;
+--oakRadTertiary: #FFFFFF;
+/* Phi Eagles */
+--phiEaglePrimary: #004C54;
+--phiEagleSecondary: #ACC0C6;
+--phiEagleTertiary: #000000;
+/* Pitt Steelers */
+--pitSteelPrimary: #FFB612;
+--pitSteelSecondary: #101820;
+--pitSteelTertiary: #FFFFFF;
+/* Frisco 49ers */
+--friscoPrimary: #AA0000;
+--friscoSecondary: #B3995D;
+--friscoTertiary: #FFFFFF;
+/* Sea Seahawks */
+--seaHawkPrimary: #002244;
+--seaHawkSecondary: #69BE28;
+--seaHawkTertiary: #A5ACAF;
+/* Tampa Buccaneers */
+--tampBayPrimary: #D50A0A;
+--tampBaySecondary: #FF7900;
+--tampBayTertiary: #0A0A08;
+/* Tennesse Titans */
+--tTitsPrimary: #0C2340;
+--tTitsSecondary: #4B92DB;
+--tTitsTertiary: #C8102E;
+/* Wash Football Team */
+--tampBayPrimary: #5A1414;
+--tampBaySecondary: #FFB612;
+--tampBayTertiary: #0A0A08;
+}
