@@ -1,4 +1,4 @@
-/* Welcome to Wings CSS style document
+/* Welcome to Wings CSS style file
 made by: Dominique Akers, John Damaso, Jon Taylor, & Kevin Bugusky
 Table of contents: 
     0) Unversal selector & Variables lines: 10-145
@@ -143,3 +143,15 @@ Table of contents:
 --tampBaySecondary: #FFB612;
 --tampBayTertiary: #0A0A08;
 }
+
+/* ID Selectors */
+/* Team ID selectors */
+#ari{
+    /* need to apply to Dominic's code & see how or if we want to use it sample below*/
+    background-color: var(--ariCardPrimary);
+    color: var(--ariCardSecondary);
+    border-color: var(--ariCardTertiary);
+    border: 2px;
+    border-radius: 10px;
+}
+/* Add more if we want this for each team */
