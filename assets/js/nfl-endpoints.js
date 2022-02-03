@@ -140,7 +140,7 @@ class FetchData extends UrlCreator {
    * @param {string|object|undefined} value 
    * @returns {this} for chaining
    */
-  options(key, value) {
+  option(key, value) {
     if(value === undefined) return this.options[key];
     this.options[key] = value;
 
@@ -166,11 +166,9 @@ class FetchData extends UrlCreator {
    * @return {Promise<object>}
    */
   async getJSON() {
-    let response = await fetch(this.url(), {
-      method: 'get',
-      redirect: 'follow',
-      headers: this.headers
-    });
+    let options = JSON.parse(JSON.stringify(this.options));
+    options.headers = this.headers;
+    let response = await fetch(this.url, options);
 
     return await response.json();
   }
@@ -178,8 +176,8 @@ class FetchData extends UrlCreator {
 
 class Team extends FetchData {
   constructor(id) {
+    super();
     this.id = id;
-    this.id = json.team.id;
     this.city = '';
     this.name = '';
     this.logo = '';
@@ -191,7 +189,7 @@ class Team extends FetchData {
   async getRoster() {
     this.reset();
     const json = await this.domain('site', 'api', 'espn', 'com')
-      .uri('apis', 'v2', 'sports', 'football', 'nfl', 'teams', this.id, 'roster')
+      .uri('apis', 'site', 'v2', 'sports', 'football', 'nfl', 'teams', this.id, 'roster')
       .getJSON();  
     const record = json.team.recordSummary.split('-');
 
@@ -209,16 +207,16 @@ class Team extends FetchData {
           name: this.name
         };
         let playerObj = new Player();
-        playerObj.forceJson(player);
+        playerObj.forceJSON(player);
         this.players.push(playerObj);
       }
     }
   }
 }
 
-// TODO:  Get Total Stats
 class Player extends FetchData {
   constructor(id) {
+    super();
     this.id = id === undefined ? '' : id;
     this.name = '';
     this.height = 0
@@ -252,9 +250,28 @@ class Player extends FetchData {
       .domain('sports', 'core', 'api', 'espn', 'com')
       .uri('v2', 'sports', 'football', 'leagues', 'nfl', 'seasons', '2021', 'types', 'athletes', this.id, 'statistics', 0)
     
-      // TODO:  Get stats from API.
-      // TODO:  Adds stats to the player.
-      // sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2021/types/2/athletes/$player/statistics/0
+    for(let statCategory of json.splits.categories) {
+      for(let stat of statCategory.stats) {
+        this.stats[stat.name] = new Stat(stat);
+      }
+    }
+
+    return this;
+  }
+
+  cardData() {
+    let card = {
+      name: this.name,
+      team: `${this.team.location} ${this.team.name}`,
+      jersey: this.jersey,
+      headshot: this.headshot
+    }
+
+    for(let stat of this.stats) {
+      card.stats[stat.name.long] = stat.value;
+    }
+
+    return card;
   }
 
   forceJSON(json) {
@@ -269,11 +286,28 @@ class Player extends FetchData {
     this.jersey = json.jersey;
     this.headshot = json.headshot.href;
     this.team = {
-      location = json.team.location,
-      name = json.team.name
+      location: json.team.location,
+      name: json.team.name
     };
 
     return this;
+  }
+}
+
+class Stat {
+  constructor(json) {
+    this.name = {
+      long: json.name,
+      short: json.shortDisplayName,
+      display: json.displayName,
+      abbreviation: json.abbreviation
+    }
+    this.description = json.description;
+    this.value = json.value;
+    if(json.rank !== undefined) {
+      this.rank = json.rank;
+      this.displayRank = json.displayRankValue;
+    }
   }
 }
 
