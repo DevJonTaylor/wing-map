@@ -2,8 +2,7 @@
 let rosters = 'https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/$team/roster';
 let gameList = 'https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/$athlete/gamelog';
 let game = 'https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/$game/competitions/$game/plays?limit=400';
-
-/**
+/*
  * Created this to properly control the URL needed to make a call.
  * @property {boolean} isSecure Used to check if we use http or https.
  * @property {string[]} domainParts An array used to contain the sub, main, and top level domain parts.
@@ -23,7 +22,7 @@ let game = 'https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/even
    * @return {this} for chaining.
    */
   clear() {
-    this.isSecure = false;
+    this.isSecure = true;
     this.domainParts = [];
     this.uriParts = [];
     this.parameters = {};
@@ -231,6 +230,7 @@ class Player extends FetchData {
       location: '',
       name: ''
     }
+    this.stats = [];
   }
 
   async getData(id) {
@@ -246,10 +246,13 @@ class Player extends FetchData {
   }
 
   async getStats() {
+    
     let json = await this.reset()
       .domain('sports', 'core', 'api', 'espn', 'com')
-      .uri('v2', 'sports', 'football', 'leagues', 'nfl', 'seasons', '2021', 'types', 'athletes', this.id, 'statistics', 0)
-    
+      .uri('v2', 'sports', 'football', 'leagues', 'nfl', 'seasons', '2021', 'types', '2', 'athletes', 
+      this.id, 'statistics', 0)
+      .getJSON();
+
     for(let statCategory of json.splits.categories) {
       for(let stat of statCategory.stats) {
         this.stats[stat.name] = new Stat(stat);
@@ -293,6 +296,9 @@ class Player extends FetchData {
     return this;
   }
 }
+
+// https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2021/types/2/athletes/3115922/statistics/0
+// https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2021/types/2/athletes/14876/statistics/0
 
 class Stat {
   constructor(json) {
