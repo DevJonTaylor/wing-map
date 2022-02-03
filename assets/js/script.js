@@ -5,17 +5,14 @@ Table of contents:
     1)
     2) 
 */
-
 /* comments: (delete me please) Thought I would put basic js up here for the
 j squareds. I just wanted to add 2 Els to select team. This would be to set up
 selectors and change class and thus variables on HTML/CSS. Also, if you don't
 think we need a Table of Contents then we can get rid of them. 
 */
-
 //Variable Els (var or let? what do you guys what to do?)
 var team1El = document.querySelector("#team1"); // select #team1 div by ID
 var team2El = document.querySelector("#team2"); // select #team2 div by ID
-
 // functions
 function teamStyleChange(team1, team2) { // Most likely pass it API names. Will eventually pass team2 thro anotehr switch
     switch (team1) { // I beleive I would need to know more about output
@@ -38,11 +35,8 @@ function teamStyleChange(team1, team2) { // Most likely pass it API names. Will 
         // Make more cases...
     }
 }
-
 // stuf stuff stuff
 // stuf stuff stuff
-
 // insert the call to change team style twice once for each team
 teamStyleChange(team1); // change parameter based on API output
 teamStyleChange(team2); // change parameter based on API output
-
