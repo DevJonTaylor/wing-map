@@ -173,6 +173,150 @@ class FetchData extends UrlCreator {
   }
 }
 
+class EspnApiSite extends FetchData {
+  constructor() {
+    super();
+  }
+
+  setUrl() {
+
+  }
+
+  setupSiteApi() {
+    return this.domain('site', 'api', 'espn', 'com')
+    .uri('apis', 'site', 'v2', 'sports', 'football', 'nfl');
+  }
+
+  setupTeams(teamId, ...uris) {
+    return this.setupSiteApi()
+      .uri('teams', teamId, ...uris);
+  }
+
+  teams(teamId, noCall) {
+    return this.setupTeams(teamId)
+      .toJson(noCall);
+  }
+
+  teamRoster1(teamId, noCall) {
+    return this.setupTeams(teamId)
+      .param('enable', 'roster,stats')
+      .toJson(noCall);
+  }
+
+  teamRoster2(teamId, noCall) {
+    return this.setupTeams(teamId, 'roster')
+      .toJson(noCall);
+  }
+
+  teamSchedule(teamId, noCall) {
+    return this.setupTeams(teamId, 'schedule')
+      .toJson(noCall);
+  }
+
+  async toJson(noCall) {
+    let json = {};
+    if(noCall !== undefined) {
+      json = {
+        noCall: true,
+        url: this.url
+      }
+    } else {
+      json = await this.getJSON();
+    }
+    this.reset();
+
+    return json;
+  }
+}
+
+class Espn extends FetchData {
+  static domains = {
+    site: [], // https://site.api.espn.com
+    web: ['site', 'web', 'api', 'espn', 'com'], // https://site.web.api.espn.com
+    core: ['sports', 'core', 'api', 'espn', 'com'] // https://sports.core.api.espn.com
+  };
+  static uris = {
+    site: [], // /apis/site/v2/sports/football/nfl
+    web: ['apis', 'common', 'v3', 'sports', 'football', 'nfl'],// /apis/common/v3/sports/football/nfl
+    core: ['v2', 'sports', 'football', 'leagues', 'nfl'] // /v2/sports/football/leagues/nfl
+  }
+  
+  static factory(requesting) {
+    const espn = new Espn();
+    return espn
+      .domain(...Espn.domains[requesting])
+      .uri(...Espn.uris[requesting]);
+  }
+
+  static team = {
+    uri(teamId, ...uris) {
+      return Espn.factory('site').uri('teams', teamId, ...uris);
+    },
+    roster1(teamId) {
+      return Espn.team.uri(teamId).param('enable', 'roster,stats')
+    },
+    roster2(teamId) {
+      return Espn.team.uri(teamId, 'roster');
+    },
+    schedule(teamId) {
+      return Espn.team.uri(teamId, 'schedule');
+    }
+  }
+
+  static seasons = {
+    uri(season, ...uris) {
+      return Espn.factory('core')
+        .uri('seasons', season, 'types', '2', ...uris);
+    },
+    player(season, playerId) {
+      return Espn.seasons.uri(season, 'athletes', playerId);
+    },
+    stats: {
+      player(season, playerId) {
+        return Espn.seasons.player(season, playerId).uri('statistics');
+      },
+      team(season, teamId) {
+        return Espn.seasons.uri(season, 'teams', teamId, 'statistics');
+      }
+    }
+  }
+
+  static player = {
+    uri(requesting, ...uris) {
+      return Espn.factory(requesting)
+        .uri('athletes', ...uris);
+    },
+    get(playerId) {
+      return Espn.player
+        .uri('core', playerId);
+    },
+    gamelog(playerId) {
+      return Espn.player
+        .uri('web', playerId, 'gamelog');
+    },
+    stats(playerId) {
+      return Espn.player
+        .uri('web', playerId, 'stats');
+    }
+  }
+
+  static game = {
+    uri(gameId, ...uris) {
+      return Espn.factory('core')
+        .uri('events', gameId, 'competitions', gameId, ...uris);
+    },
+    roster(gameId, teamId) {
+      return Espn.game
+        .uri(gameId, teamId, 'roster');
+    },
+    plays(gameId) {
+      return Espn.game
+        .uri(gameId, 'plays')
+        .param('limit', 500)
+    }
+  }
+}
+
 class Team extends FetchData {
   constructor(id) {
     super();
