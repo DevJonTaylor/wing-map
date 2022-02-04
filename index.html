@@ -1,74 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <title>G.O.A.T Scale</title>
-  <body>
-      <header class="col s12 card-panel green darken-3 white-text center-align">G.O.A.T Scale</header>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <title>G.O.A.T Scale</title>
+
+<body>
+  <div class="row">
+    <div class="col 1"></div>
+  </div>
+
+  <header id="header" class="col s6 card-panel green darken-3 white-text center-align">
+    <img src="assets/images/goat.jpg" height="36" width="36"></img> G.O.A.T Scale
+    <i class="fas fa-football-ball"></i>
+  </header>
+  <div class="col 1"></div>
+  </div>
+
+
+  <div class="row">
+    <div class="container">
+      <div class="card-panel green darken-3 center-align">Go Head to Head against the CPU. In this mash-up you'll pick
+        who you think had the better game during the season. First to 5 wins</div>
+    </div>
+
+    <div class="row">
+      <button class="btn waves-effect waves-light col s2 push-s5 center-align" type="submit" name="action"
+        id="btn">Start
+        <i class="material-icons right"></i>
+      </button>
+
+    </div>
+    </nav>
+  </div>
+
+
+  <div class="row">
+    <div class="col s6 card-panel blue darken-4 " id="giants">
       <div class="row">
-          <div class="container">
-        <div class="card-panel green darken-3 center-align">Go Head to Head against the CPU. In this mash-up you'll pick who you think had the better game during the season. First to 5 wins</div>
+        <div class="col s12 m7">
+          <div class="card">
+            <div class="card-image">
+              <img src="./assets/images/s-barkley.jpg">
+              <span class="card-title">S Barley</span>
+            </div>
+            <div class="card-content">
+              <p>I am a very simple card. I am good at containing small bits of information.
+                I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <a href="#"></a>
+            </div>
           </div>
-
-                <div class="row">
-                    <button class="btn waves-effect waves-light col s2 push-s5 center-align" type="submit" name="action" id="btn">Start
-                        <i class="material-icons right"></i>
-                      </button>
-                      
-                </div>
-              </nav>
-          </div>          
-      
-
-      <div class="row ">
-          <div class= "col s6 card-panel blue darken-4 " id="giants">
-            <div class="row">
-                <div class="col s12 m7">
-                  <div class="card">
-                    <div class="card-image">
-                      <img src="./assets/images/s-barkley.jpg">
-                      <span class="card-title">S Barley</span>
-                    </div>
-                    <div class="card-content">
-                      <p>I am a very simple card. I am good at containing small bits of information.
-                      I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                      <a href="#">This is a link</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-          <a class="btn-floating btn-large waves-effect waves-light red" id="vs"><i class="material-icons" >VS</i></a>
-          <div class= "col s6 card-panel red accent-4">
-            <div class="row">
-                <div class="col s12 m7 " id="redcard">
-                  <div class="card">
-                    <div class="card-image ">
-                      <img src="./assets/images/d-henry.jpg">
-                      <span class="card-title">Derrick Henry</span>
-                    </div>
-                    <div class="card-content">
-                      <p>I am a very simple card. I am good at containing small bits of information.
-                      I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                      <a href="#">This is a link</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
         </div>
       </div>
-    <script src="assets/js/script.js"></script>
-  </body>
+    </div>
+
+    <div class="vs">
+      <button class="btn waves-effect waves-light col s1 push-s2 center-align" type="submit" name="action" id="vs">VS
+        <i class="material-icons right"></i>
+      </button>
+    </div>
+
+    <!-- My attempt at a 4 window area -->
+    <div class="col s6 card-panel red accent-4">
+      <div class="row">
+        <div class="col s4 m6 " id="redcard">
+          <div class="card">
+            <div class="card-image ">
+              <img src="./assets/images/s-barkley.jpg">
+              <span class="card-title">Saquon Again</span>
+            </div>
+            <div class="card-content">
+              <p>I am a very simple card. I am good at containing small bits of information.
+                I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s4 m6 " id="redcard">
+          <div class="card">
+            <div class="card-image ">
+              <img src="./assets/images/s-barkley.jpg">
+              <span class="card-title">Saquon Again</span>
+            </div>
+            <div class="card-content">
+              <p>I am a very simple card. I am good at containing small bits of information.
+                I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s4 m6 " id="redcard">
+          <div class="card">
+            <div class="card-image ">
+              <img src="./assets/images/s-barkley.jpg">
+              <span class="card-title">Saquon Again</span>
+            </div>
+            <div class="card-content">
+              <p>I am a very simple card. I am good at containing small bits of information.
+                I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s4 m6 " id="redcard">
+          <div class="card">
+            <div class="card-image ">
+              <img src="./assets/images/s-barkley.jpg">
+              <span class="card-title">Saquon Again</span>
+            </div>
+            <div class="card-content">
+              <p>I am a very simple card. I am good at containing small bits of information.
+                I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">This is a link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+
 </html>
