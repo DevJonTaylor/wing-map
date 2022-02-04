@@ -1,10 +1,19 @@
 #redcard {
   float: right;
 }
+.vs {
+  position: relative;
+}
 
 #vs {
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
   position: absolute;
-  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 230px;
 }
 
 /* Welcome to Wings CSS style file
@@ -170,3 +179,27 @@ Table of contents:
   border: 2px;
   border-radius: 10px;
 } */
+
+@media screen and (max-width: 980px) {
+}
+
+@media screen and (max-width: 775px) {
+  #cards {
+    position: relative;
+  }
+  #red-card {
+    /* display: flex;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 230px;
+    left: 0%; */
+    left: -33%;
+  }
+  #blue-card {
+  }
+}
+
+@media screen and (max-width: 576px) {
+}

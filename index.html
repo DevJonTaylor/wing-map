@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>G.O.A.T Scale</title>
   <body>
       <header class="col s12 card-panel green darken-3 white-text center-align">G.O.A.T Scale</header>
@@ -28,9 +29,9 @@
           </div>          
       
 
-      <div class="row ">
-          <div class= "col s6 card-panel blue darken-4 " id="giants">
-            <div class="row">
+      <div class="row " id="cards">
+          <div class= "col s4 card-panel blue darken-4 push-s1" id="giants">
+            <div class="row" id="blue-card">
                 <div class="col s12 m7">
                   <div class="card">
                     <div class="card-image">
@@ -48,13 +49,18 @@
                 </div>
               </div>
           </div>
-          <a class="btn-floating btn-large waves-effect waves-light red" id="vs"><i class="material-icons" >VS</i></a>
-          <div class= "col s6 card-panel red accent-4">
-            <div class="row">
+          <!-- <a class="btn-floating btn-large waves-effect waves-light red pull-s2" id="vs"><i class="material-icons" >VS</i></a> -->
+          <div class="vs">
+          <button class="btn waves-effect waves-light col s1 push-s2 center-align" type="submit" name="action" id="vs">VS
+            <i class="material-icons right"></i>
+          </button>
+          </div>
+          <div class= "col s4 card-panel red accent-4 push-s3">
+            <div class="row" id="red-card">
                 <div class="col s12 m7 " id="redcard">
                   <div class="card">
                     <div class="card-image ">
-                      <img src="./assets/images/d-henry.jpg">
+                      <img src="./assets/images/s-barkley.jpg">
                       <span class="card-title">Derrick Henry</span>
                     </div>
                     <div class="card-content">
