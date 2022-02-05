@@ -1,14 +1,13 @@
 // API key for Giphy stored in const
 const apiKey = "CJcLxlB9BUsGBRRe4GWIXJofKRRNvPUR";
-// Also need a 
-// I need a container to connect the giphy generated picture, whenever the user selects a choice. 
-var test = document.getElementById("vs");
 
-//randomCorrect has the parameters for a random gif that is revelent to the word `correct`
-//randomWrong has the parameters for a random gif that is relevant to the word `no`
+// I need a container to connect the giphy generated picture, whenever the user selects a choice. 
+var modal = document.getElementById("modal1");
+
+// 
 
 function displayPicture (correct) {
-    let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"correct":"wrong"}&rating=g`;
+    let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"agree":"no"}&rating=g`;
 
     fetch(apiUrl)
     // 
@@ -18,15 +17,23 @@ function displayPicture (correct) {
     .then(function (data) {
         console.log(data)
         var picture = data.data.images.downsized.url;
-        var correct = document.createElement('img');
-        correct.setAttribute("src", picture);
+        var generatedImage = document.createElement('img');
+        generatedImage.setAttribute("src", picture);
         console.log(picture);
-        test.appendChild(correct);
+        modal.append(generatedImage);
+        giphyModal();
     })
     .catch(function (error) {
         alert('no picture');
         console.log(error);
     });
 };
+
+// i need a function to check for wrong answers 
+
+function giphyModal () {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, open);
+}
 
 displayPicture(true);
