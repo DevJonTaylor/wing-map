@@ -2,13 +2,14 @@
 const apiKey = "CJcLxlB9BUsGBRRe4GWIXJofKRRNvPUR";
 // Also need a 
 // I need a container to connect the giphy generated picture, whenever the user selects a choice. 
-// var test = document.getElementById("vs");
+var test = document.getElementById("giphy");
+
 
 //randomCorrect has the parameters for a random gif that is revelent to the word `correct`
 //randomWrong has the parameters for a random gif that is relevant to the word `no`
 
 function displayPicture (correct) {
-    let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"correct":"wrong"}&rating=g`;
+    let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"agreed":"no"}&rating=pg`;
 
     fetch(apiUrl)
     // 
@@ -18,10 +19,10 @@ function displayPicture (correct) {
     .then(function (data) {
         console.log(data)
         var picture = data.data.images.downsized.url;
-        var correct = document.createElement('img');
-        correct.setAttribute("src", picture);
+        var generatedAnswer = document.createElement('img');
+        generatedAnswer.setAttribute("src", picture);
         console.log(picture);
-        test.appendChild(correct);
+        test.appendChild(generatedAnswer);
     })
     .catch(function (error) {
         alert('no picture');
@@ -29,4 +30,4 @@ function displayPicture (correct) {
     });
 };
 
-displayPicture(true);
+displayPicture(false);
