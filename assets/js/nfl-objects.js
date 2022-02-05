@@ -1,3 +1,9 @@
+// TODO:  Create Team Class and properly assign data
+// TODO:  Create Player Class and properlty assign data and get stats
+// TODO:  Create Game Class and properly assign data
+// TODO:  Create Play Class and properly assign data and stats.
+// TODO:  Create Stat Class and properly attach to other classes.
+
 /**
  * @property {string} id ESPN assigned ID for Teams.
  * @property {string} location City name in string format.
@@ -189,6 +195,12 @@ const positions = [
   { id: "218", name: "Setter", abbr: "SETTER" },
   { id: "219", name: "Back", abbr: "B" }
 ]
+
+class StatHelper {}
+
+class PlayerHelper {}
+
+class TeamHelper {}
 
 class SeasonsHelper {
   static seasons = {
