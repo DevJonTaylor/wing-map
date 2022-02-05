@@ -3,7 +3,7 @@ let rosters = 'https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/
 let gameList = 'https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/$athlete/gamelog';
 let game = 'https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/$game/competitions/$game/plays?limit=400';
 /*
- * Created this to properly control the URL needed to make a call.
+ * Created this to properly control the URL needed to make a call.3115922
  * @property {boolean} isSecure Used to check if we use http or https.
  * @property {string[]} domainParts An array used to contain the sub, main, and top level domain parts.
  * @property {string[]} uriParts An array used to contain the path of the URL after the domain.
@@ -173,22 +173,44 @@ class FetchData extends UrlCreator {
   }
 }
 
-class EspnApiSite extends FetchData {
+class EspnApis extends FetchData {
+
+  siteApi() {
+    return this.reset()
+    .domain('site', 'api', 'espn', 'com')
+    .uri('apis', 'site', 'v2', 'sports', 'football', 'nfl');
+  }
+
+  webApi() {
+    return this.reset()
+      .domain('site', 'web', 'api', 'espn', 'com')
+      .uri('apis', 'common', 'v3', 'sports', 'football', 'nfl');
+  }
+
+  coreApi() {
+    return this.reset()
+      .domain('sports', 'core', 'api', 'espn', 'com')
+      .uri('v2', 'sports', 'football', 'leagues', 'nfl');
+  }
+
+  isObject(variable) {
+    return Object.getPrototypeOf(variable) === Object.prototype;
+  }
+
+  async toJson(noCall) {
+    let json = noCall !== undefined ? { noCall: true, url: this.url } : await this.getJSON();
+
+    return json;
+  }
+}
+
+class TeamApis extends EspnApis  {
   constructor() {
     super();
   }
 
-  setUrl() {
-
-  }
-
-  setupSiteApi() {
-    return this.domain('site', 'api', 'espn', 'com')
-    .uri('apis', 'site', 'v2', 'sports', 'football', 'nfl');
-  }
-
   setupTeams(teamId, ...uris) {
-    return this.setupSiteApi()
+    return this.siteApi()
       .uri('teams', teamId, ...uris);
   }
 
@@ -197,269 +219,85 @@ class EspnApiSite extends FetchData {
       .toJson(noCall);
   }
 
-  teamRoster1(teamId, noCall) {
+  roster1(teamId, noCall) {
     return this.setupTeams(teamId)
       .param('enable', 'roster,stats')
       .toJson(noCall);
   }
 
-  teamRoster2(teamId, noCall) {
+  roster2(teamId, noCall) {
     return this.setupTeams(teamId, 'roster')
       .toJson(noCall);
   }
 
-  teamSchedule(teamId, noCall) {
+  schedule(teamId, noCall) {
     return this.setupTeams(teamId, 'schedule')
       .toJson(noCall);
   }
+}
 
-  async toJson(noCall) {
-    let json = {};
-    if(noCall !== undefined) {
-      json = {
-        noCall: true,
-        url: this.url
-      }
-    } else {
-      json = await this.getJSON();
-    }
-    this.reset();
+class PlayerApis extends EspnApis {
+  gamelog(playerId, noCall) {
+    return this.webApi()
+      .uri('athletes', playerId, 'gamelog')
+      .toJson(noCall)
+  }
 
-    return json;
+  eventlog(playerId, season, noCall) {
+    return this.coreApi()
+      .uri('seasons', season, 'athletes', playerId, 'eventlong')
+      .toJson(noCall)
+  }
+
+  main(playerId, noCall) {
+    return this.coreApi()
+      .uri('athletes', playerId)
+      .toJson(noCall);
+  }
+
+  stats(playerId, noCall) {
+    return this.webApi()
+      .uri('athletes', playerId, 'stats')
+      .toJson(noCall);
+  }
+
+  overview(playerId, noCall) {
+    return this.webApi()
+      .uri('athletes', playerId, 'overview')
+      .toJson(noCall)
+  }
+
+  projection(playerId, season, noCall) {
+    return this.coreApi()
+      .uri('seasons', season, 'types', '2', 'athletes', playerId, 'projections')
+      .toJson(noCall);
+  }
+
+  statistics(playerId, season, noCall) {
+    return this.coreApi()
+      .uri('seasons', season, 'types', '2', 'athletes', playerId, 'statistics')
+      .toJson(noCall);
   }
 }
 
-class Espn extends FetchData {
-  static domains = {
-    site: [], // https://site.api.espn.com
-    web: ['site', 'web', 'api', 'espn', 'com'], // https://site.web.api.espn.com
-    core: ['sports', 'core', 'api', 'espn', 'com'] // https://sports.core.api.espn.com
-  };
-  static uris = {
-    site: [], // /apis/site/v2/sports/football/nfl
-    web: ['apis', 'common', 'v3', 'sports', 'football', 'nfl'],// /apis/common/v3/sports/football/nfl
-    core: ['v2', 'sports', 'football', 'leagues', 'nfl'] // /v2/sports/football/leagues/nfl
-  }
-  
-  static factory(requesting) {
-    const espn = new Espn();
-    return espn
-      .domain(...Espn.domains[requesting])
-      .uri(...Espn.uris[requesting]);
+class GameApis extends EspnApis {
+  scoreboard(season, noCall) {
+    return this.siteApi()
+      .uri('scoreboard')
+      .param('limit', 400)
+      .param('dates', SeasonsHelper.getYMD(season))
+      .toJson(noCall);
   }
 
-  static team = {
-    uri(teamId, ...uris) {
-      return Espn.factory('site').uri('teams', teamId, ...uris);
-    },
-    roster1(teamId) {
-      return Espn.team.uri(teamId).param('enable', 'roster,stats')
-    },
-    roster2(teamId) {
-      return Espn.team.uri(teamId, 'roster');
-    },
-    schedule(teamId) {
-      return Espn.team.uri(teamId, 'schedule');
-    }
-  }
-
-  static seasons = {
-    uri(season, ...uris) {
-      return Espn.factory('core')
-        .uri('seasons', season, 'types', '2', ...uris);
-    },
-    player(season, playerId) {
-      return Espn.seasons.uri(season, 'athletes', playerId);
-    },
-    stats: {
-      player(season, playerId) {
-        return Espn.seasons.player(season, playerId).uri('statistics');
-      },
-      team(season, teamId) {
-        return Espn.seasons.uri(season, 'teams', teamId, 'statistics');
-      }
-    }
-  }
-
-  static player = {
-    uri(requesting, ...uris) {
-      return Espn.factory(requesting)
-        .uri('athletes', ...uris);
-    },
-    get(playerId) {
-      return Espn.player
-        .uri('core', playerId);
-    },
-    gamelog(playerId) {
-      return Espn.player
-        .uri('web', playerId, 'gamelog');
-    },
-    stats(playerId) {
-      return Espn.player
-        .uri('web', playerId, 'stats');
-    }
-  }
-
-  static game = {
-    uri(gameId, ...uris) {
-      return Espn.factory('core')
-        .uri('events', gameId, 'competitions', gameId, ...uris);
-    },
-    roster(gameId, teamId) {
-      return Espn.game
-        .uri(gameId, teamId, 'roster');
-    },
-    plays(gameId) {
-      return Espn.game
-        .uri(gameId, 'plays')
-        .param('limit', 500)
-    }
+  plays(gameId, noCall) {
+    return this.coreApi()
+      .uri('events', gameId, 'competitions', gameId, 'plays')
+      .param('limit', 400)
+      .toJson(noCall)
   }
 }
 
-class Team extends FetchData {
-  constructor(id) {
-    super();
-    this.id = id;
-    this.city = '';
-    this.name = '';
-    this.logo = '';
-    this.win = 0;
-    this.loss = 0;
-    this.players = [];
-  }
-
-  async getRoster() {
-    this.reset();
-    const json = await this.domain('site', 'api', 'espn', 'com')
-      .uri('apis', 'site', 'v2', 'sports', 'football', 'nfl', 'teams', this.id, 'roster')
-      .getJSON();  
-    const record = json.team.recordSummary.split('-');
-
-    // Setting Team Data
-    this.city = json.team.location;
-    this.name = json.team.name;
-    this.logo = json.team.logo;
-    this.win = record[0];
-    this.loss = record[1];
-
-    for(let playerType of json.athletes) {
-      for(let player of playerType.items) {
-        player.team = {
-          location: this.city,
-          name: this.name
-        };
-        let playerObj = new Player();
-        playerObj.forceJSON(player);
-        this.players.push(playerObj);
-      }
-    }
-  }
-}
-
-class Player extends FetchData {
-  constructor(id) {
-    super();
-    this.id = id === undefined ? '' : id;
-    this.name = '';
-    this.height = 0
-    this.weight = 0;
-    this.position = {
-      long: '',
-      short: ''
-    };
-    this.jersey = 0;
-    this.headshot = '';
-    this.team = {
-      location: '',
-      name: ''
-    }
-    this.stats = [];
-  }
-
-  async getData(id) {
-    if(id === undefined && this.id === '') throw new Error('there was not a Player ID Provided.');
-    if(id === undefined) id = this.id;
-
-    let json = await this.reset()
-      .domain('site', 'web', 'api', 'espn', 'com')
-      .uri('apis', 'common', 'v3', 'sports', 'football', 'nfl', 'athletes', id)
-      .getJSON();
-
-    return this.forceJSON(json);
-  }
-
-  async getStats() {
-    
-    let json = await this.reset()
-      .domain('sports', 'core', 'api', 'espn', 'com')
-      .uri('v2', 'sports', 'football', 'leagues', 'nfl', 'seasons', '2021', 'types', '2', 'athletes', 
-      this.id, 'statistics', 0)
-      .getJSON();
-
-    for(let statCategory of json.splits.categories) {
-      for(let stat of statCategory.stats) {
-        this.stats[stat.name] = new Stat(stat);
-      }
-    }
-
-    return this;
-  }
-
-  cardData() {
-    let card = {
-      name: this.name,
-      team: `${this.team.location} ${this.team.name}`,
-      jersey: this.jersey,
-      headshot: this.headshot
-    }
-
-    for(let stat of this.stats) {
-      card.stats[stat.name.long] = stat.value;
-    }
-
-    return card;
-  }
-
-  forceJSON(json) {
-    this.id = json.id;
-    this.name = json.fullName;
-    this.height = json.height;
-    this.weight = json.weight;
-    this.position = {
-      long: json.position.name,
-      short: json.position.abbreviation
-    };
-    this.jersey = json.jersey;
-    this.headshot = json.headshot.href;
-    this.team = {
-      location: json.team.location,
-      name: json.team.name
-    };
-
-    return this;
-  }
-}
-
-// https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2021/types/2/athletes/3115922/statistics/0
-// https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2021/types/2/athletes/14876/statistics/0
-
-class Stat {
-  constructor(json) {
-    this.name = {
-      long: json.name,
-      short: json.shortDisplayName,
-      display: json.displayName,
-      abbreviation: json.abbreviation
-    }
-    this.description = json.description;
-    this.value = json.value;
-    if(json.rank !== undefined) {
-      this.rank = json.rank;
-      this.displayRank = json.displayRankValue;
-    }
-  }
-}
-
-// TODO:  Create Game Object to run through plays.
-// TODO:  Create Play Object
+// TODO:  Team pulls roster
+// TODO:  Player gets eventLog
+// TODO:  Game gets the plays.
+// TODO:  Parse the plays into stats for the players.
