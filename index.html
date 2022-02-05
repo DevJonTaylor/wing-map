@@ -1,32 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <title>G.O.A.T Scale</title>
-  <body>
-      <header class="col s12 card-panel green darken-3 white-text center-align">G.O.A.T Scale</header>
 
-      <div class="row">
-          <div class="container">
-        <div class="card-panel green darken-3 center-align">Go Head to Head against the CPU. In this mash-up you'll pick who you think had the better game during the season. First to 5 wins</div>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <title>G.O.A.T Scale</title>
 
-                <div class="row">
-                    <button class="btn waves-effect waves-light col s2 push-s5 center-align" type="submit" name="action" id="btn">Start
-                        <i class="material-icons right"></i>
-                      </button>
-                      
-                </div>
-              </nav>
+<body>
+  <div class="columns">
+  <section class="hero is-primary container is-fluid" id="hero">
+    <div class="hero-body">
+      <p class="title" id="title"><img src="./assets/images/goat.jpg" height="100" width="100"/>G.O.A.T Scale <i class="fas fa-football-ball"></i>
+      </p>
+    </div>
+  </section>
+  </div></br>
+
+<div class="columns" id="allboxes">
+  <div class="column"></div>
+  <div class=" notification column is-two-fifths is-success"id="box1"><figure class="image is-4by3">
+    <img src="./assets/images/s-barkley.jpg">
+  </figure>You'll go head to head against the CPU; the first to 5 wins. Below pick which player you think had the most fantasy points.</div>
+  <div class="column"></div>
+</div>
+
+<!-- <i class="fas fa-football-ball" id="vs"></i>
+<p id="vstext">VS</p> -->
+
+  <div class="columns is-multiline is-mobile">
+    <div class="column ">
+      <div class=" notification column is-two-thirds is-success" id="box2">1 column <figure class="image is-4by3">
+        <img src="./assets/images/s-barkley.jpg">
+      </figure></div>
+    </div>
+    
+    <div class="column ">
+      <div class=" notification column is-two-thirds is-success"id="box3">1 column<figure class="image is-4by3">
+        <img src="./assets/images/s-barkley.jpg">
+      </figure></div>
+    </div>
+
+    <div class="column ">
+      <div class=" notification column is-two-thirds is-success"id="box4">1 column<figure class="image is-4by3">
+        <img src="./assets/images/s-barkley.jpg">
+      </figure></div>
+    </div>
+  </div>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <h4></h4>
+            
           </div>
-          
+          <div class="modal-footer">
+            <!-- <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a> -->
+          </div>
+        </div>
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="./assets/js/giphy.js"></script>
+</body>
+
+</html>
+
+
       <!-- Modal Structure -->
       <div id="modal1" class="modal">
         <div class="modal-content">
@@ -37,50 +81,3 @@
           <!-- <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a> -->
         </div>
       </div>
-
-      <div class="row ">
-          <div class= "col s6 card-panel blue darken-4 " id="giants">
-            <div class="row">
-                <div class="col s12 m7">
-                  <div class="card">
-                    <div class="card-image">
-                      <img src="./assets/images/s-barkley.jpg">
-                      <span class="card-title">S Barley</span>
-                    </div>
-                    <div class="card-content">
-                      <p>I am a very simple card. I am good at containing small bits of information.
-                      I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Select</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-          <a class="btn-floating btn-large waves-effect waves-light red" id="vs"><i class="material-icons" >VS</i></a>
-          <div class= "col s6 card-panel red accent-4">
-            <div class="row">
-                <div class="col s12 m7 " id="redcard">
-                  <div class="card">
-                    <div class="card-image ">
-                      <img src="./assets/images/d-henry.jpg">
-                      <span class="card-title">Derrick Henry</span>
-                    </div>
-                    <div class="card-content">
-                      <p>I am a very simple card. I am good at containing small bits of information.
-                      I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Select</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </div>
-      </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="./assets/js/script.js"></script>
-    <script src="./assets/js/giphy.js"></script>
-  </body>
-</html>
