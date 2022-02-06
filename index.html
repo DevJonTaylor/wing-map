@@ -29,9 +29,8 @@
           <li>
             <a>Stats</a>
           </li>
-          <li>
-            <a class="js-modal-trigger" data-target="modal-js-example"id="howtoplay">
-              How To Play</a>
+          <li class="js-modal-trigger" data-target="modal-js-play">
+            <a>How To Play</a>
           </li>
           <li>
             <a>ESPN</a>
@@ -47,6 +46,9 @@
     </nav>
   </div></br>
 
+
+
+
   <div class="columns" id="allboxes">
     <div class="column"></div>
     <div class=" notification column is-two-fifths is-success" id="box1">
@@ -61,45 +63,62 @@
   <!-- <i class="fas fa-football-ball" id="vs"></i>
 <p id="vstext">VS</p> -->
 
+<!-- cards for players generated -->
   <div class="columns is-multiline is-mobile">
-    <div class="column ">
+    <div class="column js-modal-trigger" data-target="modal-js-example">
       <div class=" notification column is-two-thirds is-success" id="box2">1 column <figure class="image is-4by3">
           <img src="./assets/images/s-barkley.jpg">
         </figure>
       </div>
     </div>
-
-    <div class="column ">
-      <div class=" notification column is-two-thirds is-success" id="box3">1 column<figure class="image is-4by3">
-          <img src="./assets/images/s-barkley.jpg">
-        </figure>
-      </div>
+    
+    <div class="column js-modal-trigger" data-target="modal-js-example">
+      <div class=" notification column is-two-thirds is-success"id="box3">1 column<figure class="image is-4by3">
+        <img src="./assets/images/s-barkley.jpg">
+      </figure></div>
     </div>
 
-    <div class="column ">
-      <div class=" notification column is-two-thirds is-success" id="box4">1 column<figure class="image is-4by3">
-          <img src="./assets/images/s-barkley.jpg">
-        </figure>
-      </div>
+    <div class="column js-modal-trigger" data-target="modal-js-example">
+      <div class=" notification column is-two-thirds is-success"id="box4">1 column<figure class="image is-4by3">
+        <img src="./assets/images/s-barkley.jpg">
+      </figure></div>
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal">
+  <!-- modal for targeting and adding the giphy api generated picture-->
+  <div id="modal-js-example" class="modal">
     <div class="modal-background"></div>
   
-    <div class="modal-content has-background-white py-5 px-5">
-      <div class="box">
-        <h3 class="modal-title mb-6">How To Play</h3>
-        <img src="./assets/images/d-henry.jpg"/>
+    <div class="modal-content">
+      <div class="box" id="modal-image">
+        <!-- generated picture goes into here, then into the modal -->
       </div>
     </div>
   
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
+<!-- modal for how to play -->
+  <div id="modal-js-play" class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-content">
+      <div class="box" id="modal-image">
+        <!-- how to play steps goes in here then when `How To Play` is clicked, you get more steps in the modal pop out -->
+        <p>How to play</p>
+      </div>
+    </div>
+  
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+  
+
+  <!--  -->
   <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
   <script src="assets/js/script.js"></script>
+  <script src="./assets/js/giphy.js"></script>
 </body>
 
 </html>
+
+
