@@ -148,26 +148,36 @@ Table of contents:
   font-family: fantasy;
   font-size: 36px;
   /* Gradient background placeholder from https://coolors.co/gradients */
-  background: hsla(239, 100%, 67%, 1);
-  background: linear-gradient(
-    90deg,
-    hsla(239, 100%, 67%, 1) 0%,
-    hsla(187, 100%, 89%, 1) 100%
-  );
+  /* background: rgb(0, 0, 0);
+  background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(228, 251, 255) 100%);
   background: -moz-linear-gradient(
     90deg,
-    hsla(239, 100%, 67%, 1) 0%,
-    hsla(187, 100%, 89%, 1) 100%
-  );
+    rgb(27, 27, 27) 0%,
+    rgb(211, 242, 247) 100%
+  ); */
   background: -webkit-linear-gradient(
     90deg,
-    hsla(239, 100%, 67%, 1) 0%,
-    hsla(187, 100%, 89%, 1) 100%
+    rgb(0, 0, 0) 0%,
+    rgb(255, 255, 255) 100%
   );
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#595CFF", endColorstr="#C6F8FF", GradientType=1 );
 }
 
-#heroLand{
+#title {
+  margin: 0 0 0 43%;
+}
+
+body {
+  background-color: white;
+  color: black;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+#heroLand {
   background-color: #000000;
 }
 
@@ -232,12 +242,12 @@ Table of contents:
   margin-right: auto;
   display: block;
 }
-#logo img{
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+#logo img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
-#playbtn{
+#playbtn {
   margin: -10% 0% 0% 47%;
   z-index: 1;
 }
