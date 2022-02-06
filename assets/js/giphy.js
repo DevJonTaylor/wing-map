@@ -4,7 +4,8 @@ const apiKey = "CJcLxlB9BUsGBRRe4GWIXJofKRRNvPUR";
 // I need a container to connect the giphy generated picture, whenever the user selects a choice. 
 var modal = document.getElementById("modal-image");
 
-// 
+// currently, always targeting the `correct` parameter in the API response
+// need to add more js/function to check if the answer was wrong
 
 function displayPicture (correct) {
     let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"agree":"no"}&rating=r`;

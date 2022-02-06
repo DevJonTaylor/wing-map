@@ -29,7 +29,7 @@
           <li>
             <a>Stats</a>
           </li>
-          <li>
+          <li class="js-modal-trigger" data-target="modal-js-play">
             <a>How To Play</a>
           </li>
           <li>
@@ -47,14 +47,6 @@
   </div></br>
 
 
-  <div class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-      <img src="./assets/images/1.png">
-    </div>
-    <button class="modal-close is-large" aria-label="close">testddddddddddddddddddddddddd</button>
-  </div>
-
 
 
   <div class="columns" id="allboxes">
@@ -71,6 +63,7 @@
   <!-- <i class="fas fa-football-ball" id="vs"></i>
 <p id="vstext">VS</p> -->
 
+<!-- cards for players generated -->
   <div class="columns is-multiline is-mobile">
     <div class="column js-modal-trigger" data-target="modal-js-example">
       <div class=" notification column is-two-thirds is-success" id="box2">1 column <figure class="image is-4by3">
@@ -92,19 +85,35 @@
     </div>
   </div>
 
+  <!-- modal for targeting and adding the giphy api generated picture-->
   <div id="modal-js-example" class="modal">
     <div class="modal-background"></div>
   
     <div class="modal-content">
       <div class="box" id="modal-image">
-        <!-- <p>Modal JS example</p> -->
-        <!-- Your content -->
+        <!-- generated picture goes into here, then into the modal -->
       </div>
     </div>
   
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
+<!-- modal for how to play -->
+  <div id="modal-js-play" class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-content">
+      <div class="box" id="modal-image">
+        <!-- how to play steps goes in here then when `How To Play` is clicked, you get more steps in the modal pop out -->
+        <p>How to play</p>
+      </div>
+    </div>
+  
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+  
+
+  <!--  -->
   <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
   <script src="assets/js/script.js"></script>
   <script src="./assets/js/giphy.js"></script>
