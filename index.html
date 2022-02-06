@@ -30,7 +30,8 @@
             <a>Stats</a>
           </li>
           <li>
-            <a onclick="myFunction()">How To Play</a>
+            <a class="js-modal-trigger" data-target="modal-js-example"id="howtoplay">
+              How To Play</a>
           </li>
           <li>
             <a>ESPN</a>
@@ -45,17 +46,6 @@
       </div>
     </nav>
   </div></br>
-
-
-  <div class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-      <img src="./assets/images/1.png">
-    </div>
-    <button class="modal-close is-large" aria-label="close">testddddddddddddddddddddddddd</button>
-  </div>
-
-
 
   <div class="columns" id="allboxes">
     <div class="column"></div>
@@ -92,6 +82,20 @@
         </figure>
       </div>
     </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-content has-background-white py-5 px-5">
+      <div class="box">
+        <h3 class="modal-title mb-6">How To Play</h3>
+        <img src="./assets/images/d-henry.jpg"/>
+      </div>
+    </div>
+  
+    <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
   <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
