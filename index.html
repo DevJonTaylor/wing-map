@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./assets/css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css" />
   <title>G.O.A.T Scale</title>
 
 <body>
@@ -31,38 +31,42 @@
 <p id="vstext">VS</p> -->
 
   <div class="columns is-multiline is-mobile">
-    <div class="column ">
+    <div class="column js-modal-trigger" data-target="modal-js-example">
       <div class=" notification column is-two-thirds is-success" id="box2">1 column <figure class="image is-4by3">
         <img src="./assets/images/s-barkley.jpg">
       </figure></div>
     </div>
     
-    <div class="column ">
+    <div class="column js-modal-trigger" data-target="modal-js-example">
       <div class=" notification column is-two-thirds is-success"id="box3">1 column<figure class="image is-4by3">
         <img src="./assets/images/s-barkley.jpg">
       </figure></div>
     </div>
 
-    <div class="column ">
+    <div class="column js-modal-trigger" data-target="modal-js-example">
       <div class=" notification column is-two-thirds is-success"id="box4">1 column<figure class="image is-4by3">
         <img src="./assets/images/s-barkley.jpg">
       </figure></div>
     </div>
   </div>
 
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-          <div class="modal-content">
-            <h4></h4>
-            
-          </div>
-          <div class="modal-footer">
-            <!-- <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a> -->
-          </div>
-        </div>
-  
+  <button class="js-modal-trigger" data-target="modal-js-example">
+    Select
+  </button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-content">
+      <div class="box" id="modal-image">
+        <!-- <p>Modal JS example</p> -->
+        <!-- Your content -->
+      </div>
+    </div>
+  
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
   <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
   <script src="assets/js/script.js"></script>
   <script src="./assets/js/giphy.js"></script>
@@ -71,13 +75,3 @@
 </html>
 
 
-      <!-- Modal Structure -->
-      <div id="modal1" class="modal">
-        <div class="modal-content">
-          <h4></h4>
-          
-        </div>
-        <div class="modal-footer">
-          <!-- <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a> -->
-        </div>
-      </div>
