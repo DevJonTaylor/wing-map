@@ -11,30 +11,72 @@
 
 <body>
   <div class="columns">
-  <section class="hero is-primary container is-fluid" id="hero">
-    <div class="hero-body">
-      <p class="title" id="title"><img src="./assets/images/goat.jpg" height="100" width="100"/>G.O.A.T Scale <i class="fas fa-football-ball"></i>
-      </p>
-    </div>
-  </section>
+    <section class="hero is-primary container is-fluid" id="hero">
+      <div class="hero-body">
+        <p class="title" id="title"><img src="./assets/images/newGoatTans2.png" height="40" width="40" /> G.O.A.T Scale <i
+            class="fas fa-football-ball"></i>
+        </p>
+      </div>
+    </section>
+  </div>
+  <div class="hero-foot">
+    <nav class="tabs is-boxed is-fullwidth">
+      <div class="container">
+        <ul>
+          <li>
+            <a>Leaderboard </a>
+          </li>
+          <li>
+            <a>Stats</a>
+          </li>
+          <li>
+            <a>How To Play</a>
+          </li>
+          <li>
+            <a>ESPN</a>
+          </li>
+          <li>
+            <a>Creators</a>
+          </li>
+          <li>
+            <a onclick="myFunction()">Toggle dark mode</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div></br>
 
-<div class="columns" id="allboxes">
-  <div class="column"></div>
-  <div class=" notification column is-two-fifths is-success"id="box1"><figure class="image is-4by3">
-    <img src="./assets/images/s-barkley.jpg">
-  </figure>You'll go head to head against the CPU; the first to 5 wins. Below pick which player you think had the most fantasy points.</div>
-  <div class="column"></div>
-</div>
 
-<!-- <i class="fas fa-football-ball" id="vs"></i>
+  <div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <img src="./assets/images/1.png">
+    </div>
+    <button class="modal-close is-large" aria-label="close">testddddddddddddddddddddddddd</button>
+  </div>
+
+
+
+  <div class="columns" id="allboxes">
+    <div class="column"></div>
+    <div class=" notification column is-two-fifths is-success" id="box1">
+      <figure class="image is-4by3">
+        <img src="./assets/images/s-barkley.jpg">
+      </figure>You'll go head to head against the CPU; the first to 5 wins. Below pick which player you think had the
+      most fantasy points.
+    </div>
+    <div class="column"></div>
+  </div>
+
+  <!-- <i class="fas fa-football-ball" id="vs"></i>
 <p id="vstext">VS</p> -->
 
   <div class="columns is-multiline is-mobile">
     <div class="column js-modal-trigger" data-target="modal-js-example">
       <div class=" notification column is-two-thirds is-success" id="box2">1 column <figure class="image is-4by3">
-        <img src="./assets/images/s-barkley.jpg">
-      </figure></div>
+          <img src="./assets/images/s-barkley.jpg">
+        </figure>
+      </div>
     </div>
     
     <div class="column js-modal-trigger" data-target="modal-js-example">
@@ -49,10 +91,6 @@
       </figure></div>
     </div>
   </div>
-
-  <button class="js-modal-trigger" data-target="modal-js-example">
-    Select
-  </button>
 
   <div id="modal-js-example" class="modal">
     <div class="modal-background"></div>
