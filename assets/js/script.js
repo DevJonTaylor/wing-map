@@ -35,6 +35,9 @@ function teamStyleChange(team1, team2) { // Most likely pass it API names. Will 
         // Make more cases...
     }
 }
+
+const team1 = 0;
+const team2 = 1;
 // stuf stuff stuff
 // stuf stuff stuff
 // insert the call to change team style twice once for each team

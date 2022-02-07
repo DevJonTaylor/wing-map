@@ -1,7 +1,3 @@
-// Provides a list of teams.
-let rosters = 'https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/$team/roster';
-let gameList = 'https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/$athlete/gamelog';
-let game = 'https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/$game/competitions/$game/plays?limit=400';
 /*
  * Created this to properly control the URL needed to make a call.3115922
  * @property {boolean} isSecure Used to check if we use http or https.
@@ -115,8 +111,21 @@ let game = 'https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/even
 class FetchData extends UrlCreator {
   constructor() {
     super();
+    this.resp = {};
     this.options = {};
     this.headers = {};
+  }
+
+  /**
+   * An easier way to track what request is made and what steps were taken.
+   * @param {string} title
+   * @param {string|number|array|object} msg
+   * @returns {this} For chaining
+   */
+  response(title, msg) {
+    this.resp[title] = msg;
+
+    return this;
   }
 
   /**
@@ -127,6 +136,7 @@ class FetchData extends UrlCreator {
     this.clear();
     this.options = {};
     this.headers = {};
+    this.resp = {};
 
     return this;
   }
@@ -177,106 +187,45 @@ class EspnApis extends FetchData {
 
   siteApi() {
     return this.reset()
-    .domain('site', 'api', 'espn', 'com')
-    .uri('apis', 'site', 'v2', 'sports', 'football', 'nfl');
+      .response('time', new Date().getTime())
+      .response('call', 'siteApi')
+      .domain('site', 'api', 'espn', 'com')
+      .uri('apis', 'site', 'v2', 'sports', 'football', 'nfl');
   }
 
   webApi() {
     return this.reset()
+      .response('time', new Date().getTime())
+      .response('call', 'webApi')
       .domain('site', 'web', 'api', 'espn', 'com')
       .uri('apis', 'common', 'v3', 'sports', 'football', 'nfl');
   }
 
   coreApi() {
     return this.reset()
+      .response('time', new Date().getTime())
+      .response('call', 'coreApi')
       .domain('sports', 'core', 'api', 'espn', 'com')
       .uri('v2', 'sports', 'football', 'leagues', 'nfl');
   }
 
   isObject(variable) {
-    return Object.getPrototypeOf(variable) === Object.prototype;
+    return _.isObject(variable);
   }
 
   async toJson(noCall) {
-    let json = noCall !== undefined ? { noCall: true, url: this.url } : await this.getJSON();
+    this.response.url = this.url;
 
-    return json;
-  }
-}
+     if(noCall !== undefined) {
+       this.response('url', this.url)
+         .response('ESPN', noCall);
+     } else {
+       let json = await this.getJSON();
+       this.response('ESPN', json)
+         .response('url', this.url);
+     }
 
-class TeamApis extends EspnApis  {
-  constructor() {
-    super();
-  }
-
-  setupTeams(teamId, ...uris) {
-    return this.siteApi()
-      .uri('teams', teamId, ...uris);
-  }
-
-  teams(teamId, noCall) {
-    return this.setupTeams(teamId)
-      .toJson(noCall);
-  }
-
-  roster1(teamId, noCall) {
-    return this.setupTeams(teamId)
-      .param('enable', 'roster,stats')
-      .toJson(noCall);
-  }
-
-  roster2(teamId, noCall) {
-    return this.setupTeams(teamId, 'roster')
-      .toJson(noCall);
-  }
-
-  schedule(teamId, noCall) {
-    return this.setupTeams(teamId, 'schedule')
-      .toJson(noCall);
-  }
-}
-
-class PlayerApis extends EspnApis {
-  gamelog(playerId, noCall) {
-    return this.webApi()
-      .uri('athletes', playerId, 'gamelog')
-      .toJson(noCall)
-  }
-
-  eventlog(playerId, season, noCall) {
-    return this.coreApi()
-      .uri('seasons', season, 'athletes', playerId, 'eventlong')
-      .toJson(noCall)
-  }
-
-  main(playerId, noCall) {
-    return this.coreApi()
-      .uri('athletes', playerId)
-      .toJson(noCall);
-  }
-
-  stats(playerId, noCall) {
-    return this.webApi()
-      .uri('athletes', playerId, 'stats')
-      .toJson(noCall);
-  }
-
-  overview(playerId, noCall) {
-    return this.webApi()
-      .uri('athletes', playerId, 'overview')
-      .toJson(noCall)
-  }
-
-  projection(playerId, season, noCall) {
-    return this.coreApi()
-      .uri('seasons', season, 'types', '2', 'athletes', playerId, 'projections')
-      .toJson(noCall);
-  }
-
-  statistics(playerId, season, noCall) {
-    return this.coreApi()
-      .uri('seasons', season, 'types', '2', 'athletes', playerId, 'statistics')
-      .toJson(noCall);
+     return new EspnHelper(this.resp);
   }
 }
 
@@ -297,7 +246,107 @@ class GameApis extends EspnApis {
   }
 }
 
-// TODO:  Team pulls roster
+class EspnApiFactory {
+  static runErrorCheck(argObj, method) {
+    let args = [];
+    let badArgs = [];
+    let badValues = [];
+    _.each(argObj, (v, k) => {
+      if(!v) {
+        badArgs.push(k);
+        badValues.push('empty');
+        args.push(0);
+      } else {
+        args.push(v);
+      }
+    })
+
+    if(badArgs.length > 0) return method()(...this.badArg(badArgs.join(' '), badValues.join(' '), args));
+    return method()(...args);
+  }
+
+  static badArg(name, value, args) {
+    args = [...args];
+    args.push(`Error: ${name} - ${value}`)
+    return args;
+  }
+
+  static team = {
+    Api() {
+      return new TeamApis();
+    },
+    id(id) {
+      let args = EspnApiFactory.badArg('teamId', 'Empty', 0);
+      return !id ?
+        this.Api().teams(...args) :
+        this.Api().teams(id);
+    },
+    roster(teamId, roster1 = true) {
+      const api = this.Api();
+      if(!teamId) {
+        let args = EspnApiFactory.badArg('teamId', 'Empty', 0)
+        return roster1 === true ?
+          api.roster1(...args) :
+          api.roster2(...args);
+      }
+      return roster1 === true ?
+        api.roster1(teamId) :
+        api.roster2(teamId);
+    },
+    schedule(teamId) {
+      let args = EspnApiFactory.badArg('teamId', 'Empty', 0);
+
+      return !teamId ?
+        this.Api().schedule(...args) :
+        this.Api().schedule(teamId);
+    }
+  };
+
+  static player = {
+    Api(path) {
+      return () => {
+        let api = new PlayerApis();
+        return _.get(api, path).bind(api);
+      }
+    },
+    gamelog(playerId) {
+      let args = { playerId };
+
+      return EspnApiFactory.runErrorCheck(args, this.Api('gamelog'));
+    },
+    eventlog(playerId, season) {
+      let args = { playerId, season };
+
+      return EspnApiFactory.runErrorCheck(args, this.Api('eventlog'));
+    },
+    main(playerId) {
+      let args = { playerId };
+
+      return EspnApiFactory.runErrorCheck(args, this.Api('main'));
+    },
+    stats(playerId) {
+      let args = { playerId };
+
+      return EspnApiFactory.runErrorCheck(args, this.Api('stats'));
+    },
+    overview(playerId) {
+      let args = { playerId };
+
+      return EspnApiFactory.runErrorCheck(args, this.Api('overview'));
+    },
+    projection(playerId, season) {
+      let args = { playerId, season };
+
+      return EspnApiFactory.runErrorCheck(args, this.Api('projection'));
+    },
+    statistics(playerId, season) {
+      let args = { playerId, season };
+
+      return EspnApiFactory.runErrorCheck(args, this.Api('statistics'));
+    }
+  }
+}
+
 // TODO:  Player gets eventLog
 // TODO:  Game gets the plays.
 // TODO:  Parse the plays into stats for the players.
