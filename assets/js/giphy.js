@@ -29,8 +29,6 @@ function displayPicture (correct) {
 };
 
 
-
-
 // i need a function to check for wrong answers 
 
 // Function for our modals to work
