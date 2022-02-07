@@ -45,9 +45,9 @@ teamStyleChange(team2); // change parameter based on API output
 function myFunction() {
     var element = document.body;
     element.classList.toggle("dark-mode");
- }
+};
 
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // Functions to open and close a modal
     function openModal($el) {
       $el.classList.add('is-active');
