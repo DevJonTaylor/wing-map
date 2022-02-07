@@ -1,28 +1,26 @@
 // API key for Giphy stored in const
 const apiKey = "CJcLxlB9BUsGBRRe4GWIXJofKRRNvPUR";
-// Also need a 
+
 // I need a container to connect the giphy generated picture, whenever the user selects a choice. 
-var test = document.getElementById("giphy");
+var giphyModal = document.getElementById("giphy-image");
+var testBox2 = document.getElementById("box2");
 
-
-//randomCorrect has the parameters for a random gif that is revelent to the word `correct`
-//randomWrong has the parameters for a random gif that is relevant to the word `no`
+// currently, always targeting the `correct` parameter in the API response
+// need to add more js/function to check if the answer was wrong
+// figure out a way to get a different image without refreshing 
 
 function displayPicture (correct) {
-    let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"agreed":"no"}&rating=pg`;
+    let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"agree":"no"}&rating=pg`;
 
     fetch(apiUrl)
-    // 
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
-        console.log(data)
-        var picture = data.data.images.downsized.url;
-        var generatedAnswer = document.createElement('img');
-        generatedAnswer.setAttribute("src", picture);
-        console.log(picture);
-        test.appendChild(generatedAnswer);
+        // console.log(data)
+        var picture = data.data.images.original.url;
+        giphyModal.querySelector('img').setAttribute("src", picture);
+        // console.log(picture);
     })
     .catch(function (error) {
         alert('no picture');
@@ -30,4 +28,58 @@ function displayPicture (correct) {
     });
 };
 
-displayPicture(false);
+
+// i need a function to check for wrong answers 
+
+// Function for our modals to work
+document.addEventListener('DOMContentLoaded', () => {
+// Functions to open and close a modal
+function openModal($el) {
+    $el.classList.add('is-active');
+}
+
+function closeModal($el) {
+    $el.classList.remove('is-active');
+}
+
+function closeAllModals() {
+    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+    closeModal($modal);
+    });
+}
+
+// Add a click event on buttons to open a specific modal
+(document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger, i, arr) => {
+    const modal = $trigger.dataset.target;
+    const $target = document.getElementById(modal);
+    
+    $trigger.addEventListener('click', () => {
+        if ($trigger.children[0].matches("#box2") || $trigger.children[0].matches("#box3") || $trigger.children[0].matches("#box4")) {
+            displayPicture(true);
+            openModal($target);
+        } else {
+            openModal($target);
+        }
+    });
+});
+
+// Add a click event on various child elements to close the parent modal
+(document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+    const $target = $close.closest('.modal');
+
+    $close.addEventListener('click', () => {
+    closeModal($target);
+    });
+});
+
+// Add a keyboard event to close all modals
+document.addEventListener('keydown', (event) => {
+    const e = event || window.event;
+
+    if (e.keyCode === 27) { // Escape key
+    closeAllModals();
+    }
+});
+});
+
+
