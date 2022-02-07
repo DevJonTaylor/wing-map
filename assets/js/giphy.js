@@ -2,26 +2,25 @@
 const apiKey = "CJcLxlB9BUsGBRRe4GWIXJofKRRNvPUR";
 
 // I need a container to connect the giphy generated picture, whenever the user selects a choice. 
-var modal = document.getElementById("modal-image");
+var giphyModal = document.getElementById("giphy-image");
+var testBox2 = document.getElementById("box2");
 
 // currently, always targeting the `correct` parameter in the API response
 // need to add more js/function to check if the answer was wrong
+// figure out a way to get a different image without refreshing 
 
 function displayPicture (correct) {
-    let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"agree":"no"}&rating=r`;
+    let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"agree":"no"}&rating=pg`;
 
     fetch(apiUrl)
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
-        console.log(data)
-        var picture = data.data.images.downsized.url;
-        var generatedImage = document.createElement('img');
-        generatedImage.setAttribute("src", picture);
-        console.log(picture);
-        modal.append(generatedImage);
-        
+        // console.log(data)
+        var picture = data.data.images.original.url;
+        giphyModal.querySelector('img').setAttribute("src", picture);
+        // console.log(picture);
     })
     .catch(function (error) {
         alert('no picture');
@@ -29,8 +28,12 @@ function displayPicture (correct) {
     });
 };
 
+
+
+
 // i need a function to check for wrong answers 
 
+// Function for our modals to work
 document.addEventListener('DOMContentLoaded', () => {
 // Functions to open and close a modal
 function openModal($el) {
@@ -48,13 +51,17 @@ function closeAllModals() {
 }
 
 // Add a click event on buttons to open a specific modal
-(document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+(document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger, i, arr) => {
     const modal = $trigger.dataset.target;
     const $target = document.getElementById(modal);
-    console.log($target);
-
+    
     $trigger.addEventListener('click', () => {
-    openModal($target);
+        if ($trigger.children[0].matches("#box2") || $trigger.children[0].matches("#box3") || $trigger.children[0].matches("#box4")) {
+            displayPicture(true);
+            openModal($target);
+        } else {
+            openModal($target);
+        }
     });
 });
 
@@ -78,10 +85,3 @@ document.addEventListener('keydown', (event) => {
 });
 
 
-
-// function giphyModal () {
-//     var elems = document.querySelectorAll('.modal');
-//     var instances = M.Modal.init(elems, open);
-// }
-
-displayPicture(true);
