@@ -163,6 +163,14 @@ Table of contents:
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#595CFF", endColorstr="#C6F8FF", GradientType=1 );
 }
 
+/* #tabswhite {
+  color: white;
+}
+
+#tabsblk {
+  color: black;
+} */
+
 #title {
   margin: 0 0 0 43%;
 }
@@ -170,11 +178,19 @@ Table of contents:
 body {
   background-color: white;
   color: black;
+  font-weight: bold;
 }
 
 .dark-mode {
   background-color: black;
   color: white;
+  font-weight: bold;
+}
+
+.white-mode {
+  background-color: white;
+  color: black;
+  font-weight: bold;
 }
 
 #heroLand {

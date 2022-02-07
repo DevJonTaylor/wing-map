@@ -45,6 +45,12 @@ teamStyleChange(team2); // change parameter based on API output
 function myFunction() {
     var element = document.body;
     element.classList.toggle("dark-mode");
+
+    // needs work to sleepy its 11 am fuck
+    
+if (element == false) {
+    element.classList.toggle("white-mode");
+}
  }
 
 
