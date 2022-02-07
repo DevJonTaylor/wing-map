@@ -11,15 +11,15 @@ class Espn {
   }
 
   img = {
-    template: `<img src="$$src$$" height="$$height$$" weight="$$weight$$" alt="$$alt$$"/>`,
+    template: `<img src="$$src$$" height="$$height$$" width="$$width$$" alt="$$alt$$"/>`,
     replacements: {
       $$src$$: '',
       $$alt$$: '',
-      $$weight$$: 100,
+      $$width$$: 100,
       $$height$$: 100
     },
-    set weight(str) {
-      this.replacements.$$weight$$ = str;
+    set width(str) {
+      this.replacements.$$width$$ = str;
     },
     set height(str) {
       this.replacements.$$height$$ = str;
@@ -350,10 +350,10 @@ class EspnHelper {
             break;
           case 'idAndScores':
             _.merge(gEvent, {
-              awayTeamId: game.awayTeamId,
-              homeTeamId: game.homeTeamId,
-              awayTeamScore: game.awayTeamScore,
-              homeTeamScore: game.homeTeamScore,
+              awayTeamId: _.toNumber(game.awayTeamId),
+              homeTeamId: _.toNumber(game.homeTeamId),
+              awayTeamScore: _.toNumber(game.awayTeamScore),
+              homeTeamScore: _.toNumber(game.homeTeamScore),
               results:  game.gameResult
             })
             break;
