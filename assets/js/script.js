@@ -43,3 +43,11 @@ const team2 = 1;
 // insert the call to change team style twice once for each team
 teamStyleChange(team1); // change parameter based on API output
 teamStyleChange(team2); // change parameter based on API output
+
+// toggle for page
+function myFunction() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+ }
+
+

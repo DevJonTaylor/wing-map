@@ -1,13 +1,4 @@
-#redcard {
-  float: right;
-}
-
-#vs {
-  position: absolute;
-  z-index: 1;
-}
-
-/* Welcome to Wings CSS style file
+/* Welcome style.css file
 made by: Dominique Akers, John Damaso, Jon Taylor, & Kevin Bugusky
 Table of contents: 
     0) Unversal selector & Variables lines: 10-145
@@ -151,22 +142,112 @@ Table of contents:
   --tampBaySecondary: #ffb612;
   --tampBayTertiary: #0a0a08;
 }
-/* ID Selectors */
-/* Team ID selectors */
-#ari {
-  /* need to apply to Dominic's code & see how or if we want to use it sample below*/
-  background-color: var(--ariCardPrimary);
-  color: var(--ariCardSecondary);
-  border-color: var(--ariCardTertiary);
-  border: 2px;
-  border-radius: 10px;
-}
-/* Add more if we want this for each team */
 
-/* #giants {
-  background-color: var(--nyGiantPrimary);
-  color: var(--nyGiantSecondary);
-  border-color: var(--nyGiantTertiary);
-  border: 2px;
-  border-radius: 10px;
-} */
+/* ID Selectors */
+#hero {
+  font-family: fantasy;
+  font-size: 36px;
+  /* Gradient background placeholder from https://coolors.co/gradients */
+  /* background: rgb(0, 0, 0);
+  background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(228, 251, 255) 100%);
+  background: -moz-linear-gradient(
+    90deg,
+    rgb(27, 27, 27) 0%,
+    rgb(211, 242, 247) 100%
+  ); */
+  background: -webkit-linear-gradient(
+    90deg,
+    rgb(0, 0, 0) 0%,
+    rgb(255, 255, 255) 100%
+  );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#595CFF", endColorstr="#C6F8FF", GradientType=1 );
+}
+
+#title {
+  margin: 0 0 0 43%;
+}
+
+body {
+  background-color: white;
+  color: black;
+}
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+#heroLand {
+  background-color: #000000;
+}
+
+#box1 {
+  background-color: #00338d;
+  margin: 0 70px 0 70px;
+}
+
+#box2 {
+  background-color: red;
+  margin: 0 70px 0 70px;
+}
+
+#box3 {
+  background-color: red;
+  margin: 0 70px 0 70px;
+}
+
+#box4 {
+  background-color: red;
+  margin: 0 70px 0 70px;
+}
+
+#hidden {
+  display: none;
+}
+
+/* vs selectors */
+.vs {
+  position: relative;
+}
+#vs {
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  margin-top: 21%;
+  font-size: 154px;
+  transform: rotate(45deg);
+  color: rgb(1, 1, 252);
+  z-index: 1;
+}
+#vstext {
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  margin-top: 25%;
+  font-size: 100px;
+  color: rgb(0, 235, 243);
+  z-index: 2;
+}
+#logo {
+  background-color: #000000;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+#logo img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+#playbtn {
+  margin: -10% 0% 0% 47%;
+  z-index: 1;
+}
