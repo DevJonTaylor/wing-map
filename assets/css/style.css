@@ -251,3 +251,10 @@ body {
   margin: -10% 0% 0% 47%;
   z-index: 1;
 }
+
+.box {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  border-radius: 40px;
+}
