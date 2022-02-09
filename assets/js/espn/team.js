@@ -8,7 +8,14 @@ class Team extends Espn {
 
   constructor(data) {
     super(data);
-    this.keys = EspnStaticTeamData.keys;
+    let arr = [...EspnStaticTeamData.keys];
+    let arr2 = [...this.keys]
+    for(let i in this.keys) {
+      let a = arr[i]
+      let b = arr2[i];
+      if(a === b) this.keys.splice(i, 1);
+    }
+    this.keys = this.keys.concat(EspnStaticTeamData.keys);
     if(data !== undefined) this.parse(data);
   }
 
@@ -19,6 +26,10 @@ class Team extends Espn {
   get wins() {
     return this.record.w;
   }
+
+  set losses(str) {}
+
+  set wins(str) {}
 
   get location() {
     return this.loc;
@@ -35,6 +46,14 @@ class Team extends Espn {
   get alternateColor() {
     return this.colors[1];
   }
+
+  set location(str) {}
+
+  set abbreviation(str) {}
+
+  set color(str) {}
+
+  set alternateColor(str) {}
 
   get logo() {
     return EspnStaticTeamData.logos.replace('$$logo$$', this.logos);

@@ -32,19 +32,27 @@ class Espn {
     this.img.template = str;
   }
 
+  on(eventName, selector, eventHandler) {
+    document.body.addEventListener(eventName, e => {
+      if(e.target.matches(selector))
+        eventHandler();
+    })
+  }
+
   createImg(src) {
     let replacements = _.merge({}, this.img.replacements);
     replacements.$$src$$ = src;
-
     return this.replace(this.img.template, replacements);
   }
 
   parse(data) {
     if(data instanceof Player) data = data.toObject;
 
-    _.each(this.keys, key => {
+
+
+    for(let key of this.keys) {
       this[key] = _.get(data, key, null);
-    });
+    }
 
     if(this.outerHTML) this.render();
 
@@ -71,7 +79,7 @@ class Espn {
       this.outerHTML = this.containerElement.outerHTML;
 
     let outerHTML = this.outerHTML;
-    let keys = Array.concat(this.keys, this.customKeys);
+    let keys = [...this.keys, ...this.customKeys];
 
     for(let key of keys) {
       outerHTML = outerHTML.replaceAll(`$$${key}$$`, this[key])
@@ -85,7 +93,7 @@ class Espn {
   replace(str, replaceObj) {
     let newString = str;
     let keys = Object.keys(replaceObj);
-    let values = Object.value(replaceObj);
+    let values = Object.values(replaceObj);
 
     for(let i in keys) {
       let key = keys[i];
@@ -148,7 +156,6 @@ class EspnHelper {
         let team = EspnStaticTeamData.id(leader.team.id);
         let player = new Player(leader.player);
         let playerTeam = {team, player};
-        console.log(playerTeam);
         leadersCollection.push(playerTeam);
       }
     }
@@ -251,7 +258,7 @@ class EspnHelper {
     return players[i];
   }
 
-  get events() {
+  get () {
     let query = this._g('getEvents');
     const queries = query.split(', ');
     const getStatsBySeasonType = (sTypes, sType) => {

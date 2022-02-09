@@ -39,8 +39,8 @@
     <script>
 
 
-      // const mainTeam = randomTeam();
-      // mainTeam.render('#team-test');
+      const mainTeam = EspnStaticTeamData.random();
+      mainTeam.render('#team-test');
 
       Challenger.getEvents();
       /*const data2 = new EspnHelper(TestDataTeamRoster1);
@@ -53,7 +53,9 @@
         return TestDataLeaders;
       }
 
-
+        mainTeam.on('click', '#team-test .btn', event => {
+            mainTeam.parse(EspnStaticTeamData.random());
+        })
 
     </script>
 </body>
