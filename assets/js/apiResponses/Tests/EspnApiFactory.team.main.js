@@ -1,0 +1,469 @@
+const TestDataTeamMain = {
+  "time": 1644232582089,
+  "new": "siteApi",
+  "setup": "setupTeams",
+  "request": "teams",
+  "getTeam": "ESPN.team",
+  "ESPN": {
+    "team": {
+      "id": "12",
+      "uid": "s:20~l:28~t:12",
+      "slug": "kansas-city-chiefs",
+      "location": "Kansas City",
+      "name": "Chiefs",
+      "nickname": "Chiefs",
+      "abbreviation": "KC",
+      "displayName": "Kansas City Chiefs",
+      "shortDisplayName": "Chiefs",
+      "color": "BE1415",
+      "alternateColor": "e31837",
+      "isActive": true,
+      "logos": [
+        {
+          "href": "https://a.espncdn.com/i/teamlogos/nfl/500/kc.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "default"
+          ],
+          "lastUpdated": "2018-06-05T12:11Z"
+        },
+        {
+          "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/kc.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "dark"
+          ],
+          "lastUpdated": "2018-06-05T12:11Z"
+        },
+        {
+          "href": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "scoreboard"
+          ],
+          "lastUpdated": "2018-06-05T12:11Z"
+        },
+        {
+          "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/kc.png",
+          "width": 500,
+          "height": 500,
+          "alt": "",
+          "rel": [
+            "full",
+            "scoreboard",
+            "dark"
+          ],
+          "lastUpdated": "2018-06-05T12:11Z"
+        }
+      ],
+      "record": {
+        "items": [
+          {
+            "type": "total",
+            "summary": "12-5",
+            "stats": [
+              {
+                "name": "playoffSeed",
+                "value": 2
+              },
+              {
+                "name": "wins",
+                "value": 12
+              },
+              {
+                "name": "losses",
+                "value": 5
+              },
+              {
+                "name": "winPercent",
+                "value": 0.7058823704719543
+              },
+              {
+                "name": "gamesBehind",
+                "value": 0
+              },
+              {
+                "name": "ties",
+                "value": 0
+              },
+              {
+                "name": "OTWins",
+                "value": 1
+              },
+              {
+                "name": "OTLosses",
+                "value": 0
+              },
+              {
+                "name": "gamesPlayed",
+                "value": 17
+              },
+              {
+                "name": "pointsFor",
+                "value": 480
+              },
+              {
+                "name": "pointsAgainst",
+                "value": 364
+              },
+              {
+                "name": "avgPointsFor",
+                "value": 28.235294342041016
+              },
+              {
+                "name": "avgPointsAgainst",
+                "value": 21.41176414489746
+              },
+              {
+                "name": "points",
+                "value": 3.5
+              },
+              {
+                "name": "differential",
+                "value": 116
+              },
+              {
+                "name": "streak",
+                "value": 1
+              },
+              {
+                "name": "clincher",
+                "value": 0
+              },
+              {
+                "name": "divisionWinPercent",
+                "value": 0.8333333134651184
+              },
+              {
+                "name": "leagueWinPercent",
+                "value": 0.5833333134651184
+              },
+              {
+                "name": "divisionRecord",
+                "value": 0
+              },
+              {
+                "name": "divisionWins",
+                "value": 5
+              },
+              {
+                "name": "divisionTies",
+                "value": 0
+              },
+              {
+                "name": "divisionLosses",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "description": "Home Record",
+            "type": "home",
+            "summary": "7-2",
+            "stats": [
+              {
+                "name": "wins",
+                "value": 7
+              },
+              {
+                "name": "losses",
+                "value": 2
+              },
+              {
+                "name": "ties",
+                "value": 0
+              },
+              {
+                "name": "winPercent",
+                "value": 0.7777777910232544
+              },
+              {
+                "name": "OTLosses",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "description": "Away Record",
+            "type": "road",
+            "summary": "5-3",
+            "stats": [
+              {
+                "name": "wins",
+                "value": 5
+              },
+              {
+                "name": "losses",
+                "value": 3
+              },
+              {
+                "name": "ties",
+                "value": 0
+              },
+              {
+                "name": "winPercent",
+                "value": 0.625
+              },
+              {
+                "name": "OTLosses",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "groups": {
+        "id": "6",
+        "parent": {
+          "id": "8"
+        },
+        "isConference": false
+      },
+      "links": [
+        {
+          "language": "en-US",
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/kc/kansas-city-chiefs",
+          "text": "Clubhouse",
+          "shortText": "Clubhouse",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "http://www.espn.com/nfl/team/roster/_/name/kc/kansas-city-chiefs",
+          "text": "Roster",
+          "shortText": "Roster",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "http://www.espn.com/nfl/team/stats/_/name/kc/kansas-city-chiefs",
+          "text": "Statistics",
+          "shortText": "Statistics",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/kc",
+          "text": "Schedule",
+          "shortText": "Schedule",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "photos",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/photos/_/name/kc",
+          "text": "photos",
+          "shortText": "photos",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "scores",
+            "sportscenter",
+            "app",
+            "team"
+          ],
+          "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:28~t:12&section=scores",
+          "text": "Scores",
+          "shortText": "Scores",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "draftpicks",
+            "desktop",
+            "team"
+          ],
+          "href": "http://www.espn.com/nfl/draft/teams/_/name/kc/kansas-city-chiefs",
+          "text": "Draft Picks",
+          "shortText": "Draft Picks",
+          "isExternal": false,
+          "isPremium": true
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "transactions",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/transactions/_/name/kc",
+          "text": "Transactions",
+          "shortText": "Transactions",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "injuries",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/injuries/_/name/kc",
+          "text": "Injuries",
+          "shortText": "Injuries",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/kc",
+          "text": "Depth Chart",
+          "shortText": "Depth Chart",
+          "isExternal": false,
+          "isPremium": false
+        }
+      ],
+      "franchise": {
+        "$ref": "http://sports.core.api.espn.pvt/v2/sports/football/leagues/nfl/franchises/12?lang=en&region=us",
+        "id": "12",
+        "uid": "s:20~l:28~f:12",
+        "slug": "kansas-city-chiefs",
+        "location": "Kansas City",
+        "name": "Chiefs",
+        "nickname": "Chiefs",
+        "abbreviation": "KC",
+        "displayName": "Kansas City Chiefs",
+        "shortDisplayName": "Chiefs",
+        "color": "BE1415",
+        "isActive": true,
+        "logos": [
+          {
+            "href": "https://a.espncdn.com/i/teamlogos/nfl/500/kc.png",
+            "width": 500,
+            "height": 500,
+            "alt": "",
+            "rel": [
+              "full",
+              "default"
+            ],
+            "lastUpdated": "2018-06-05T12:11Z"
+          },
+          {
+            "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/kc.png",
+            "width": 500,
+            "height": 500,
+            "alt": "",
+            "rel": [
+              "full",
+              "dark"
+            ],
+            "lastUpdated": "2018-06-05T12:11Z"
+          },
+          {
+            "href": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+            "width": 500,
+            "height": 500,
+            "alt": "",
+            "rel": [
+              "full",
+              "scoreboard"
+            ],
+            "lastUpdated": "2018-06-05T12:11Z"
+          },
+          {
+            "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/kc.png",
+            "width": 500,
+            "height": 500,
+            "alt": "",
+            "rel": [
+              "full",
+              "scoreboard",
+              "dark"
+            ],
+            "lastUpdated": "2018-06-05T12:11Z"
+          }
+        ],
+        "venue": {
+          "$ref": "http://sports.core.api.espn.pvt/v2/sports/football/leagues/nfl/venues/3622?lang=en&region=us",
+          "id": "3622",
+          "fullName": "GEHA Field at Arrowhead Stadium",
+          "address": {
+            "city": "Kansas City",
+            "state": "MO",
+            "zipCode": "64129"
+          },
+          "capacity": 72936,
+          "grass": true,
+          "indoor": false,
+          "images": [
+            {
+              "href": "https://a.espncdn.com/i/venues/nfl/day/3622.jpg",
+              "width": 2000,
+              "height": 1125,
+              "alt": "",
+              "rel": [
+                "full",
+                "day"
+              ]
+            },
+            {
+              "href": "https://a.espncdn.com/i/venues/nfl/day/interior/3622.jpg",
+              "width": 2000,
+              "height": 1125,
+              "alt": "",
+              "rel": [
+                "full",
+                "day",
+                "interior"
+              ]
+            }
+          ]
+        },
+        "team": {
+          "$ref": "http://sports.core.api.espn.pvt/v2/sports/football/leagues/nfl/seasons/2021/teams/12?lang=en&region=us"
+        }
+      },
+      "nextEvent": [],
+      "standingSummary": "1st in AFC West"
+    }
+  },
+  "url": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/12"
+}
