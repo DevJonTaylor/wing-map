@@ -13,7 +13,6 @@ class Factory {
 
   static player(PlayerInterface) {
 
-
   }
 }
 

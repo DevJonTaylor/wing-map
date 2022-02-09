@@ -1,29 +1,3 @@
-type Color = string;
-type Abbreviation = string;
-
-interface TeamInterface {
-  id: number;
-  location: string;
-  name: string;
-  abbreviation: string;
-  color: Color;
-  alternateColor: Color;
-  logos: URL;
-  wins: number;
-  losses: number;
-}
-
-interface PlayerInterface {
-  id: number;
-  name: string;
-  headshot: string;
-  jersey: number;
-  position: string;
-  weight: number;
-  height: number;
-  age: number;
-}
-
 interface GameInterface {
   id: number;
   week: number;

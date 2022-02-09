@@ -343,10 +343,11 @@ class EspnApiFactory {
       let args = { playerId, season };
 
       return EspnApiFactory.runErrorCheck(args, this.Api('statistics'));
+    },
+    leaders(season) {
+      let args = { season };
+
+      return EspnApiFactory.runErrorCheck(args, this.Api('leaders'));
     }
   }
 }
-
-// TODO:  Player gets eventLog
-// TODO:  Game gets the plays.
-// TODO:  Parse the plays into stats for the players.

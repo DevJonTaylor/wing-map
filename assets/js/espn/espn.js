@@ -2,7 +2,6 @@ class Espn {
   keys = [];
   customKeys = [];
   delimiter = '$$'
-  eventListeners = [];
 
   constructor(data) {
     this.renderId = _.uniqueId(this.constructor.name);
@@ -47,13 +46,14 @@ class Espn {
       this[key] = _.get(data, key, null);
     });
 
-    if(this.outerHTML)
-      this.render();
+    if(this.outerHTML) this.render();
+
     return this
   }
 
   container(cssSelector) {
     this.cssSelector = cssSelector;
+
     return this;
   }
 
@@ -71,28 +71,30 @@ class Espn {
       this.outerHTML = this.containerElement.outerHTML;
 
     let outerHTML = this.outerHTML;
+    let keys = Array.concat(this.keys, this.customKeys);
 
-    _.each(this.keys.concat(this.customKeys), key => {
-      outerHTML = outerHTML.replaceAll(`$$${key}$$`, this[key]);
-    })
+    for(let key of keys) {
+      outerHTML = outerHTML.replaceAll(`$$${key}$$`, this[key])
+    }
+
     this.containerElement.outerHTML = outerHTML;
 
-    _.each(this.eventListeners, cb => {
-      cb(this);
-    })
-  }
-
-  onRender(cb) {
-    // TODO: Create custom events to run on render.
+    return this;
   }
 
   replace(str, replaceObj) {
-    let replacementString = str;
-    _.each(replaceObj, (v, k) => {
-      replacementString = replacementString.replaceAll(k, v);
-    })
+    let newString = str;
+    let keys = Object.keys(replaceObj);
+    let values = Object.value(replaceObj);
 
-    return replacementString;
+    for(let i in keys) {
+      let key = keys[i];
+      let value = values[i];
+
+      newString = newString.replaceAll(key, value);
+    }
+
+    return newString;
   }
 
   get toObject() {
@@ -110,76 +112,6 @@ class Espn {
 }
 
 class EspnHelper {
-  static positionDatabase = [
-    { id: 1, name: "Wide Receiver", abbreviation: "WR" },
-    { id: 2, name: "Left Tackle  ", abbreviation: "LT" },
-    { id: 3, name: "Left Guard  ", abbreviation: "LG" },
-    { id: 4, name: "Center", abbreviation: "C" },
-    { id: 5, name: "Right Guard", abbreviation: "RG" },
-    { id: 6, name: "Right Tackle", abbreviation: "RT" },
-    { id: 7, name: "Tight End", abbreviation: "TE" },
-    { id: 8, name: "Quarterback", abbreviation: "QB" },
-    { id: 9, name: "Running Back", abbreviation: "RB" },
-    { id: 10, name: "Fullback", abbreviation: "FB" },
-    { id: 11, name: "Left Defensive End", abbreviation: "LDE" },
-    { id: 12, name: "Nose Tackle", abbreviation: "NT" },
-    { id: 13, name: "Right Defensive End", abbreviation: "RDE" },
-    { id: 14, name: "Left Outside Linebacker  ", abbreviation: "LOLB" },
-    { id: 15, name: "Left Inside Linebacker  ", abbreviation: "LILB" },
-    { id: 16, name: "Right Inside Linebacker", abbreviation: "RILB" },
-    { id: 17, name: "Right Outside Linebacker", abbreviation: "ROLB" },
-    { id: 18, name: "Left Cornerback", abbreviation: "LCB" },
-    { id: 19, name: "Right Cornerback", abbreviation: "RCB" },
-    { id: 20, name: "Strong Safety", abbreviation: "SS" },
-    { id: 21, name: "Free Safety", abbreviation: "FS" },
-    { id: 22, name: "Place kicker", abbreviation: "PK" },
-    { id: 23, name: "Punter", abbreviation: "P" },
-    { id: 24, name: "Left Defensive Tackle  ", abbreviation: "LDT" },
-    { id: 25, name: "Right Defensive Tackle", abbreviation: "RDT" },
-    { id: 26, name: "Weakside Linebacker  ", abbreviation: "WLB" },
-    { id: 27, name: "Middle Linebacker", abbreviation: "MLB" },
-    { id: 28, name: "Strongside Linebacker  ", abbreviation: "SLB" },
-    { id: 29, name: "Cornerback", abbreviation: "CB" },
-    { id: 30, name: "Linebacker", abbreviation: "LB" },
-    { id: 31, name: "Defensive End", abbreviation: "DE" },
-    { id: 32, name: "Defensive Tackle", abbreviation: "DT" },
-    { id: 33, name: "Under Tackle", abbreviation: "UT" },
-    { id: 34, name: "Nickel Back", abbreviation: "NB" },
-    { id: 35, name: "Defensive Back", abbreviation: "DB" },
-    { id: 36, name: "Safety", abbreviation: "S" },
-    { id: 37, name: "Defensive Lineman", abbreviation: "DL" },
-    { id: 39, name: "Long Snapper", abbreviation: "LS" },
-    { id: 45, name: "Offensive Lineman", abbreviation: "OL" },
-    { id: 46, name: "Offensive Tackle", abbreviation: "OT" },
-    { id: 47, name: "Offensive Guard", abbreviation: "OG" },
-    { id: 50, name: "Athlete", abbreviation: "ATH" },
-    { id: 70, name: "Offense", abbreviation: "OFF" },
-    { id: 71, name: "Defense", abbreviation: "DEF" },
-    { id: 72, name: "Special Teams", abbreviation: "ST" },
-    { id: 73, name: "Guard", abbreviation: "G" },
-    { id: 74, name: "Tackle", abbreviation: "T" },
-    { id: 75, name: "Nose Guard", abbreviation: "NG" },
-    { id: 76, name: "Punt Returner", abbreviation: "PR" },
-    { id: 77, name: "Kick Returner", abbreviation: "KR" },
-    { id: 78, name: "Long Snapper", abbreviation: "LS" },
-    { id: 79, name: "Holder", abbreviation: "H" },
-    { id: 90, name: "Inside Linebacker", abbreviation: "ILB" },
-    { id: 100, name: "Flanker", abbreviation: "FL" },
-    { id: 101, name: "Halfback", abbreviation: "HB" },
-    { id: 102, name: "Tailback", abbreviation: "TB" },
-    { id: 103, name: "Left Halfback", abbreviation: "LHB" },
-    { id: 104, name: "Right Halfback", abbreviation: "RHB" },
-    { id: 105, name: "Left Linebacker", abbreviation: "LLB" },
-    { id: 106, name: "Right Linebacker", abbreviation: "RLB" },
-    { id: 107, name: "Outside Linebacker", abbreviation: "OLB" },
-    { id: 108, name: "Left Safety", abbreviation: "LSF" },
-    { id: 109, name: "Right Safety", abbreviation: "RSF" },
-    { id: 110, name: "Middle Guard", abbreviation: "MG" },
-    { id: 111, name: "Split End", abbreviation: "SE" },
-    { id: 218, name: "Setter", abbreviation: "SETTER" },
-    { id: 219, name: "Back", abbreviation: "B" }
-  ]
-
   constructor(data) {
     this._g = (path, d = undefined) => {
       return _.get(data, path, d);
@@ -204,6 +136,24 @@ class EspnHelper {
     }
 
     return positions;
+  }
+
+  get leaders() {
+    const leaders = this._g('ESPN').leaders;
+        const leadersCollection = [];
+    for(let i in leaders.categories) {
+      let category = leaders.categories[i];
+      for(let leaderObj of category.leaders) {
+        let leader = EspnEventMap(leaderObj);
+        let team = EspnStaticTeamData.id(leader.team.id);
+        let player = new Player(leader.player);
+        let playerTeam = {team, player};
+        console.log(playerTeam);
+        leadersCollection.push(playerTeam);
+      }
+    }
+
+    return leadersCollection;
   }
 
   get team() {
@@ -292,6 +242,13 @@ class EspnHelper {
     })
 
     return players;
+  }
+
+  player(i) {
+    let players = this.players;
+    if(!players) return console.log('You do not have any players to pick.');
+    if(!i) i = _.random(0, players.length - 1);
+    return players[i];
   }
 
   get events() {
