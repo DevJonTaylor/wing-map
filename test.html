@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+    <div id="player-test">
+        <h2>Player ID: $$id$$ - Player Name: $$name$$</h2>
+        <p>POS:  $$position$$</p>
+        $$headshotImg$$
+        <p>#$$jersey$$ | Weight: $$weight$$lbs | Height: $$feet$$ft $$inch$$in ($$height$$in)</p>
+        <button class="btn">Randomize Player</button>
+    </div>
+    <br/><br/>
+    <div id="team-test" class="$$abbreviation$$">
+        <h2>Team ID: $$id$$ - Team Name: $$name$$</h2>
+        <p>W $$wins$$ - L $$losses$$</p>
+        $$logoImg$$
+        <button class="btn">Randomize Team</button>
+    </div>
+    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog.js"></script>
+    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog2.js"></script>
+    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog3.js"></script>
+    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog4.js"></script>
+    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog5.js"></script>
+    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.team.roster.1.js"></script>
+    <script src="./assets/js/maps.js"></script>
+    <script src="./assets/js/static-data.js"></script>
+    <script src="./assets/js/apiResponses/leaders.js"></script>
+    <script src="./assets/js/fullLodash.js"></script>
+    <script src="./assets/js/nfl-endpoints.js"></script>
+    <script src="./assets/js/espn/espn.js"></script>
+    <script src="./assets/js/espn/team.js"></script>
+    <script src="./assets/js/apis/team.js"></script>
+    <script src="./assets/js/espn/players.js"></script>
+    <script src="./assets/js/apis/players.js"></script>
+    <script src="./assets/js/espn/challenger.js"></script>
+    <script>
+
+
+      // const mainTeam = randomTeam();
+      // mainTeam.render('#team-test');
+
+      Challenger.getEvents();
+      /*const data2 = new EspnHelper(TestDataTeamRoster1);
+      const data4 = new EspnHelper(TestDataPlayerGamelog);*/
+
+     //const mainPlayer = data2.players[50];
+     //mainPlayer.render('#player-test');
+
+      function getEspnDataLeader() {
+        return TestDataLeaders;
+      }
+
+
+
+    </script>
+</body>
+</html>
