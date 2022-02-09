@@ -71,7 +71,7 @@ class Espn {
       this.outerHTML = this.containerElement.outerHTML;
 
     let outerHTML = this.outerHTML;
-    let keys = Array.concat(this.keys, this.customKeys);
+    let keys = Array.prototype.concat(this.keys, this.customKeys);
 
     for(let key of keys) {
       outerHTML = outerHTML.replaceAll(`$$${key}$$`, this[key])
@@ -85,7 +85,7 @@ class Espn {
   replace(str, replaceObj) {
     let newString = str;
     let keys = Object.keys(replaceObj);
-    let values = Object.value(replaceObj);
+    let values = Object.values(replaceObj);
 
     for(let i in keys) {
       let key = keys[i];
