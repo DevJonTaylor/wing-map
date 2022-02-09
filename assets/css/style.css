@@ -145,56 +145,37 @@ Table of contents:
 
 /* ID Selectors */
 #hero {
-  font-family: fantasy;
-  font-size: 36px;
-  /* Gradient background placeholder from https://coolors.co/gradients */
-  /* background: rgb(0, 0, 0);
-  background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(228, 251, 255) 100%);
-  background: -moz-linear-gradient(
-    90deg,
-    rgb(27, 27, 27) 0%,
-    rgb(211, 242, 247) 100%
-  ); */
-  background: -webkit-linear-gradient(
-    90deg,
-    rgb(0, 0, 0) 0%,
-    rgb(255, 255, 255) 100%
-  );
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#595CFF", endColorstr="#C6F8FF", GradientType=1 );
+  background-color: black;
 }
-
-/* #tabswhite {
-  color: white;
-}
-
-#tabsblk {
-  color: black;
-} */
 
 #title {
-  margin: 0 0 0 43%;
+  margin: -2% 0 -3% 47%;
 }
 
 body {
-  background-color: white;
-  color: black;
-  font-weight: bold;
-}
-
-.dark-mode {
   background-color: black;
   color: white;
   font-weight: bold;
 }
 
-.white-mode {
+.dark-mode {
   background-color: white;
   color: black;
   font-weight: bold;
 }
 
+/* .white-mode {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+} */
+
 #heroLand {
   background-color: #000000;
+}
+
+#title-landing {
+  margin: -4% 0% -3% 4%;
 }
 
 #box1 {
@@ -254,8 +235,7 @@ body {
 }
 #logo {
   background-color: #000000;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0% 0% 0% 0%;
   display: block;
 }
 #logo img {
@@ -266,4 +246,8 @@ body {
 #playbtn {
   margin: -10% 0% 0% 47%;
   z-index: 1;
+}
+
+.footer {
+  background-color: black;
 }
