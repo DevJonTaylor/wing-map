@@ -64,9 +64,9 @@ function challengerDatabaseObject(keys) {
 function teamObject(keys) {
   return getMapKeys(keys, {
     id: 0,
-    loc: '',
-    name: '',
-    abbr: '',
+    loc: 'AFC',
+    name: 'AFC',
+    abbr: 'AFC',
     colors: ['', ''],
     logo: '',
     record: { w: 0, l: 0 }

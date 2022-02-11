@@ -1,7 +1,7 @@
-import { get, toNumber } from 'lodash';
-import { TeamData } from './static';
-import { Player, Team } from "./";
-import { eventMap, playerObject } from "./maps";
+import {get, toNumber} from 'lodash';
+import {TeamData} from './static';
+import {Player, PlayerGameStats, Team, Game} from "./";
+import {playerObject} from "./maps";
 
 class EspnHelper {
   data = {};
@@ -109,34 +109,65 @@ class EspnHelper {
   get games() {
     const gameData = this.query('getEvents');
     const statData = this.query('getStats');
-    const regularSeasonStats = this.getSeasonType(statData.seasonTypes, 2)
-    const returnObj = {};
-
-    for(let event of regularSeasonStats.events) {
-      let stats = {};
-      for(let i in event.stats) {
-        let name = statData.names[i];
-        let displayName = statData.displayName[i];
-        let value = event.stats[i];
-        let stat = this.createState(name, displayName, value);
-        stats[name] = stat;
-      }
-      returnObj[event.eventId] = stats;
-    }
-
-    console.log(returnObj);
+    return {
+      stats: this.getGameStats(statData),
+      game: this.getGameData(gameData)
+    };
   }
 
-  getSeasonType(seasonTypes, typeRequesting) {
-    for(let seasonType of seasonTypes) {
-      for(let category of seasonType.categories) {
-        if(toNumber(category.splitType) === typeRequesting) break;
-        return category;
+  getGameData(gameData) {
+    const games = {};
+    const recordedGames = Object.values(this._g('ESPN.events'));
+
+    recordedGames.map(game => {
+      let isHomeTeamTheWinner = (game.atVs === '@' && game.gameResult === 'W')
+      let homeTeam = {
+        team: TeamData.id(game.homeTeamId),
+        score: game.homeTeamScore,
+        results: isHomeTeamTheWinner ? 'W' : 'L'
+      };
+      let awayTeam = {
+        team: TeamData.id(game.awayTeamId),
+        score: game.awayTeamScore,
+        results: !isHomeTeamTheWinner ? 'W' : 'L'
+      };
+      let newGameObj = {
+        score: game.score,
+        gameDate: new Date(game.gameDate).getTime(),
+        atVs: game.atVs,
+        week: game.week,
+        id: game.id,
+        homeTeam,
+        awayTeam
       }
-    }
+
+      games[newGameObj.id] = new Game(newGameObj);
+    })
+
+    return games;
   }
 
-  createState(name, displayName, value) {
+  getGameStats(statData) {
+    const seasonGameStats = statData.seasonTypes[1].categories[0];
+    const gamesStats = {};
+    seasonGameStats.events.map(gameStats => {
+      const obj = this.createGameStats(statData.names, gameStats.stats, gameStats.eventId);
+      gamesStats[obj.id] = new PlayerGameStats(obj);
+    })
+
+    gamesStats.totals = this.createGameStats(statData.names, seasonGameStats.totals)
+
+    return gamesStats;
+  }
+
+  createGameStats(names, stats, gameId) {
+    const gameStats = !gameId ? {} : { id: gameId };
+    names.map((v, i) => gameStats[v] = stats[i]);
+
+    return gameStats;
+  }
+
+  createStat(name, displayName, value) {
     return { name, displayName, value }
   }
 

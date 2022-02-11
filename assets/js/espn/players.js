@@ -27,5 +27,19 @@ class Player extends Espn {
   }
 }
 
-export { Player };
+class PlayerGameStats extends Espn {
+  keys = [
+    'id', 'receptions', 'receivingTargets', 'receivingYards', 'yardsPerReception', 'receivingTouchdowns',
+    'longReception', 'rushingAttempts', 'rushingYards', 'yardsPerRushAttempt', 'longRushing',
+    'rushingTouchdowns', 'fumbles', 'fumblesLost', 'fumblesForced', 'kicksBlocked'
+  ]
+
+  constructor(data) {
+    super(data);
+
+    this.parse(data);
+  }
+}
+
+export { Player, PlayerGameStats };
 
