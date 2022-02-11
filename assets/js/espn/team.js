@@ -1,4 +1,7 @@
-class Team extends Espn {
+import { Espn } from "./espn";
+import { teamObject } from "./maps";
+
+export class Team extends Espn {
   keys = [
       'id', 'location', 'name', 'abbreviation', 'color',
       'alternateColor', 'logo', 'wins', 'losses'
@@ -8,14 +11,9 @@ class Team extends Espn {
 
   constructor(data) {
     super(data);
-    let arr = [...EspnStaticTeamData.keys];
-    let arr2 = [...this.keys]
-    for(let i in this.keys) {
-      let a = arr[i]
-      let b = arr2[i];
-      if(a === b) this.keys.splice(i, 1);
-    }
-    this.keys = this.keys.concat(EspnStaticTeamData.keys);
+    const newKeys = teamObject(true);
+    this.keys = new Array(...new Set(newKeys.concat(this.keys)));
+
     if(data !== undefined) this.parse(data);
   }
 

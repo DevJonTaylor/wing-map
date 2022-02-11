@@ -1,44 +1,49 @@
+import { set, get, sample } from 'lodash';
+import { challengerDatabaseObject, userObject } from './maps';
+
 /**
  * This class is going to hold the four characters currently in play.
  */
 class Challenger {
-  static database = null;
+  database = null;
 
-  static db(key, value) {
-    if(!this.database) this.database = _.clone(ChallengerDatabaseMap);
-    if(!value) return _(this.database)
-      .chain()
-      .get(key)
-      .value();
-
-    _(this.database)
-      .chain()
-      .set(key, value)
-      .value();
-
-    return this;
-  }
-
-  static init() {
-    this.db('user', _.clone(UserMap))
-      .db('computer', _.clone(UserMap))
+  constructor() {
+    this.resetUserAndComp()
       .setRandomPosition()
       .createPlayerPool();
   }
 
-  static setRandomPosition() {
-    this.db('position', _.sample(this.db('positions')));
+  db(key, value) {
+    if(!this.database) this.database = challengerDatabaseObject();
+    if(!value) return get(this.database, key, undefined);
+
+    set(this.database, key, value);
 
     return this;
   }
 
-  static get pos() {
+  resetUserAndComp() {
+    const user = userObject();
+    const comp = userObject();
+    this.db('user', user)
+      .db('computer', comp);
+
+    return this;
+  }
+
+  setRandomPosition() {
+    this.db('position', sample(this.db('positions')));
+
+    return this;
+  }
+
+  get pos() {
     return this.db('position');
   }
 
-  static createPlayerPool() {
+  createPlayerPool() {
     let dataset = getEspnDataLeader().leaders;
-    const players = _(dataset)
+    const players = dataset.uniqBy()
       .uniqBy(obj => obj.id)
       .filter(obj => (obj.position === this.pos.abbr || obj.positionAbbr === this.pos.abbr))
       .shuffle()
@@ -58,8 +63,8 @@ class Challenger {
   }
 
   static async getPlayerStatsAndGames() {
-    // TODO: CompPlayerId
-    // TODO: UserPlayerId
+    // TODO:  CompPlayerId
+    // TODO:  UserPlayerId
     // TODO:
   }
 
@@ -73,3 +78,5 @@ class Challenger {
     this.setComputerPlayer();
   }
 }
+
+export { Challenger };
