@@ -107,6 +107,7 @@ class EspnHelper {
   }
 
   get games() {
+    if(this.request !== 'EspnApiFactory.Player.gamelog') return false;
     const gameData = this.query('getEvents');
     const statData = this.query('getStats');
     return {
@@ -147,24 +148,42 @@ class EspnHelper {
     return games;
   }
 
-  getGameStats(statData) {
-    const seasonGameStats = statData.seasonTypes[1].categories[0];
-    const gamesStats = {};
-    seasonGameStats.events.map(gameStats => {
-      const obj = this.createGameStats(statData.names, gameStats.stats, gameStats.eventId);
-      gamesStats[obj.id] = new PlayerGameStats(obj);
-    })
+  findSeasonType(statData, typeToFind) {
+    for(let seasonType of statData.seasonTypes) {
+      if(seasonType.categories) {
 
-    gamesStats.totals = this.createGameStats(statData.names, seasonGameStats.totals)
+        for(let category of seasonType.categories) {
+          if(toNumber(category.splitType) === typeToFind)
+            return category;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  getGameStats(statData) {
+    const seasonGameStats = this.findSeasonType(statData, 2);
+    const names = statData.names;
+    const events = seasonGameStats.events;
+    const totals = seasonGameStats.totals;
+    const gamesStats = {
+      totals: this.createStats(names, totals)
+    };
+
+    for(let g of events) {
+      const id = g.eventId
+      gamesStats[id] = this.createStats(names, g.stats, id);
+    }
 
     return gamesStats;
   }
 
-  createGameStats(names, stats, gameId) {
-    const gameStats = !gameId ? {} : { id: gameId };
-    names.map((v, i) => gameStats[v] = stats[i]);
+  createStats(names, game, id) {
+    const gameStats = id === undefined ? {} : { id };
+    names.map((v, i) => gameStats[v] = game[i]);
 
-    return gameStats;
+    return new PlayerGameStats(gameStats);
   }
 
   createStat(name, displayName, value) {
@@ -244,7 +263,7 @@ class EspnHelper {
           'fullName',
           'headshot.href',
           ['jersey', toNumber],
-          'position.displayName',
+          'position',
           'weight',
           'height',
           'age'
@@ -255,7 +274,7 @@ class EspnHelper {
           'fullName',
           'headshot.href',
           ['jersey', toNumber],
-          'position.displayName'
+          'position'
         ]
       default:
         return false;

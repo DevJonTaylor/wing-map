@@ -1,10 +1,3 @@
-import { toNumber } from 'lodash';
-
-// TODO:  Create a positions database in the EspnStaticData
-// TODO:  Make a function to get a database with requested positions.
-// TODO:  Finish making everything a function so we can get fresh objects.
-
-
 const positions = [{id:1,name:"WideReceiver",abbreviation:"WR"},{id:8,name:"Quarterback",abbreviation:"QB"},{id:9,name:"RunningBack",abbreviation:"RB"},{id:29,name:"Cornerback",abbreviation:"CB"},{id:30,name:"Linebacker",abbreviation:"LB"}];
 
 function getMapKeys(keys, map) {
@@ -24,20 +17,6 @@ function playerObject(keys) {
   });
 }
 
-function eventMap(leader) {
-  return {
-    team: {
-      id: toNumber(leader.team.id),
-      name: leader.team.name,
-      displayName: leader.team.displayName,
-      abbr: leader.team.abbreviation,
-      color: leader.team.color,
-      alternateColor: leader.team.alternateColor,
-      logo: leader.team.logos[0].href,
-    }
-  };
-}
-
 function userObject(keys) {
   return getMapKeys(keys, {
     player: null,
@@ -48,9 +27,7 @@ function userObject(keys) {
   });
 }
 
-
-
-function challengerDatabaseObject(keys) {
+function gameControllerDatabaseObject(keys) {
   return getMapKeys(keys, {
     positions,
     position: {},
@@ -76,8 +53,7 @@ function teamObject(keys) {
 export {
   teamObject,
   playerObject,
-  eventMap,
   userObject,
-  challengerDatabaseObject
+  gameControllerDatabaseObject
 }
 
