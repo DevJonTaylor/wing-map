@@ -34,6 +34,7 @@ function gameControllerDatabaseObject(keys) {
     user: {},
     computer: {},
     playerPool: {},
+    rounds: [],
     round: 1
   });
 }

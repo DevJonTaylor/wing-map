@@ -1,4 +1,4 @@
-import {set, get, sample, shuffle, toNumber} from 'lodash';
+import {set, get, sample, shuffle, toNumber, clone} from 'lodash';
 import { gameControllerDatabaseObject, userObject } from './espn/maps';
 import { PlayerTests, GamelogTests } from "./responses";
 
@@ -30,6 +30,10 @@ class GameController {
 
   get user() {
     return this.db('user');
+  }
+
+  get rounds() {
+    return this.db('rounds');
   }
 
   db(key, value) {
@@ -128,11 +132,15 @@ class GameController {
     return (value !== '-' && value !== null && value !== undefined);
   }
 
-  battleStatsOut() {
+  compareStats() {
+    let user = {...this.user};
+    let comp = {...this.comp};
     let round = {
-      comp: 0,
-      user: 0
+      user,
+      comp
     }
+    round.user.points = 0;
+    round.comp.points = 0;
     for(let key of this.comp.stats.keys) {
       let compValue = this.comp.stats[key];
       let userValue = this.user.stats[key];
@@ -146,12 +154,12 @@ class GameController {
           user,
           winner: comp > user ? 'computer' : comp < user ? 'user' : 'draw'
         }
-        if(comp > user) round.comp += 1;
-        if(comp < user) round.user += 1;
+        if(comp > user) round.comp.points += 1;
+        if(comp < user) round.user.points += 1;
       }
     }
 
-    console.log(round);
+    this.rounds.push(round);
 
     return this;
   }
