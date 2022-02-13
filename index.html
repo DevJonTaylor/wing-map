@@ -122,58 +122,33 @@
 
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
-
   <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
   <script src="assets/js/script.js"></script>
   <script src="./assets/js/giphy.js"></script>
-
-  <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog.js"></script>
-  <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog2.js"></script>
-  <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog3.js"></script>
-  <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog4.js"></script>
-  <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog5.js"></script>
-  <script src="./assets/js/apiResponses/Tests/EspnApiFactory.team.roster.1.js"></script>
-  <script src="./assets/js/fullLodash.js"></script>
-  <script src="./assets/js/maps.js"></script>
-  <script src="./assets/js/static-data.js"></script>
-  <script src="./assets/js/apiResponses/leaders.js"></script>
-  <script src="./assets/js/nfl-endpoints.js"></script>
-  <script src="./assets/js/espn/espn.js"></script>
-  <script src="./assets/js/espn/team.js"></script>
-  <script src="./assets/js/apis/team.js"></script>
-  <script src="./assets/js/espn/players.js"></script>
-  <script src="./assets/js/apis/players.js"></script>
-  <script src="./assets/js/espn/challenger.js"></script>
+  <script src="./assets/js/bundle.js"></script>
   <script>
-    function getRoster(id) {
-      return EspnApiFactory.team.roster(id);
-    }
-
-    function getRandomTeamId() {
-      return _.sample(Object.values(EspnStaticTeamData.ids));
-    }
-
-    function mew(espnHelper) {
+    function mew(playerPool) {
       const cssSelectors = ['#box1', '#box2', '#box3', '#box4'];
-      const team = espnHelper.team;
-      team.colors.map((color, index) => team.colors[index] = `#${color}`);
 
-      for (let selector of cssSelectors) {
-        const player = _.sample(espnHelper.players);
-        player.img.template = '<img src="$$src$$" alt="$$alt$$"/>';
-        player.render(selector)
+      for (let i in cssSelectors) {
+        const selector = cssSelectors[i];
+        const leader = playerPool[i];
+        const player = leader.player;
+        const team = leader.team;
+        player.position = player.position.abbreviation;
+        team.colors.map((color, index) => team.colors[index] = `#${color}`);
+        player.render(selector);
 
         player.containerElement.style.backgroundColor = team.colors[0];
         player.containerElement.style.borderColor = team.colors[1];
       }
     }
 
-    // Example Usage
-    const teamId = getRandomTeamId();
-    getRoster(teamId)
-      .then(mew);  // 
+    var playerPool = PlayerTests.leaders.leaders.filter(leader => {
+      return leader.player.position.id === "8"
+    }).sort(() => (Math.random() - .5)).splice(0, 4)
 
-
+    mew(playerPool,)
   </script>
 
 </body>
