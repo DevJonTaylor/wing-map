@@ -63,7 +63,7 @@ class EspnController extends BaseController {
     const espnHelper = this.isDev ? PlayerTests.leaders : await EspnApiFactory.Player.leaders(year);
     const leaders = espnHelper.leaders;
 
-    this.historyEntry({name: 'getLeaders', value: espnHelper, action: 'API Request'});
+    this.historyEntry({name: 'getLeaders', value: 'EspnHelper', action: 'API Request'});
 
     this.set('leaders', espnHelper.leaders);
     return this.setCurrent('leaders', espnHelper.leaders);
@@ -79,7 +79,7 @@ class EspnController extends BaseController {
         : this.GamelogTests.randomPlayer;
 
 
-      this.historyEntry('getPlayerGamelog', espnHelper, 'API Request');
+      this.historyEntry({name: 'getPlayerGamelog', value: 'EspnHelper<Game, Stats>', Action: 'API Request'});
 
       try {
         const gamesObj = espnHelper.games;
@@ -96,6 +96,7 @@ class EspnController extends BaseController {
       }
     }
 
+    this.historyEntry({name: 'getLeaders', value: 'EspnHelper<Gamelogs>', action: 'API Request'});
     this.setCurrent('gamelog', currentLeaders);
   }
 
@@ -105,7 +106,7 @@ class EspnController extends BaseController {
     const current = this.current;
     const filtered = current.filter(leader => leader.player.position.id.toString() === id.toString())
 
-    this.historyEntry({ name, value: filtered, action: 'Filtered Array' });
+    this.historyEntry({ name, value: 'filtered Array', action: 'Filtered Array' });
     return this.setCurrent('filter', filtered);
   }
 
