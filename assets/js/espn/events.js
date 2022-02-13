@@ -49,61 +49,61 @@ class PlayerStats extends Espn {
   get displayReceptions() {
     return this.displayOptions.receptions
   }
-  
+
   get displayReceivingTargets() {
     return this.displayOptions.receivingTargets
   }
-  
+
   get displayReceivingYards() {
     return this.displayOptions.receivingYards
   }
-  
+
   get displayYardsPerReception() {
     return this.displayOptions.yardsPerReception
   }
-  
+
   get displayReceivingTouchdowns() {
     return this.displayOptions.receivingTouchdowns
   }
-  
+
   get displayLongReception() {
     return this.displayOptions.longReception
   }
-  
+
   get displayRushingAttempts() {
     return this.displayOptions.rushingAttempts
   }
-  
+
   get displayRushingYards() {
     return this.displayOptions.rushingYards
   }
-  
+
   get displayYardsPerRushAttempt() {
     return this.displayOptions.yardsPerRushAttempt
   }
-  
+
   get displayLongRushing() {
     return this.displayOptions.longRushing
   }
-  
+
   get displayRushingTouchdowns() {
     return this.displayOptions.rushingTouchdowns
   }
-  
+
   get displayFumbles() {
     return this.displayOptions.fumbles
   }
-  
+
   get displayFumblesLost() {
     return this.displayOptions.fumblesLost
   }
-  
+
   get displayFumblesForced() {
     return this.displayOptions.fumblesForced
   }
-  
+
   get displayKicksBlocked() {
     return this.displayOptions.kicksBlocked
   }
-  
+
 }

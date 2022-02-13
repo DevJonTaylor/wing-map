@@ -1,4 +1,7 @@
-class Team extends Espn {
+import { Espn } from "./espn";
+import { teamObject } from "./maps";
+
+export class Team extends Espn {
   keys = [
       'id', 'location', 'name', 'abbreviation', 'color',
       'alternateColor', 'logo', 'wins', 'losses'
@@ -8,7 +11,9 @@ class Team extends Espn {
 
   constructor(data) {
     super(data);
-    this.keys = EspnStaticTeamData.keys;
+    const newKeys = teamObject(true);
+    this.keys = new Array(...new Set(newKeys.concat(this.keys)));
+
     if(data !== undefined) this.parse(data);
   }
 
@@ -19,6 +24,10 @@ class Team extends Espn {
   get wins() {
     return this.record.w;
   }
+
+  set losses(str) {}
+
+  set wins(str) {}
 
   get location() {
     return this.loc;
@@ -35,6 +44,14 @@ class Team extends Espn {
   get alternateColor() {
     return this.colors[1];
   }
+
+  set location(str) {}
+
+  set abbreviation(str) {}
+
+  set color(str) {}
+
+  set alternateColor(str) {}
 
   get logo() {
     return EspnStaticTeamData.logos.replace('$$logo$$', this.logos);

@@ -1,0 +1,183 @@
+{
+  "time": 1644607193400,
+  "API": "CORE",
+  "method": "PlayerApis.coreApi().main(15818)",
+  "getPlayer": "ESPN",
+  "request": "EspnApiFactory.Player.id",
+  "ESPN": {
+    "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/15818?lang=en&region=us",
+    "id": "15818",
+    "uid": "s:20~l:28~a:15818",
+    "guid": "c22ef20195ad1740dd333ae06d7e7e68",
+    "type": "football",
+    "alternateIds": {
+      "sdr": "2512219"
+    },
+    "firstName": "Keenan",
+    "lastName": "Allen",
+    "fullName": "Keenan Allen",
+    "displayName": "Keenan Allen",
+    "shortName": "K. Allen",
+    "weight": 211,
+    "displayWeight": "211 lbs",
+    "height": 74,
+    "displayHeight": "6' 2\"",
+    "age": 29,
+    "dateOfBirth": "1992-04-27T07:00Z",
+    "debutYear": 2013,
+    "links": [
+      {
+        "language": "en-US",
+        "rel": [
+          "playercard",
+          "desktop",
+          "athlete"
+        ],
+        "href": "http://www.espn.com/nfl/player/_/id/15818/keenan-allen",
+        "text": "Player Card",
+        "shortText": "Player Card",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "stats",
+          "desktop",
+          "athlete"
+        ],
+        "href": "http://www.espn.com/nfl/player/stats/_/id/15818/keenan-allen",
+        "text": "Stats",
+        "shortText": "Stats",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "splits",
+          "desktop",
+          "athlete"
+        ],
+        "href": "http://www.espn.com/nfl/player/splits/_/id/15818/keenan-allen",
+        "text": "Splits",
+        "shortText": "Splits",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "gamelog",
+          "desktop",
+          "athlete"
+        ],
+        "href": "http://www.espn.com/nfl/player/gamelog/_/id/15818/keenan-allen",
+        "text": "Game Log",
+        "shortText": "Game Log",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "news",
+          "desktop",
+          "athlete"
+        ],
+        "href": "http://www.espn.com/nfl/player/news/_/id/15818/keenan-allen",
+        "text": "News",
+        "shortText": "News",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "bio",
+          "desktop",
+          "athlete"
+        ],
+        "href": "http://www.espn.com/nfl/player/bio/_/id/15818/keenan-allen",
+        "text": "Bio",
+        "shortText": "Bio",
+        "isExternal": false,
+        "isPremium": false
+      },
+      {
+        "language": "en-US",
+        "rel": [
+          "overview",
+          "desktop",
+          "athlete"
+        ],
+        "href": "http://www.espn.com/nfl/player/_/id/15818/keenan-allen",
+        "text": "Overview",
+        "shortText": "Overview",
+        "isExternal": false,
+        "isPremium": false
+      }
+    ],
+    "birthPlace": {
+      "city": "Greensboro",
+      "state": "NC",
+      "country": "USA"
+    },
+    "college": {
+      "$ref": "http://sports.core.api.espn.com/v2/colleges/25?lang=en&region=us"
+    },
+    "slug": "keenan-allen",
+    "headshot": {
+      "href": "https://a.espncdn.com/i/headshots/nfl/players/full/15818.png",
+      "alt": "Keenan Allen"
+    },
+    "jersey": "13",
+    "position": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/positions/1?lang=en&region=us",
+      "id": "1",
+      "name": "Wide Receiver",
+      "displayName": "Wide Receiver",
+      "abbreviation": "WR",
+      "leaf": true,
+      "parent": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/positions/70?lang=en&region=us"
+      }
+    },
+    "linked": true,
+    "team": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2021/teams/24?lang=en&region=us"
+    },
+    "statistics": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/15818/statistics?lang=en&region=us"
+    },
+    "contracts": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/15818/contracts?lang=en&region=us"
+    },
+    "experience": {
+      "years": 9
+    },
+    "collegeAthlete": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/athletes/501550?lang=en&region=us"
+    },
+    "active": true,
+    "draft": {
+      "displayText": "Year: 2013 Round: 3 Pick: 76",
+      "round": 3,
+      "year": 2013,
+      "selection": 76,
+      "team": {
+        "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2013/teams/24?lang=en&region=us"
+      }
+    },
+    "status": {
+      "id": "1",
+      "name": "Active",
+      "type": "active",
+      "abbreviation": "Active"
+    },
+    "statisticslog": {
+      "$ref": "http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/15818/statisticslog?lang=en&region=us"
+    }
+  },
+  "url": "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/15818"
+}
