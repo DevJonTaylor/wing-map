@@ -1,15 +1,16 @@
 class Team extends Espn {
   keys = [
-      'id', 'location', 'name', 'abbreviation', 'color',
-      'alternateColor', 'logo', 'wins', 'losses'
-    ];
+    'id', 'location', 'name', 'abbreviation', 'color',
+    'alternateColor', 'logo', 'wins', 'losses'
+  ];
 
   customKeys = ['logoImg'];
 
   constructor(data) {
     super(data);
-    this.keys = EspnStaticTeamData.keys;
-    if(data !== undefined) this.parse(data);
+
+    this.keys = [...new Set(this.keys.concat(EspnStaticTeamData.keys))];
+    if (data !== undefined) this.parse(data);
   }
 
   get losses() {
@@ -47,4 +48,6 @@ class Team extends Espn {
   get logoImg() {
     return this.createImg(this.logo);
   }
+
+
 }
