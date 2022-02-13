@@ -5,7 +5,7 @@ class PlayerApis extends EspnApis {
     return this
       .webApi()
       .response('method', `PlayerApis.webApi().gamelog.(${playerId})`)
-      .response('getStats', 'ESPN.names, ESPN.displayNames, ESPN.seasonType')
+      .response('getStats', 'ESPN.names, ESPN.displayNames, ESPN.seasonTypes')
       .response('getEvents', 'ESPN.events, ESPN.names, ESPN.displayNames, ESPN.seasonTypes')
       .uri('athletes', playerId, 'gamelog')
       .param('seasontype', '2')
@@ -28,7 +28,7 @@ class PlayerApis extends EspnApis {
       .response('getStats', 'ESPN');
   }
 
-  leaders(season, noCall) {
+  leaders(season) {
       return this
         .respSetup('SITE')
         .response('method', `PlayerApis.webApi().leaders(${season})`)

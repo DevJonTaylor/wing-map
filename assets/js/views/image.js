@@ -1,6 +1,19 @@
 import {CustomElement} from "./element";
 
+/**
+ * @property {string} src Treats this property as an HTML Attribute.
+ * @property {string} alt Treats this property as an HTML Attribute.
+ * @property {string} height Treats this property as an HTML Attribute.
+ * @property {string} ismap Treats this property as an HTML Attribute.
+ * @property {string} loading Treats this property as an HTML Attribute.
+ * @property {string} longdesc Treats this property as an HTML Attribute.
+ * @property {string} referrerpolicy Treats this property as an HTML Attribute.
+ * @property {string} usemap Treats this property as an HTML Attribute.
+ * @property {string} width Treats this property as an HTML Attribute.
+ * @property {string} crossorigin Treats this property as an HTML Attribute.
+ */
 class CustomImage extends CustomElement {
+
   constructor() {
     super('img', true);
     this.tagName = 'img';

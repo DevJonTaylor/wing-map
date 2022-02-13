@@ -14,8 +14,17 @@ class Player extends Espn {
   }
 
   get headshotImg() {
-    this.alt = this.name;
-    return this.createImg(this.headshot);
+    const img = this.newImg;
+    if(this.isCustomizeImg) {
+      this.customizeImg(img);
+
+      return img.toHTML;
+    }
+
+    img.alt = this.name;
+    img.src = this.headshot;
+
+    return img.toHTML;
   }
 
   get feet() {

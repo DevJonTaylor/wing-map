@@ -1,4 +1,5 @@
 import { Espn } from "./espn";
+import { TeamData } from "./static";
 import { teamObject } from "./maps";
 
 export class Team extends Espn {
@@ -54,7 +55,7 @@ export class Team extends Espn {
   set alternateColor(str) {}
 
   get logo() {
-    return EspnStaticTeamData.logos.replace('$$logo$$', this.logos);
+    return TeamData.logos(this.logos)
   }
 
   set logo(str) {
@@ -62,6 +63,16 @@ export class Team extends Espn {
   }
 
   get logoImg() {
-    return this.createImg(this.logo);
+    const img = this.newImg;
+    if(!this.isCustomizeImg) {
+      img.alt = this.name;
+      img.src = this.logo;
+
+      return img.toHTML;
+    }
+
+    const customizedImg = this.customizeImg(img);
+
+    return customizedImg.toHTML;
   }
 }

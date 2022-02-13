@@ -110,9 +110,11 @@ class EspnHelper {
     if(this.request !== 'EspnApiFactory.Player.gamelog') return false;
     const gameData = this.query('getEvents');
     const statData = this.query('getStats');
+    const stats = this.getGameStats(statData);
+    const game = this.getGameData(gameData)
     return {
-      stats: this.getGameStats(statData),
-      game: this.getGameData(gameData)
+      stats,
+      game
     };
   }
 

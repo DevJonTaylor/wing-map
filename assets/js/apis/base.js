@@ -107,6 +107,8 @@ class UrlCreator {
  * @property {object} headers
  */
 class FetchData extends UrlCreator {
+  retryAttempts = 5;
+  waitToRetry = 3000;
   constructor() {
     super();
     this.resp = {};
@@ -168,17 +170,45 @@ class FetchData extends UrlCreator {
     return this;
   }
 
+  cloneOptions() {
+    const headers = { headers: Object.assign({}, this.headers) };
+    return Object.assign({}, this.options, headers);
+  }
+
+  waitAndTryAgain(attempts) {
+    if(attempts >= this.retryAttempts) return Promise.reject('Failed to connect and tried to many times.');
+
+    setTimeout(() => {
+      return this.getJSON(attempts);
+    }, this.waitToRetry);
+  }
+
+  statusCodeCanRetry(statusCode) {
+    switch(statusCode) {
+      case 504:
+        return true;
+      default:
+        return false;
+    }
+  }
+
   /**
    * This will perform a fetch and returns a promise that is a literal object from the JSON provided.
    * @return {Promise<object>}
    */
-  async getJSON() {
-    let options = JSON.parse(JSON.stringify(this.options));
-    options.headers = this.headers;
-    let response = await fetch(this.url, options);
+  async getJSON(attempts = 0) {
+    let response = await fetch(this.url, this.cloneOptions());
+    if(!response.ok) {
+      if(this.statusCodeCanRetry(response.statusCode) && attempts > this.retryAttempts) {
+        setTimeout(this.getJSON, this.waitToRetry)
+      }
+    }
 
-    return await response.json();
+
+    return response.json();
   }
 }
 
 export { FetchData, UrlCreator }
+
+
