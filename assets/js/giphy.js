@@ -18,17 +18,17 @@ console.log(correctTalk.length, trashTalk.length,gameWin.length,gameLost.length)
 
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
-  }
-
-function cpuSpeech(correct){
-   var i = randomNumber(0, correctTalk.length - 1);
-if (correct == true) {
-    
-    document.querySelector('#giphy-talk').innerText = correctTalk[i];
-    console.log(correctTalk[i]);
 }
 
-}
+function cpuSpeech(correct, endRound){
+    var roundOrGame = !endRound ?
+        [gameWin, gameLost] : [correctTalk, trashTalk];
+    var indexNumber = !correct ?
+        roundOrGame[1] : roundOrGame [0];
+    var i = randomNumber(0, indexNumber.length - 1);
+    return document.querySelector('#giphy-talk').innerText = indexNumber[i];
+};
+
 
 function displayPicture (correct) {
 cpuSpeech(correct);
