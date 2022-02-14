@@ -5,7 +5,7 @@ class Espn {
 
   constructor(data) {
     this.renderId = _.uniqueId(this.constructor.name);
-    if(!data) return;
+    if (!data) return;
     this.parse(data)
   }
 
@@ -40,13 +40,19 @@ class Espn {
   }
 
   parse(data) {
-    if(data instanceof Player) data = data.toObject;
+    if (data instanceof Player) data = data.toObject;
+    for (let key of this.keys) {
+      if (key !== 'location' && key !== 'abbreviation') {
+        try {
+          this[key] = _.get(data, key, null);
+        } catch (err) {
+          console.log(key);
+          throw err();
+        }
+      }
+    }
 
-    _.each(this.keys, key => {
-      this[key] = _.get(data, key, null);
-    });
-
-    if(this.outerHTML) this.render();
+    if (this.outerHTML) this.render();
 
     return this
   }
@@ -62,18 +68,18 @@ class Espn {
   }
 
   render(cssSelector = null) {
-    if(cssSelector) this.container(cssSelector);
+    if (cssSelector) this.container(cssSelector);
 
-    if(!this.containerElement)
+    if (!this.containerElement)
       return console.log('A container has not been set.');
 
-    if(!this.outerHTML)
+    if (!this.outerHTML)
       this.outerHTML = this.containerElement.outerHTML;
 
     let outerHTML = this.outerHTML;
     let keys = Array.prototype.concat(this.keys, this.customKeys);
 
-    for(let key of keys) {
+    for (let key of keys) {
       outerHTML = outerHTML.replaceAll(`$$${key}$$`, this[key])
     }
 
@@ -87,7 +93,7 @@ class Espn {
     let keys = Object.keys(replaceObj);
     let values = Object.values(replaceObj);
 
-    for(let i in keys) {
+    for (let i in keys) {
       let key = keys[i];
       let value = values[i];
 
@@ -120,7 +126,7 @@ class EspnHelper {
 
   static getRandomTeams(numberOfTeams) {
     let teams = [];
-    for(let i = 0; i < numberOfTeams; i++) {
+    for (let i = 0; i < numberOfTeams; i++) {
       let index = _.random(0, TeamHelper.database.length);
       teams.push(TeamHelper.database[index]);
     }
@@ -130,7 +136,7 @@ class EspnHelper {
 
   static getRandomPositions(numberOfPositions) {
     let positions = [];
-    for(let i = 0; i < numberOfPositions; i++) {
+    for (let i = 0; i < numberOfPositions; i++) {
       let index = _.random(0, this.positionDatabase.length);
       positions.push(this.positionDatabase[index]);
     }
@@ -140,14 +146,14 @@ class EspnHelper {
 
   get leaders() {
     const leaders = this._g('ESPN').leaders;
-        const leadersCollection = [];
-    for(let i in leaders.categories) {
+    const leadersCollection = [];
+    for (let i in leaders.categories) {
       let category = leaders.categories[i];
-      for(let leaderObj of category.leaders) {
+      for (let leaderObj of category.leaders) {
         let leader = EspnEventMap(leaderObj);
         let team = EspnStaticTeamData.id(leader.team.id);
         let player = new Player(leader.player);
-        let playerTeam = {team, player};
+        let playerTeam = { team, player };
         console.log(playerTeam);
         leadersCollection.push(playerTeam);
       }
@@ -158,14 +164,14 @@ class EspnHelper {
 
   get team() {
     let query = this._g('getTeam');
-    if(query === undefined) return null;
+    if (query === undefined) return null;
 
     let team = this._g(query);
     let t = {};
     let keys = ['id', 'location', 'name', 'abbreviation', 'color', 'alternateColor', 'logo', 'wins']
 
     _.each(keys, key => {
-      switch(key) {
+      switch (key) {
         case 'id':
           // For numbers
           t[key] = _.toNumber(team[key]);
@@ -177,19 +183,19 @@ class EspnHelper {
           t.logo = !team.logo ? team.logos[0].href : team.logo;
           break;
         case 'wins':
-          if(team.recordSummary) {
+          if (team.recordSummary) {
             let record = team.recordSummary.split('-');
             t.wins = _.toNumber(record[0]);
             t.losses = _.toNumber(record[1]);
-          } else if(team.record) {
+          } else if (team.record) {
             let record = team.record.items[0].stats;
-            t.wins = _.toNumber(_.get(_.find(record, {name: 'wins'}), 'value', 0));
-            t.losses = _.toNumber(_.get(_.find(record, {name: 'losses'}), 'value', 0))
+            t.wins = _.toNumber(_.get(_.find(record, { name: 'wins' }), 'value', 0));
+            t.losses = _.toNumber(_.get(_.find(record, { name: 'losses' }), 'value', 0))
           }
           break;
         default:
           // For strings or unknown.
-          if(!team[key]) return;
+          if (!team[key]) return;
           t[key] = team[key];
           break;
       }
@@ -199,7 +205,7 @@ class EspnHelper {
 
   get players() {
     let query = this._g('getPlayers');
-    if(query === undefined) return null;
+    if (query === undefined) return null;
 
     let players = [];
     let keys = [
@@ -214,7 +220,7 @@ class EspnHelper {
         let player = {};
         _.each(keys, key => {
 
-          switch(key) {
+          switch (key) {
             case 'id':
             case 'jersey':
             case 'weight':
@@ -246,8 +252,8 @@ class EspnHelper {
 
   player(i) {
     let players = this.players;
-    if(!players) return console.log('You do not have any players to pick.');
-    if(!i) i = _.random(0, players.length - 1);
+    if (!players) return console.log('You do not have any players to pick.');
+    if (!i) i = _.random(0, players.length - 1);
     return players[i];
   }
 
@@ -255,9 +261,9 @@ class EspnHelper {
     let query = this._g('getEvents');
     const queries = query.split(', ');
     const getStatsBySeasonType = (sTypes, sType) => {
-      for(let seasonType of sTypes) {
-        for(let category of seasonType.categories) {
-          if(category.type === 'event' && category.splitType === sType.toString())
+      for (let seasonType of sTypes) {
+        for (let category of seasonType.categories) {
+          if (category.type === 'event' && category.splitType === sType.toString())
             return {
               events: category.events,
               totals: statsBuilder(category.totals)
@@ -275,13 +281,13 @@ class EspnHelper {
         let display = statDisplayNames[index];
         let name = statNames[index];
 
-        stats[name] = {display, value, name};
+        stats[name] = { display, value, name };
       })
 
       return stats;
     }
     const gameEventKeys = ['id', 'week', 'awayHome', 'date', 'idAndScores']
-    if(!query) return null;
+    if (!query) return null;
 
     // ESPN.events, ESPN.names, ESPN.displayNames, ESPN.seasonTypes
 
@@ -291,10 +297,10 @@ class EspnHelper {
 
     _.each(seasonStats.events, gameEvent => {
       let game = teamEvents[gameEvent.eventId];
-      events[gameEvent.eventId] = { player:statsBuilder(gameEvent.stats)};
+      events[gameEvent.eventId] = { player: statsBuilder(gameEvent.stats) };
       const gEvent = events[gameEvent.eventId].game = {};
       _.each(gameEventKeys, key => {
-        switch(key) {
+        switch (key) {
           case 'id':
           case 'week':
             gEvent[key] = _.toNumber(game[key]);
@@ -311,7 +317,7 @@ class EspnHelper {
               homeTeamId: _.toNumber(game.homeTeamId),
               awayTeamScore: _.toNumber(game.awayTeamScore),
               homeTeamScore: _.toNumber(game.homeTeamScore),
-              results:  game.gameResult
+              results: game.gameResult
             })
             break;
         }
