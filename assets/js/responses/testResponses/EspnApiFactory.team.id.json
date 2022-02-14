@@ -1,4 +1,4 @@
-const TestDataTeamMain = {
+{
   "time": 1644232582089,
   "new": "siteApi",
   "setup": "setupTeams",

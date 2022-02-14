@@ -1,41 +1,31 @@
+import { EspnApis } from "./espn";
+
 class TeamApis extends EspnApis  {
+  constructor() {
+    super();
+  }
+
   setupTeams(teamId, ...uris) {
     return this.siteApi()
-      .response('call', 'setupTeams')
+      .response('class', 'TeamApis')
       .uri('teams', teamId, ...uris);
   }
 
-  teams(teamId, noCall) {
-    return this.setupTeams(teamId)
-      .response('call', `TeamApis.setupTeams().teams(${teamId})`)
-      .response('getTeam', 'ESPN.team')
-      .toJson(noCall);
-  }
-
-  roster1(teamId, noCall) {
+  roster1(teamId) {
     return this.setupTeams(teamId)
       .param('enable', 'roster,stats')
-      .response('call', `TeamApis.setupTeams().roster1(${teamId})`)
+      .response('method', `TeamApis.setupTeams().roster1(${teamId})`)
       .response('getTeam', 'ESPN.team')
-      .response('getPlayers', 'ESPN.team.athletes')
-      .toJson(noCall);
+      .response('getPlayers', 'ESPN.team.athletes');
   }
 
-  roster2(teamId, noCall) {
+  roster2(teamId) {
     return this
       .setupTeams(teamId, 'roster')
-      .response('call', `TeamApis.setupTeams().roster2(${teamId})`)
+      .response('method', `TeamApis.setupTeams().roster2(${teamId})`)
       .response('getTeam', 'ESPN.team')
-      .response('getPlayers', 'ESPN.athletes[0].items, ESPN.athletes[1].items, ESPN.athletes[2].items')
-      .toJson(noCall);
-  }
-
-  schedule(teamId, noCall) {
-    return this.setupTeams(teamId, 'schedule')
-      .param('seasontype', '2')
-      .response('call', `TeamApis.setupTeams().schedule(${teamId})`)
-      .response('getTeam', 'ESPN')
-      .response('getGame', 'ESPN')
-      .toJson(noCall);
+      .response('getPlayers', 'ESPN.athletes[0].items, ESPN.athletes[1].items, ESPN.athletes[2].items');
   }
 }
+
+export { TeamApis }

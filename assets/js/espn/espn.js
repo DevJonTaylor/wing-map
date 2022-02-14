@@ -1,12 +1,31 @@
+import { random } from 'lodash';
+
 class Espn {
   keys = [];
   customKeys = [];
   delimiter = '$$'
 
   constructor(data) {
+<<<<<<< .merge_file_a28360
+    this.renderId = this.hexId();
+    if(!data) return;
+=======
     this.renderId = _.uniqueId(this.constructor.name);
     if (!data) return;
+>>>>>>> .merge_file_a29196
     this.parse(data)
+  }
+
+  hexId(lng = 6) {
+    const charList = ['a','b','c','d','e','f','0','1','2','3','4','5','6','7','8','9'];
+    let id = '';
+
+    for(let i = 0;i < lng;i++) {
+      let n = random(0, lng);
+      id += charList[n];
+    }
+
+    return id;
   }
 
   img = {
@@ -32,14 +51,26 @@ class Espn {
     this.img.template = str;
   }
 
+  on(eventName, selector, eventHandler) {
+    document.body.addEventListener(eventName, e => {
+      if(e.target.matches(selector))
+        eventHandler();
+    })
+  }
+
   createImg(src) {
     let replacements = _.merge({}, this.img.replacements);
     replacements.$$src$$ = src;
-
     return this.replace(this.img.template, replacements);
   }
 
   parse(data) {
+<<<<<<< .merge_file_a28360
+    if(data instanceof Espn) data = data.toObject;
+
+    for(let key of this.keys) {
+      this[key] = _.get(data, key, null);
+=======
     if (data instanceof Player) data = data.toObject;
     for (let key of this.keys) {
       if (key !== 'location' && key !== 'abbreviation') {
@@ -50,6 +81,7 @@ class Espn {
           throw err();
         }
       }
+>>>>>>> .merge_file_a29196
     }
 
     if (this.outerHTML) this.render();
@@ -77,10 +109,19 @@ class Espn {
       this.outerHTML = this.containerElement.outerHTML;
 
     let outerHTML = this.outerHTML;
+<<<<<<< HEAD
     let keys = Array.prototype.concat(this.keys, this.customKeys);
+=======
+    let keys = [...this.keys, ...this.customKeys];
+>>>>>>> feature/game-logic
 
+<<<<<<< .merge_file_a28360
+    for(let key of keys) {
+      outerHTML = outerHTML.replaceAll(`${this.delimiter}${key}${this.delimiter}`, this[key])
+=======
     for (let key of keys) {
       outerHTML = outerHTML.replaceAll(`$$${key}$$`, this[key])
+>>>>>>> .merge_file_a29196
     }
 
     this.containerElement.outerHTML = outerHTML;
@@ -117,6 +158,9 @@ class Espn {
   }
 }
 
+<<<<<<< .merge_file_a28360
+export { Espn }
+=======
 class EspnHelper {
   constructor(data) {
     this._g = (path, d = undefined) => {
@@ -329,3 +373,4 @@ class EspnHelper {
   }
 }
 
+>>>>>>> .merge_file_a29196
