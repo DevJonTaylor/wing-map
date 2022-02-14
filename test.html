@@ -22,18 +22,6 @@
       $$logoImg$$
       <button class="btn">Randomize Team</button>
     </div>
-<<<<<<< HEAD
-    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog.js"></script>
-    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog2.js"></script>
-    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog3.js"></script>
-    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog4.js"></script>
-    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.player.gamelog5.js"></script>
-    <script src="./assets/js/apiResponses/Tests/EspnApiFactory.team.roster.1.js"></script>
-    <script src="./assets/js/fullLodash.js"></script>
-    <script src="./assets/js/maps.js"></script>
-    <script src="./assets/js/static-data.js"></script>
-    <script src="./assets/js/apiResponses/leaders.js"></script>
-=======
     <script src="assets/js/responses/testResponses/EspnApiFactory.player.gamelog.json"></script>
     <script src="assets/js/responses/testResponses/EspnApiFactory.player.gamelog2.json"></script>
     <script src="assets/js/responses/testResponses/EspnApiFactory.player.gamelog3.json"></script>
@@ -44,7 +32,6 @@
     <script src="./assets/js/static-data.js"></script>
     <script src="assets/js/responses/tests.js"></script>
     <script src="./assets/js/fullLodash.js"></script>
->>>>>>> feature/game-logic
     <script src="./assets/js/nfl-endpoints.js"></script>
     <script src="./assets/js/espn/espn.js"></script>
     <script src="./assets/js/espn/team.js"></script>
@@ -53,43 +40,23 @@
     <script src="./assets/js/apis/players.js"></script>
     <script src="assets/js/game-controller.js"></script>
     <script>
-<<<<<<< HEAD
       const mainTeam = EspnStaticTeamData.random();
       mainTeam.render("#team-test");
-
-      Challenger.getEvents();
-      const data = new EspnHelper(TestDataTeamRoster1);
-      const data4 = new EspnHelper(TestDataPlayerGamelog);
-
-      const mainPlayer = _.sample(data.players);
-      mainPlayer.render("#player-test");
-=======
-
-
-      const mainTeam = EspnStaticTeamData.random();
-      mainTeam.render('#team-test');
 
       Challenger.getEvents();
       const data2 = new EspnHelper(TestDataTeamRoster1);
       const data4 = new EspnHelper(TestDataPlayerGamelog);
 
-     const mainPlayer = _.sample(data2.players);
-     mainPlayer.render('#player-test');
->>>>>>> feature/game-logic
+      const mainPlayer = _.sample(data2.players);
+      mainPlayer.render("#player-test");
 
       function getEspnDataLeader() {
         return TestDataLeaders;
       }
-<<<<<<< HEAD
+
+      mainTeam.on("click", "#team-test .btn", (event) => {
+        mainTeam.parse(EspnStaticTeamData.random());
+      });
     </script>
   </body>
-=======
-
-        mainTeam.on('click', '#team-test .btn', event => {
-            mainTeam.parse(EspnStaticTeamData.random());
-        })
-
-    </script>
-</body>
->>>>>>> feature/game-logic
 </html>

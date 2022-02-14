@@ -32,9 +32,9 @@
             <a id="tabswhite" id="tabsblk">How To Play</a>
           </li>
           <li>
-            <a id="tabswhite" id="tabsblk">ESPN</a>
+            <a id="tabswhite" id="tabsblk" href="https://www.espn.com/nfl/" target="_blank">ESPN</a>
           </li>
-          <li>
+          <li class="js-modal-trigger" data-target="modal-js-creators">
             <a id="tabswhite" id="tabsblk">Creators</a>
           </li>
           <li>
@@ -124,6 +124,24 @@
 
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
+<!-- creators modal -->
+  <div id="modal-js-creators" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+      <div class="box" id="hot-to-play">
+        <!-- how to play steps goes in here then when `How To Play` is clicked, you get more steps in the modal pop out -->
+        Click US!</br>
+        <a href="https://github.com/JoDamaso"target="_blank">John Damaso</a></br>
+        <a href="https://github.com/K-Bugz"target="_blank">Kevin Bugusky</a></br>
+        <a href="https://github.com/DevJonTaylor"target="_blank">Jon Taylor</a></br>
+        <a href="https://github.com/Dommy99"target="_blank">Dominique Akers</a>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
   <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
   <script src="assets/js/script.js"></script>
   <script src="./assets/js/giphy.js"></script>
