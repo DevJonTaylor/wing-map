@@ -46,35 +46,42 @@
   </div></br>
 
 
-<!-- CPU card -->
+  <!-- CPU card -->
   <div class="columns" id="allboxes">
     <div class="column"></div>
-    <div class=" notification column is-two-fifths is-success"id="box1"><figure class="image is-4by3">
-      <img src="./assets/images/s-barkley.jpg">
-    </figure>CPU: Barkley fantasy-points: 6</div>
+    <div class=" notification column is-two-fifths is-success" id="box1">
+      <h2>Player Name: $$name$$</h2>
+      <p>POS: $$position$$</p>
+      $$headshotImg$$
+    </div>
     <div class="column"></div>
   </div>
 
 
-<!-- cards for players generated -->
+  <!-- cards for players generated -->
   <div class="columns is-multiline is-mobile">
     <div class="column js-modal-trigger" data-target="modal-js-example">
-      <div class=" notification column is-two-thirds is-success" id="box2">Player 1: Barkley fantasy-points: ? <figure class="image is-4by3">
-          <img src="./assets/images/s-barkley.jpg">
-        </figure>
+      <div class=" notification column is-two-thirds is-success" id="box2">
+        <h2>Player Name: $$name$$</h2>
+        <p>POS: $$position$$</p>
+        $$headshotImg$$
       </div>
     </div>
 
     <div class="column js-modal-trigger" data-target="modal-js-example">
-      <div class=" notification column is-two-thirds is-success"id="box3">Player 2: Barkley fantasy-points: ?<figure class="image is-4by3">
-        <img src="./assets/images/s-barkley.jpg">
-      </figure></div>
+      <div class=" notification column is-two-thirds is-success" id="box3">
+        <h2>Player Name: $$name$$</h2>
+        <p>POS: $$position$$</p>
+        $$headshotImg$$
+      </div>
     </div>
 
     <div class="column js-modal-trigger" data-target="modal-js-example">
-      <div class=" notification column is-two-thirds is-success"id="box4">Player 3: Barkley fantasy-points: ?<figure class="image is-4by3">
-        <img src="./assets/images/s-barkley.jpg">
-      </figure></div>
+      <div class=" notification column is-two-thirds is-success" id="box4">
+        <h2>Player Name: $$name$$</h2>
+        <p>POS: $$position$$</p>
+        $$headshotImg$$
+      </div>
     </div>
   </div>
 
@@ -83,7 +90,7 @@
     <div class="modal-background"></div>
 
     <div class="modal-content">
-      <div class="box1" id="giphy-image"  width="500">
+      <div class="box1" id="giphy-image" width="500">
         <!-- generated picture goes into here, then into the modal -->
         <img />
       </div>
@@ -92,7 +99,7 @@
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
-<!-- modal for `How To Play` -->
+  <!-- modal for `How To Play` -->
   <div id="modal-js-play" class="modal">
     <div class="modal-background"></div>
 
@@ -101,32 +108,52 @@
         <!-- how to play steps goes in here then when `How To Play` is clicked, you get more steps in the modal pop out -->
         <h3>How to play:</h3>
         <ul>
-          <li><img src="./assets/images/1.png"height="80" width="80">4 random players are chosen(big card is the cpu).</li>
-          <li><img src="./assets/images/2.png"height="80" width="80">4 randomized games are chosen that have a specific fantasy rating.</li>
-          <li><img src="./assets/images/3.png"height="80" width="80">You must choose the card with a higher rating than the cpu's player.</li>
-          <li><img src="./assets/images/4.png"height="80" width="80">Fisrt to 5 points wins (each wrong answer cpu gets a point).</li>
+          <li><img src="./assets/images/1.png" height="80" width="80">4 random players are chosen(big card is the cpu).
+          </li>
+          <li><img src="./assets/images/2.png" height="80" width="80">4 randomized games are chosen that have a specific
+            fantasy rating.</li>
+          <li><img src="./assets/images/3.png" height="80" width="80">You must choose the card with a higher rating than
+            the cpu's player.</li>
+          <li><img src="./assets/images/4.png" height="80" width="80">Fisrt to 5 points wins (each wrong answer cpu gets
+            a point).</li>
         </ul>
       </div>
     </div>
 
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
-
   <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
   <script src="assets/js/script.js"></script>
   <script src="./assets/js/giphy.js"></script>
-  <script src="assets/js/responses/testResponses/EspnApiFactory.player.gamelog.json"></script>
-  <script src="assets/js/responses/testResponses/EspnApiFactory.team.roster.1.json"></script>
-  <script src="./assets/js/custom-lodash.min.js"></script>
-  <script src="./assets/js/nfl-endpoints.js"></script>
-  <script src="./assets/js/espn/espn.js"></script>
-  <script src="./assets/js/espn/team.js"></script>
-  <script src="./assets/js/espn/players.js"></script>
+  <script src="./assets/js/bundle.js"></script>
+  <script>
+    function mew(playerPool) {
+      const cssSelectors = ['#box1', '#box2', '#box3', '#box4'];
+
+      for (let i in cssSelectors) {
+        const selector = cssSelectors[i];
+        const leader = playerPool[i];
+        const player = leader.player;
+        const team = leader.team;
+        player.position = player.position.abbreviation;
+        team.colors.map((color, index) => team.colors[index] = `#${color}`);
+        player.render(selector);
+
+        player.containerElement.style.backgroundColor = team.colors[0];
+        player.containerElement.style.borderColor = team.colors[1];
+      }
+    }
+
+    var playerPool = PlayerTests.leaders.leaders.filter(leader => {
+      return leader.player.position.id === "8"
+    }).sort(() => (Math.random() - .5)).splice(0, 4)
+
+    mew(playerPool,)
+  </script>
+
 </body>
 
 <footer class="footer">
 </footer>
 
 </html>
-
-

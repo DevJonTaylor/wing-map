@@ -5,6 +5,10 @@ const apiKey = "CJcLxlB9BUsGBRRe4GWIXJofKRRNvPUR";
 var giphyModal = document.getElementById("giphy-image");
 var testBox2 = document.getElementById("box2");
 
+// the arrays could hold what the cpu says I think it should be displayed in the modal 
+var correctTalk = ["Lucky guess", "I guess humans are smart", "Looks I need better players", "Nice one!", "Maybe you're the mvp", "Maybe I'll get the next round", "No fair I've never seen a football game", "I promise I'm usally better"]
+var  trashTalk = ["I've seen the browns have more wins", "Looks like you took the browns to the superbowl", "Turn over on downs", "Wow smooth just like your brain", "Crazy your stats are just as bad as your player choice :)", "I.AM.SASS-BOT ... YOU.ARE.TRASH-BOT"]
+
 // currently, always targeting the `correct` parameter in the API url
 // need to add more js/function to check if the answer was wrong
 // figure out a way to get a different image without refreshing 

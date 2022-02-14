@@ -3,18 +3,24 @@ import { teamObject } from "./maps";
 
 export class Team extends Espn {
   keys = [
-      'id', 'location', 'name', 'abbreviation', 'color',
-      'alternateColor', 'logo', 'wins', 'losses'
-    ];
+    'id', 'location', 'name', 'abbreviation', 'color',
+    'alternateColor', 'logo', 'wins', 'losses'
+  ];
 
   customKeys = ['logoImg'];
 
   constructor(data) {
     super(data);
+<<<<<<< .merge_file_a28948
     const newKeys = teamObject(true);
     this.keys = new Array(...new Set(newKeys.concat(this.keys)));
 
     if(data !== undefined) this.parse(data);
+=======
+
+    this.keys = [...new Set(this.keys.concat(EspnStaticTeamData.keys))];
+    if (data !== undefined) this.parse(data);
+>>>>>>> .merge_file_a27168
   }
 
   get losses() {
@@ -64,4 +70,10 @@ export class Team extends Espn {
   get logoImg() {
     return this.createImg(this.logo);
   }
+<<<<<<< .merge_file_a28948
 }
+=======
+
+
+}
+>>>>>>> .merge_file_a27168
