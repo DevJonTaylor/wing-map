@@ -24,6 +24,10 @@ class Game extends BaseController {
 
   constructor() {
     super();
+    if(!window.EspnOptions) window.EspnOptions = {
+      "mode": "production",
+      "localStorageKey": "wing-map"
+    }
     this.data = new Storage();
     this.state = 'new';
     if(this.isDev) console.log('Development Mode Activated!');
@@ -126,8 +130,6 @@ class Game extends BaseController {
       default:
         throw new Error(`Invalid State Set ${state}`);
     }
-
-    document.querySelector('#state-name').innerText = !this.scoreboard.userWon ? 'Computer Wins' : 'User Wins';
   }
 
   init() {

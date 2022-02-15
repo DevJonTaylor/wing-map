@@ -5,7 +5,7 @@ const apiKey = "CJcLxlB9BUsGBRRe4GWIXJofKRRNvPUR";
 var giphyModal = document.getElementById("giphy-image");
 var testBox2 = document.getElementById("box2");
 
-// the arrays could hold what the cpu says I think it should be displayed in the modal 
+// the arrays could hold what the cpu says I think it should be displayed in the modal
 var correctTalk = ["CPU: beep boo bap... Lucky guess", "CPU: beep boo bap... I guess humans are smart", "CPU: beep boo bap...Looks I need better players", "CPU: beep boo bap...Nice one!", "CPU: beep boo bap...Maybe you're the mvp", "CPU: beep boo bap...Maybe I'll get the next round", "CPU: beep boo bap... Not fair I've never seen a football game", "CPU: beep boo bap...I promise I'm usally better","CPU: beep boo bap...Jon Taylor is that you?"]
 var trashTalk = ["CPU: beep boo bap...I've seen the browns with more wins", "CPU: beep boo bap...Looks like you took the browns to the superbowl", "CPU: beep boo bap...Turn over on downs", "CPU: beep boo bap...Wow smooth just like your brain", "CPU: beep boo bap...Crazy your stats are just as bad as your player choice :)", "CPU: beep boo bap...I.AM.SASS-BOT ... YOU.ARE.TRASH-BOT", "CPU: beep boo bap...My creator is smarter than you and he does'nt get functions","CPU: beep boo bap...You're more of a cub than a Bear", "CPU: beep boo bap...You smell -'John the mack Damaso'"]
 var gameWin = ["CPU: beep boo bap...You win!","CPU: beep boo bap...Here's your virtual ring", "CPU: beep boo bap... Congrats your brain must have a wrinkle or 2", "CPU: beep boo bap... Double or nothing"]
@@ -44,7 +44,7 @@ cpuSpeech(correct);
         var picture = data.data.images.original.url;
         giphyModal.querySelector('img').setAttribute("src", picture);
         // console.log(picture);
-        
+
     })
 
     // if (
@@ -77,7 +77,7 @@ function displayPictureWrong () {
 };
 
 
-// i need a function to check for wrong answers 
+// i need a function to check for wrong answers
 // either hardcoded or DOM inserted
 
 // Function for our modals to work
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Functions to open and close a modal
 function openModal($el) {
     $el.classList.add('is-active');
-    
+
 }
 
 function closeModal($el) {
@@ -105,10 +105,13 @@ function closeAllModals() {
 
     $trigger.addEventListener('click', () => {
         if ($trigger.children[0].matches("#box2") || $trigger.children[0].matches("#box3") || $trigger.children[0].matches("#box4")) {
-            displayPicture(true);
-            openModal($target);
+          playerSelect($trigger);
+          game.compareStats();
+          displayPicture(game.scoreboard.userWon);
+          openModal($target);
+          game.state = 'roundEnd';
         } else {
-            openModal($target);
+          openModal($target);
         }
     });
 });
@@ -132,4 +135,13 @@ document.addEventListener('keydown', (event) => {
 });
 });
 
+function playerSelect(element) {
+  const renderId = element.querySelector('[render-by]').getAttribute('render-by');
+  const player = window.renderCodes.get(renderId);
 
+  for(const leader of game.Espn.current) {
+    if(leader.player.id === player.id) {
+      return game.user.addLeader(leader);
+    }
+  }
+}

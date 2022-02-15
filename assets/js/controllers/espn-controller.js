@@ -1,5 +1,4 @@
 import { EspnApiFactory } from "../apis";
-import { PlayerTests, GamelogTests, TeamTests } from "../responses";
 import { EspnHelper } from "../espn";
 import { BaseController } from "./base";
 
@@ -8,26 +7,6 @@ class EspnController extends BaseController {
     super();
 
     if(obj) this.reloadSavedData(obj);
-  }
-
-  get GamelogTests() {
-    return this.Tests.GamelogTests;
-  }
-
-  get PlayerTests() {
-    return this.Tests.PlayerTests;
-  }
-
-  get TeamTests() {
-    return this.Tests.TeamTests;
-  }
-
-  get Tests() {
-    return {
-      PlayerTests,
-      GamelogTests,
-      TeamTests
-    }
   }
 
   get API() {
@@ -60,7 +39,7 @@ class EspnController extends BaseController {
     if(this.leaders === true)
       return this.setCurrent(this.get('leaders'), this.leaders);
 
-    const espnHelper = this.isDev ? PlayerTests.leaders : await EspnApiFactory.Player.leaders(year);
+    const espnHelper = await EspnApiFactory.Player.leaders(year);
     const leaders = espnHelper.leaders;
 
     this.historyEntry({name: 'getLeaders', value: 'EspnHelper', action: 'API Request'});
@@ -74,9 +53,7 @@ class EspnController extends BaseController {
 
     for(let leader of currentLeaders) {
       const playerId = leader.player.id
-      const espnHelper = !this.isDev
-        ? await EspnApiFactory.Player.gamelog(playerId)
-        : this.GamelogTests.randomPlayer;
+      const espnHelper = await EspnApiFactory.Player.gamelog(playerId);
 
 
       this.historyEntry({name: 'getPlayerGamelog', value: 'EspnHelper<Game, Stats>', Action: 'API Request'});
@@ -88,7 +65,6 @@ class EspnController extends BaseController {
 
       } catch(err) {
         console.log(`Error: ${err.message}`);
-        console.log(`GamelogTestDataName: ${gamelogTestDataName}`);
         switch(err.name) {
           default:
             throw err;

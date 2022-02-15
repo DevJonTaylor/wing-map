@@ -13,7 +13,6 @@ export class Team extends Espn {
   constructor(data) {
     super(data);
 
-    this.keys = [...new Set(this.keys.concat(EspnStaticTeamData.keys))];
     if (data !== undefined) this.parse(data);
   }
 

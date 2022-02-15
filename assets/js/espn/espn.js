@@ -44,7 +44,7 @@ class Espn {
 
   setRenderCode() {
 
-    this.renderCodes.set('renderCodes', this.renderId);
+    this.renderCodes.set(this.renderId, this);
 
     return this;
   }
@@ -76,6 +76,14 @@ class Espn {
 
   get containerElement() {
     return document.querySelector(this.cssSelector);
+  }
+
+  get containerRenderId() {
+    return this.containerElement.getAttribute('render-by');
+  }
+
+  set containerRenderId(id) {
+    this.containerElement.setAttribute('render-by', id);
   }
 
   newId(size = 21) {
@@ -126,7 +134,16 @@ class Espn {
   }
 
   render(cssSelector = null) {
-    if(cssSelector) this.container(cssSelector);
+    if(cssSelector) {
+      this.container(cssSelector);
+      const element = document.querySelector(cssSelector);
+      if(element.hasAttribute('render-by')) {
+        const renderId = element.getAttribute('render-by');
+        const otherEspn = this.getByRenderCode(renderId);
+        this.outerHTML = otherEspn.outerHTML;
+        this.removeRenderCode(renderId);
+      }
+    }
 
     if(!this.containerElement)
       return console.log('A container has not been set.');

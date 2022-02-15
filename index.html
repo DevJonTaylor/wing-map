@@ -51,7 +51,7 @@
     <div class="column"></div>
     <div class=" notification column is-two-fifths is-success" id="box1">
       <h2>$$name$$</h2>
-      <p>POS: $$position$$</p>
+      <p>POS: <span class="pos"></span></p>
       $$headshotImg$$
     </div>
     <div class="column"></div>
@@ -63,7 +63,7 @@
     <div class="column js-modal-trigger" data-target="modal-js-example">
       <div class=" notification column is-two-thirds is-success" id="box2">
         <h2>$$name$$</h2>
-        <p>POS: $$position$$</p>
+        <p>POS: <span class="pos"></span></p>
         $$headshotImg$$
       </div>
     </div>
@@ -71,7 +71,7 @@
     <div class="column js-modal-trigger" data-target="modal-js-example">
       <div class=" notification column is-two-thirds is-success" id="box3">
         <h2>$$name$$</h2>
-        <p>POS: $$position$$</p>
+        <p>POS: <span class="pos"></span></p>
         $$headshotImg$$
       </div>
     </div>
@@ -79,7 +79,7 @@
     <div class="column js-modal-trigger" data-target="modal-js-example">
       <div class=" notification column is-two-thirds is-success" id="box4">
         <h2>$$name$$</h2>
-        <p>POS: $$position$$</p>
+        <p>POS: <span class="pos"></span></p>
         $$headshotImg$$
       </div>
     </div>
@@ -93,7 +93,7 @@
     <div class="modal-content">
       <h3 id="giphy-talk"></h3>
       <div class="box1" id="giphy-image" width="500">
-        
+
         <!-- generated picture goes into here, then into the modal -->
         <img />
       </div>
@@ -140,33 +140,10 @@
   </div>
 
   <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
-  <script src="assets/js/script.js"></script>
   <script src="./assets/js/giphy.js"></script>
-  <script src="./assets/js/bundle.js"></script>
-  <script>
-    function mew(playerPool) {
-      const cssSelectors = ['#box1', '#box2', '#box3', '#box4'];
-
-      for (let i in cssSelectors) {
-        const selector = cssSelectors[i];
-        const leader = playerPool[i];
-        const player = leader.player;
-        const team = leader.team;
-        player.position = player.position.abbreviation;
-        team.colors.map((color, index) => team.colors[index] = `#${color}`);
-        player.render(selector);
-
-        player.containerElement.style.backgroundColor = team.colors[0];
-        player.containerElement.style.borderColor = team.colors[1];
-      }
-    }
-
-    var playerPool = PlayerTests.leaders.leaders.filter(leader => {
-      return leader.player.position.id === "8"
-    }).sort(() => (Math.random() - .5)).splice(0, 4)
-
-    mew(playerPool,)
-  </script>
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/test.functions.js"></script>
+  <script src="./assets/js/script.js"></script>
 
 </body>
 
