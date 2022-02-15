@@ -1,49 +1,85 @@
-import { random } from 'lodash';
+import { CustomImage } from "../views/image";
+import { nanoid } from "nanoid";
 
 class Espn {
   keys = [];
   customKeys = [];
   delimiter = '$$'
+  customizeImg = null;
+  cssSelector = '';
+  data = Map;
 
   constructor(data) {
-    this.renderId = this.hexId();
     if(!data) return;
     this.parse(data)
   }
 
-  hexId(lng = 6) {
-    const charList = ['a','b','c','d','e','f','0','1','2','3','4','5','6','7','8','9'];
-    let id = '';
-
-    for(let i = 0;i < lng;i++) {
-      let n = random(0, lng);
-      id += charList[n];
-    }
-
-    return id;
+  get toObject() {
+    return (this.data instanceof Map) ? Object.fromEntries(this.data) : {};
   }
 
-  img = {
-    template: `<img src="$$src$$" height="$$height$$" width="$$width$$" alt="$$alt$$"/>`,
-    replacements: {
-      $$src$$: '',
-      $$alt$$: '',
-      $$width$$: 100,
-      $$height$$: 100
-    },
-    set width(str) {
-      this.replacements.$$width$$ = str;
-    },
-    set height(str) {
-      this.replacements.$$height$$ = str;
-    },
-    set alt(str) {
-      this.replacements.$$alt$$ = str;
+  get renderId() {
+    if(!this.has('renderId')) {
+      this.set('renderId', this.newId())
     }
-  };
 
-  set imgTemplate(str) {
-    this.img.template = str;
+    return this.get('renderId');
+  }
+
+  get db() {
+    return this.data;
+  }
+
+  has(key) {
+    return this.db.has(key);
+  }
+
+  set(key, value) {
+    this.db.set(key, value);
+  }
+
+  get(key, defaultValue) {
+    return !this.has(key) ? defaultValue : this.db.get(key);
+  }
+
+  setRenderCode() {
+
+    this.renderCodes.set('renderCodes', this.renderId);
+
+    return this;
+  }
+
+  removeRenderCode(renderId) {
+    if(this.renderCodes.has(renderId))
+        this.renderCodes.delete(renderId);
+
+    return this;
+  }
+
+  getByRenderCode(id) {
+    return this.renderCodes.get(id);
+  }
+
+  get renderCodes() {
+    if(!(window.renderCodes instanceof Map)) window.renderCodes = new Map();
+
+    return window.renderCodes;
+  }
+
+  get isCustomizeImg() {
+    return this.customizeImg instanceof Function;
+  }
+
+  get newImg() {
+    return new CustomImage();
+  }
+
+  get containerElement() {
+    return document.querySelector(this.cssSelector);
+  }
+
+  newId(size = 21) {
+    return nanoid(size);
   }
 
   on(eventName, selector, eventHandler) {
@@ -53,20 +89,32 @@ class Espn {
     })
   }
 
-  createImg(src) {
-    let replacements = _.merge({}, this.img.replacements);
-    replacements.$$src$$ = src;
-    return this.replace(this.img.template, replacements);
-  }
-
   parse(data) {
-    if(data instanceof Espn) data = data.toObject;
+    const isEspn = (data instanceof Espn);
+    if(isEspn) {
+      data.removeRenderCode(data.renderId);
+      data = data.toObject;
+    } else {
+      if(Array.isArray(data)) {
+        const newObj = {};
+        const keys = [...new Set(this.keys.concat(this.customKeys))];
+        keys.map((v, i) => {
+          const key = keys[i];
+          newObj[key] = data[i];
+        })
 
-    for(let key of this.keys) {
-      this[key] = _.get(data, key, null);
+        this.keys = keys;
+        this.data = new Map(Object.entries(newObj));
+        return this;
+      }
+      this.data = new Map(Object.entries(data));
     }
 
     if(this.outerHTML) this.render();
+
+    this.keys.map(key => {
+      Object.defineProperty(this, key, { get() { return this.get(key) }});
+    })
 
     return this
   }
@@ -75,10 +123,6 @@ class Espn {
     this.cssSelector = cssSelector;
 
     return this;
-  }
-
-  get containerElement() {
-    return document.querySelector(this.cssSelector);
   }
 
   render(cssSelector = null) {
@@ -91,14 +135,16 @@ class Espn {
       this.outerHTML = this.containerElement.outerHTML;
 
     let outerHTML = this.outerHTML;
-    let keys = [...this.keys, ...this.customKeys];
+    let keys = [].concat(this.keys, this.customKeys);
 
     for(let key of keys) {
       outerHTML = outerHTML.replaceAll(`${this.delimiter}${key}${this.delimiter}`, this[key])
     }
 
+    this.setRenderCode();
     this.containerElement.outerHTML = outerHTML;
 
+    this.containerElement.setAttribute('render-by', this.renderId);
     return this;
   }
 
@@ -115,15 +161,6 @@ class Espn {
     }
 
     return newString;
-  }
-
-  get toObject() {
-    let obj = {};
-    _.each(this.keys, key => {
-      obj[key] = this[key];
-    })
-
-    return obj;
   }
 
   toString() {

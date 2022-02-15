@@ -1,4 +1,5 @@
 import './Interface.Objects'
+import {EspnLinkRel} from "./Interface.Objects";
 
 interface EspnLogo {
   href: string

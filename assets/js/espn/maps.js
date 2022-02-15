@@ -17,11 +17,20 @@ function playerObject(keys) {
   });
 }
 
+function userNoScoreObject(keys) {
+  return getMapKeys(keys, {
+    player: null,
+    team: null,
+    game: null,
+    stats: null
+  })
+}
+
 function userObject(keys) {
   return getMapKeys(keys, {
     player: null,
     team: null,
-    events: null,
+    game: null,
     stats: null,
     score: 0
   });
@@ -55,6 +64,7 @@ export {
   teamObject,
   playerObject,
   userObject,
-  gameControllerDatabaseObject
+  gameControllerDatabaseObject,
+  userNoScoreObject
 }
 

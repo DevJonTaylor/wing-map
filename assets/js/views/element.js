@@ -14,20 +14,20 @@ class CustomElement {
   }
 
   get toHTML() {
-    let attributes = ''
+    let attributes = []
     let closing = '';
     let tag = this.tagName.toLowerCase();
 
-    each(this.attributes, (v, k) => {
-      attributes += `${k}="${v}"`;
-    })
+    for(const [key, val] of Object.entries(this.attributes)) {
+      attributes.push(`${key}="${val}"`);
+    }
 
     if(this.selfClose) {
        closing = ' />';
     } else {
       closing = `>${this.content}</${tag}>`;
     }
-    return `<${tag} ${attributes}${closing}`;
+    return `<${tag} ${attributes.join(' ')}${closing}`;
   }
 
   setAttribute(name, value) {
