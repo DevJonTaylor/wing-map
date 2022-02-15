@@ -1,7 +1,7 @@
 // toggle light and dark mode for page
 function myFunction() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
+  var element = document.body;
+  element.classList.toggle("dark-mode");
 }
 EspnOptions.mode = 'production';
 
@@ -14,8 +14,8 @@ const renderedBoxes = {
 }
 
 function getLeaderByRenderId(renderId) {
-  for(const leader of game.Espn.current) {
-    if(leader.player.renderId === renderId) return leader;
+  for (const leader of game.Espn.current) {
+    if (leader.player.renderId === renderId) return leader;
   }
 
   return false;
@@ -38,7 +38,7 @@ function leaderSetup(leader, selector) {
   const team = leader.team.toObject;
   player.render(selector);
   setPosition(player);
-  team.colors.map((color, index) => { team.colors[index] = `#${color}` });
+  team.colors.map((color, index) => { team.colors[index] = color[0] !== "#" ? `#${color}` : color });
   const element = leader.player.containerElement;
   element.style.backgroundColor = team.colors[0];
   element.style.borderColor = team.colors[1];
@@ -65,7 +65,7 @@ game.onStart((computer, playerPool) => {
   availablePlayerPool(playerPool);
 })
 
-  .onRoundEnd(function() {
+  .onRoundEnd(function () {
     game.init();
   })
   .onGameOver(function () {
