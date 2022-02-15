@@ -13,5 +13,5 @@ on fantasy football!!!
 Dominique Akers<br>John Damaso<br>Jon Taylor<br>Kevin Bugusky<br>
 
 ## Other 
-GitHub: https://devjontaylor.github.io/wing-map/
+GitHub: https://devjontaylor.github.io/wing-map/<br>
 Have a great day and thank you for being here. 
