@@ -21,9 +21,8 @@ class BaseController extends EventEmitter {
   }
 
   get db() {
-    if(this.isData) return this.data;
+    if(!this.isData) this.data = new Map();
 
-    this.data = new Map();
     return this.data;
   }
 
@@ -92,7 +91,7 @@ class BaseController extends EventEmitter {
   }
 
   get toObject() {
-    return { [this.constructor.name]: Object.fromEntries(this.db) };
+    return Object.fromEntries(this.db);
   }
 
   toString() {

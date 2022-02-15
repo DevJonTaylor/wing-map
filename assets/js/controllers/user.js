@@ -26,6 +26,10 @@ class User {
     return this.get('stats', {});
   }
 
+  get score() {
+    return this.get('score', 0);
+  }
+
   set player(player) {
     this.set('player', player);
   }
@@ -40,6 +44,10 @@ class User {
 
   set stats(stats) {
     this.set('stats', stats);
+  }
+
+  set score(score) {
+    this.set('score', score);
   }
 
   has(key) {
@@ -63,10 +71,10 @@ class User {
     }
   }
 
-  clickSelectedPlayer(playerId) {
-    game.state = game.PLAYER;
-    const leader = game.Espn.getLeaderByPlayerId(playerId);
-    this.addLeader(leader);
+  addPoint() {
+    this.score = this.score + 1;
+
+    return this;
   }
 }
 

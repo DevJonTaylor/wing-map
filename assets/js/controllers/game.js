@@ -67,50 +67,73 @@ class Game extends BaseController {
     return this.get('state');
   }
 
+  get round() {
+    return this.get('round', 1);
+  }
+
+  get scoreboard() {
+    return this.get('scoreboard', this.newScoreboard());
+  }
+
+  set scoreboard(scoreboard) {
+    this.set('scoreboard', scoreboard);
+  }
+
   set state(state) {
-    const stateChange = {
-      name: 'state',
-      value: state,
-      action: `Changing state from ${this.state} to ${state}`
-    };
-    const eventFired = {
-      name: 'emit',
-      value: state,
-      action: `Event Fired for ${state}`
+    if(this.isDev) {
+      console.log(`OLD STATE:  ${this.get('state', 'Has not been set.')}`)
+      console.log(`NEW STATE:  ${state}`)
     }
+    this.set('state', state);
+
     switch(state) {
       case this.NEW:
-        this.historyEntry(stateChange);
+
         break;
       case this.INIT:
-        this.historyEntry(stateChange)
-          .historyEntry(eventFired);
-
         this.emit(state, this);
         break;
       case this.START:
-        this.historyEntry(stateChange)
-          .historyEntry(eventFired);
-
-        this.emit(state, this.getUser('computer'), this.Espn.current);
+        this.emit(state, this.computer, this.Espn.current);
         break;
       case this.PLAYER:
-
-        this.emit(state, this.getUser('computer'), this.getUser('user'));
+        this.compareStats()
+        this.emit(state, this.computer, this.user);
         break;
       case this.ROUND:
+        let round = this.get('round', 1);
+        this.emit('roundEnd', this.scoreboard.userWon);
+        if(round >= 5) {
+          this.state = this.GAME;
+          break;
+        } else {
+          this.set('round', this.round + 1);
+        }
+        break;
       case this.GAME:
+        this.emit('gameOver', this.scoreboard.userWon);
+        break;
       case this.LOAD:
+        // TODO:  Load Game Data
+
+        this.emit('loadLocal')
+        break;
       case this.SAVE:
+        // TODO:  Save Game Data
+
+        this.emit('saveLocal')
         break;
       default:
         throw new Error(`Invalid State Set ${state}`);
     }
 
-    this.set('state', state);
+    document.querySelector('#state-name').innerText = !this.scoreboard.userWon ? 'Computer Wins' : 'User Wins';
   }
 
   init() {
+    if(this.round >= 5)
+      this.set('round', 1);
+
     this.state = this.INIT;
     return this;
   }
@@ -128,7 +151,7 @@ class Game extends BaseController {
   }
 
   async initStepTwo() {
-    await this.Espn.getPlayerGamelog()
+    await this.Espn.getPlayerGamelog();
     const comp = this.getUser('computer');
     this.getUser('user');
 
@@ -185,20 +208,82 @@ class Game extends BaseController {
     return this.set('users', users);
   }
 
-  decisionMade(decisionObject) {
-    const userScore = decisionObject.user;
-    const compScore = decisionObject.comp;
-    let round = this.get('record', 1);
-    let isUserTheWinner = (userScore === compScore) ? null : (userScore > compScore);
+  newScoreboard() {
+    return {
+      compare(statName, userValue, compValue) {
+        if(userValue === compValue) {
+          this.draw += 1;
+        } else if(userValue > compValue) {
+          this.comp += 1;
+        } else {
+          this.user += 1;
+        }
 
-    const computer = this.getUser('computer')
-    const user = this.getUser('user');
-    const recordObject = {user: 0,computer: 0,draws: 0, round};
-
-
+        this.history.push({[statName]: { user: userValue, comp: compValue }})
+      },
+      get userWon() {
+        return this.user > this.comp
+      },
+      comp: 0,
+      user: 0,
+      draw: 0,
+      history: [],
+      players: {
+        user: this.player,
+        player: this.player
+      },
+      round: this.round
+    }
   }
 
-  onClick(eventHandler, cssSelector, {active = null,team = null,player = null,game = null,stats = null,renderId = null}) {
+  compareStats() {
+    this.scoreboard = this.newScoreboard();
+
+    const userGame = sample(this.user.stats);
+    const compGame = sample(this.computer.stats);
+
+    const userStatsObj = userGame.toObject;
+    const computerStatsObj = compGame.toObject;
+
+    for(const [key, val] of Object.entries(userStatsObj)) {
+      switch(key) {
+        case 'completions':
+        case 'passingAttempts':
+        case 'passingYards':
+        case 'completionPct':
+        case 'yardsPerPassAttempt':
+        case 'passingTouchdowns':
+        case 'interceptions':
+        case 'longPassing':
+        case 'sacks':
+        case 'QBRating':
+        case 'adjQBR':
+        case 'rushingAttempts':
+        case 'rushingYards':
+        case 'yardsPerRushAttempt':
+        case 'rushingTouchdowns':
+        case 'longRushing':
+          this.scoreboard.compare(key, userStatsObj[key], computerStatsObj[key]);
+          break;
+        default:
+          break;
+      }
+    }
+
+    return this.decisionMaker();
+  }
+
+  decisionMaker() {
+    if (this.scoreboard.userWon) {
+      this.user.addPoint()
+    } else if (!this.scoreboard.userWon) {
+      this.computer.addPoint();
+    }
+
+    this.state = this.ROUND;
+  }
+
+  onClick(cssSelector, {active = null,team = null,player = null,game = null,stats = null,renderId = null}) {
     const eventAttributes = {team, player, game, stats, active, renderId};
     if(!renderId) {
       console.log('Models rendering without a registered renderId');
@@ -213,8 +298,6 @@ class Game extends BaseController {
       const user = this.getUser('user');
       user.addLeader(active);
       this.state = this.PLAYER;
-      eventHandler(active, event);
-
     })
   }
 
@@ -258,6 +341,14 @@ class Game extends BaseController {
     this.db.onSaveLocal(...args)
 
     return this;
+  }
+
+  get toObject() {
+    return this.data.toObject
+  }
+
+  toString() {
+    return JSON.stringify(this.toObject);
   }
 }
 
