@@ -1,4 +1,3 @@
-import { random, get, merge } from 'lodash';
 import { CustomImage } from "../views/image";
 import { nanoid } from "nanoid";
 
@@ -11,13 +10,20 @@ class Espn {
   data = Map;
 
   constructor(data) {
-    data = new Map();
-
-    this.renderId = this.newId();
-    this.renderCodes.set(this.renderId, this);
-
     if(!data) return;
     this.parse(data)
+  }
+
+  get toObject() {
+    return (this.data instanceof Map) ? Object.fromEntries(this.data) : {};
+  }
+
+  get renderId() {
+    if(!this.has('renderId')) {
+      this.set('renderId', this.newId())
+    }
+
+    return this.get('renderId');
   }
 
   get db() {
@@ -28,12 +34,24 @@ class Espn {
     return this.db.has(key);
   }
 
+  set(key, value) {
+    this.db.set(key, value);
+  }
+
   get(key, defaultValue) {
     return !this.has(key) ? defaultValue : this.db.get(key);
   }
 
   setRenderCode() {
+
     this.renderCodes.set('renderCodes', this.renderId);
+
+    return this;
+  }
+
+  removeRenderCode(renderId) {
+    if(this.renderCodes.has(renderId))
+        this.renderCodes.delete(renderId);
 
     return this;
   }
@@ -56,12 +74,12 @@ class Espn {
     return new CustomImage();
   }
 
-  newId(size = 21) {
-    return nanoid(size);
+  get containerElement() {
+    return document.querySelector(this.cssSelector);
   }
 
-  set imgTemplate(str) {
-    this.img.template = str;
+  newId(size = 21) {
+    return nanoid(size);
   }
 
   on(eventName, selector, eventHandler) {
@@ -72,20 +90,31 @@ class Espn {
   }
 
   parse(data) {
-    if(data instanceof Espn) data = data.toObject;
+    const isEspn = (data instanceof Espn);
+    if(isEspn) {
+      data.removeRenderCode(data.renderId);
+      data = data.toObject;
+    } else {
+      if(Array.isArray(data)) {
+        const newObj = {};
+        const keys = [...new Set(this.keys.concat(this.customKeys))];
+        keys.map((v, i) => {
+          const key = keys[i];
+          newObj[key] = data[i];
+        })
 
-    // TODO:  Finish reorganizing the data to be read from Map instead of Object.
-    for(let key of this.keys) {
-      this[key] = '';
+        this.keys = keys;
+        this.data = new Map(Object.entries(newObj));
+        return this;
+      }
+      this.data = new Map(Object.entries(data));
     }
-
-    for(let key of this.keys) {
-      this[key] = get(data, key, null);
-    }
-
-    this.imgElement = new CustomImage();
 
     if(this.outerHTML) this.render();
+
+    this.keys.map(key => {
+      Object.defineProperty(this, key, { get() { return this.get(key) }});
+    })
 
     return this
   }
@@ -94,10 +123,6 @@ class Espn {
     this.cssSelector = cssSelector;
 
     return this;
-  }
-
-  get containerElement() {
-    return document.querySelector(this.cssSelector);
   }
 
   render(cssSelector = null) {
@@ -116,7 +141,9 @@ class Espn {
       outerHTML = outerHTML.replaceAll(`${this.delimiter}${key}${this.delimiter}`, this[key])
     }
 
+    this.setRenderCode();
     this.containerElement.outerHTML = outerHTML;
+
     this.containerElement.setAttribute('render-by', this.renderId);
     return this;
   }
@@ -134,15 +161,6 @@ class Espn {
     }
 
     return newString;
-  }
-
-  get toObject() {
-    let obj = {};
-    _.each(this.keys, key => {
-      obj[key] = this[key];
-    })
-
-    return obj;
   }
 
   toString() {

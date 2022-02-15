@@ -1,16 +1,17 @@
 // API key for Giphy stored in const
 const apiKey = "CJcLxlB9BUsGBRRe4GWIXJofKRRNvPUR";
 
-// I need a container to connect the giphy generated picture, whenever the user selects a choice. 
+// I need a container to connect the giphy generated picture, whenever the user selects a choice.
 var giphyModal = document.getElementById("giphy-image");
 var testBox2 = document.getElementById("box2");
 
 // currently, always targeting the `correct` parameter in the API response
 // need to add more js/function to check if the answer was wrong
-// figure out a way to get a different image without refreshing 
+// figure out a way to get a different image without refreshing
 
 function displayPicture (correct) {
     let apiUrl = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${correct?"agree":"no"}&rating=pg`;
+
 
     fetch(apiUrl)
     .then(function (response) {
@@ -29,7 +30,7 @@ function displayPicture (correct) {
 };
 
 
-// i need a function to check for wrong answers 
+// i need a function to check for wrong answers
 
 // Function for our modals to work
 document.addEventListener('DOMContentLoaded', () => {
@@ -52,7 +53,7 @@ function closeAllModals() {
 (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger, i, arr) => {
     const modal = $trigger.dataset.target;
     const $target = document.getElementById(modal);
-    
+
     $trigger.addEventListener('click', () => {
         if ($trigger.children[0].matches("#box2") || $trigger.children[0].matches("#box3") || $trigger.children[0].matches("#box4")) {
             displayPicture(true);

@@ -1,6 +1,6 @@
-import {sample} from "lodash";
+import { sample } from "lodash";
 import { BaseController } from "./base";
-import {EspnController, Storage, User} from "./";
+import { EspnController, Storage, User } from "./";
 
 /**
  * Events
@@ -81,7 +81,6 @@ class Game extends BaseController {
     switch(state) {
       case this.NEW:
         this.historyEntry(stateChange);
-        this.set('state', state);
         break;
       case this.INIT:
         this.historyEntry(stateChange)
@@ -93,11 +92,11 @@ class Game extends BaseController {
         this.historyEntry(stateChange)
           .historyEntry(eventFired);
 
-        const computer = this.getUser('computer');
-        const playerPool = this.Espn.current;
-        this.emit(state, computer, playerPool);
+        this.emit(state, this.getUser('computer'), this.Espn.current);
         break;
       case this.PLAYER:
+
+        this.emit(state, this.getUser('computer'), this.getUser('user'));
         break;
       case this.ROUND:
       case this.GAME:
@@ -112,14 +111,8 @@ class Game extends BaseController {
   }
 
   init() {
-    const waitingOnPageToLoad = setInterval(() => {
-      if(document.readyState === 'complete') {
-        clearInterval(waitingOnPageToLoad);
-        this.state = this.INIT;
-      }
-    }, 5)
+    this.state = this.INIT;
     return this;
-    // TODO:  Have computer take the first option from the player pool.
   }
 
   async initStepOne() {
@@ -190,6 +183,39 @@ class Game extends BaseController {
     Object.assign(users, userObject);
 
     return this.set('users', users);
+  }
+
+  decisionMade(decisionObject) {
+    const userScore = decisionObject.user;
+    const compScore = decisionObject.comp;
+    let round = this.get('record', 1);
+    let isUserTheWinner = (userScore === compScore) ? null : (userScore > compScore);
+
+    const computer = this.getUser('computer')
+    const user = this.getUser('user');
+    const recordObject = {user: 0,computer: 0,draws: 0, round};
+
+
+  }
+
+  onClick(eventHandler, cssSelector, {active = null,team = null,player = null,game = null,stats = null,renderId = null}) {
+    const eventAttributes = {team, player, game, stats, active, renderId};
+    if(!renderId) {
+      console.log('Models rendering without a registered renderId');
+      debugger;
+    }
+    document.querySelector(cssSelector).setAttribute('render-by', renderId);
+    document.body.addEventListener('click', event => {
+      const element = event.target;
+      if(!element.matches(cssSelector)) return;
+      event.Espn = eventAttributes;
+
+      const user = this.getUser('user');
+      user.addLeader(active);
+      this.state = this.PLAYER;
+      eventHandler(active, event);
+
+    })
   }
 
   onInit(...args) {
