@@ -58,11 +58,10 @@ they could and helped each other out.  Was a very amazing team experience!
 ### Dependencies
 - [Bulma](https://bulma.io)
 - [Lodash](https://lodash.com/)
-- [NodeJS](https://nodejs.org/)
-- [Babel](https://babeljs.io/)
-- [Webpack](https://webpack.js.org/concepts/)
-  - [Boilerplate Used](https://github.com/piecioshka/boilerplate-webpack-babel)
-    - Used Babel & Webpack
+- [Boilerplate](https://github.com/piecioshka/boilerplate-webpack-babel)
+  - [NodeJS](https://nodejs.org/)
+  - [Babel](https://babeljs.io/)
+  - [Webpack](https://webpack.js.org/concepts/)
 ### Demo
 You can access a live version at [GitHub Pages](https://DevJonTaylor.github.io/wing-map)
 
