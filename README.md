@@ -10,10 +10,16 @@
 
 ## Table of Content
 
-- [Description](#Description)
-- [Roles](#Roles)
-- [Road Map](#Road Map)
-- [Deployment](#Deployment)
+- [Description](#description)
+- [Roles](#roles)
+  - [Frontend](#frontend)
+  - [API / JavaScript](#api--javascript)
+- [Road Map](#road-map)
+- [Deployment](#deployment)
+  - [Dependencies](#dependencies)
+  - [Demo](#demo)
+  - [Download Zip](#download-zip)
+  - [Clone](#clone)
 - [Contributors](#Contributors)
 - [License](#License)
 - [Outro](#Outro)
