@@ -1,74 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <title>G.O.A.T Scale</title>
-  <body>
-      <header class="col s12 card-panel green darken-3 white-text center-align">G.O.A.T Scale</header>
 
-      <div class="row">
-          <div class="container">
-        <div class="card-panel green darken-3 center-align">Go Head to Head against the CPU. In this mash-up you'll pick who you think had the better game during the season. First to 5 wins</div>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>G.O.A.T Scale</title>
 
-                <div class="row">
-                    <button class="btn waves-effect waves-light col s2 push-s5 center-align" type="submit" name="action" id="btn">Start
-                        <i class="material-icons right"></i>
-                      </button>
-                      
-                </div>
-              </nav>
-          </div>          
-      
-
-      <div class="row ">
-          <div class= "col s6 card-panel blue darken-4 " id="giants">
-            <div class="row">
-                <div class="col s12 m7">
-                  <div class="card">
-                    <div class="card-image">
-                      <img src="./assets/images/s-barkley.jpg">
-                      <span class="card-title">S Barley</span>
-                    </div>
-                    <div class="card-content">
-                      <p>I am a very simple card. I am good at containing small bits of information.
-                      I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                      <a href="#">This is a link</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-          <a class="btn-floating btn-large waves-effect waves-light red" id="vs"><i class="material-icons" >VS</i></a>
-          <div class= "col s6 card-panel red accent-4">
-            <div class="row">
-                <div class="col s12 m7 " id="redcard">
-                  <div class="card">
-                    <div class="card-image ">
-                      <img src="./assets/images/d-henry.jpg">
-                      <span class="card-title">Derrick Henry</span>
-                    </div>
-                    <div class="card-content">
-                      <p>I am a very simple card. I am good at containing small bits of information.
-                      I am convenient because I require little markup to use effectively.</p>
-                    </div>
-                    <div class="card-action">
-                      <a href="#">This is a link</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </div>
+<body>
+  <div class="columns">
+    <section class="hero is-primary container is-fluid" id="hero">
+      <div class="hero-body">
+        <p class="title" id="title"> <img src="./assets/images/newGoatTans2.png" height="100" width="100">
+        </p>
       </div>
-    <script src="assets/js/script.js"></script>
-  </body>
+    </section>
+  </div>
+  <div class="hero-foot">
+    <nav class="tabs is-boxed is-fullwidth">
+      <div class="container">
+        <ul>
+          <li>
+            <a>Leaderboard </a>
+          </li>
+          <li>
+            <a>Stats</a>
+          </li>
+          <li class="js-modal-trigger" data-target="modal-js-play">
+            <a>How To Play</a>
+          </li>
+          <li>
+            <a href="https://www.espn.com/nfl/" target="_blank">ESPN</a>
+          </li>
+          <li class="js-modal-trigger" data-target="modal-js-creators">
+            <a>Creators</a>
+          </li>
+          <li>
+            <a onclick="myFunction()" id="tabswhite" id="tabsblk">Toggle light mode</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div></br>
+
+
+  <!-- CPU card -->
+  <div class="columns" id="allboxes">
+    <div class="column"></div>
+    <div class=" notification column is-two-fifths is-success" id="box1">
+      <h2>$$name$$</h2>
+      <p>POS: <span class="pos"></span></p>
+      $$headshotImg$$
+    </div>
+    <div class="column"></div>
+  </div>
+
+
+  <!-- cards for players generated -->
+  <div class="columns is-multiline is-mobile">
+    <div class="column js-modal-trigger" data-target="modal-js-example">
+      <div class=" notification column is-two-thirds is-success" id="box2">
+        <h2>$$name$$</h2>
+        <p>POS: <span class="pos"></span></p>
+        $$headshotImg$$
+      </div>
+    </div>
+
+    <div class="column js-modal-trigger" data-target="modal-js-example">
+      <div class=" notification column is-two-thirds is-success" id="box3">
+        <h2>$$name$$</h2>
+        <p>POS: <span class="pos"></span></p>
+        $$headshotImg$$
+      </div>
+    </div>
+
+    <div class="column js-modal-trigger" data-target="modal-js-example">
+      <div class=" notification column is-two-thirds is-success" id="box4">
+        <h2>$$name$$</h2>
+        <p>POS: <span class="pos"></span></p>
+        $$headshotImg$$
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- modal for targeting and adding the giphy api generated picture-->
+  <div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+      <h3 id="giphy-talk"></h3>
+      <div class="box1" id="giphy-image" width="500">
+
+        <!-- generated picture goes into here, then into the modal -->
+        <img />
+      </div>
+    </div>
+  </div>
+
+  <!-- modal for `How To Play` -->
+  <div id="modal-js-play" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+      <div class="box" id="hot-to-play">
+        <!-- how to play steps goes in here then when `How To Play` is clicked, you get more steps in the modal pop out -->
+        <h3>How to play:</h3>
+        <ul>
+          <li><img src="./assets/images/1.png" height="80" width="80">4 random players are chosen(big card is the cpu).
+          </li>
+          <li><img src="./assets/images/2.png" height="80" width="80">4 randomized games are chosen that have a specific
+            fantasy rating.</li>
+          <li><img src="./assets/images/3.png" height="80" width="80">You must choose the card with a higher rating than
+            the cpu's player.</li>
+          <li><img src="./assets/images/4.png" height="80" width="80">Fisrt to 5 points wins (each wrong answer cpu gets
+            a point).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- creators modal -->
+  <div id="modal-js-creators" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+      <div class="box" id="hot-to-play">
+        <!-- how to play steps goes in here then when `How To Play` is clicked, you get more steps in the modal pop out -->
+        Click US!</br>
+        <a href="https://github.com/JoDamaso" target="_blank">John Damaso</a></br>
+        <a href="https://github.com/K-Bugz" target="_blank">Kevin Bugusky</a></br>
+        <a href="https://github.com/DevJonTaylor" target="_blank">Jon Taylor</a></br>
+        <a href="https://github.com/Dommy99" target="_blank">Dominique Akers</a>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
+  <script src="https://kit.fontawesome.com/59ae44a9f3.js" crossorigin="anonymous"></script>
+  <script src="./assets/js/giphy.js"></script>
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/test.functions.js"></script>
+  <script src="./assets/js/script.js"></script>
+
+</body>
+
+<footer class="footer">
+</footer>
+
 </html>

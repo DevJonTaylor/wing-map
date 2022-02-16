@@ -1,42 +1,89 @@
-/* Welcome to Wings script js file
-made by: Dominique Akers, John Damaso, Jon Taylor, & Kevin Bugusky
-Table of contents: 
-    0) Globals: Variables and functions
-    1)
-    2) 
-*/
-/* comments: (delete me please) Thought I would put basic js up here for the
-j squareds. I just wanted to add 2 Els to select team. This would be to set up
-selectors and change class and thus variables on HTML/CSS. Also, if you don't
-think we need a Table of Contents then we can get rid of them. 
-*/
-//Variable Els (var or let? what do you guys what to do?)
-var team1El = document.querySelector("#team1"); // select #team1 div by ID
-var team2El = document.querySelector("#team2"); // select #team2 div by ID
-// functions
-function teamStyleChange(team1, team2) { // Most likely pass it API names. Will eventually pass team2 thro anotehr switch
-    switch (team1) { // I beleive I would need to know more about output
-        case 0: // need to add 32 cases
-            team1 = "Ari"; // Find out what API calls the team & change it
-            team1El.id = "ari"; // Sets the new id to change style
-            break;
-        case 1:
-            team1 = "Atl";
-            team1El.id = "atl";
-            break;
-        case 2:
-            team1 = "Blt";
-            team1El.id = "blt";
-            break;
-        case 3:
-            team1 = "Buf";
-            team1El.id = "buf";
-            break;
-        // Make more cases...
-    }
+// toggle light and dark mode for page
+function myFunction() {
+  var element = document.body;
+  element.classList.toggle("dark-mode");
 }
-// stuf stuff stuff
-// stuf stuff stuff
-// insert the call to change team style twice once for each team
-teamStyleChange(team1); // change parameter based on API output
-teamStyleChange(team2); // change parameter based on API output
+EspnOptions.mode = 'production';
+
+const game = new Game();
+const renderedBoxes = {
+  box1: '#box1',
+  box2: '#box2',
+  box3: '#box3',
+  box4: '#box4'
+}
+
+function getLeaderByRenderId(renderId) {
+  for (const leader of game.Espn.current) {
+    if (leader.player.renderId === renderId) return leader;
+  }
+
+  return false;
+}
+
+function getRenderIdBySelector(selector) {
+  const element = document.querySelector(`${selector} [render-by]`);
+  return !element ? false : element.getAttribute('render-by')
+}
+
+function setPosition(player, reLeader) {
+  const element = !reLeader ?
+    player.containerElement.querySelector('.pos') :
+    reLeader.player.containerElement.querySelector('.pos');
+  element.innerText = player.position.abbreviation;
+}
+
+function leaderSetup(leader, selector) {
+  const player = leader.player;
+  const team = leader.team.toObject;
+  player.render(selector);
+  setPosition(player);
+  team.colors.map((color, index) => { team.colors[index] = color[0] !== "#" ? `#${color}` : color });
+  const element = leader.player.containerElement;
+  element.style.backgroundColor = team.colors[0];
+  element.style.borderColor = team.colors[1];
+}
+
+function availablePlayerPool(playerPool) {
+  const cssSelectors = ['#box2', '#box3', '#box4'];
+
+  for (let i in cssSelectors) {
+    const leader = playerPool[i];
+    const selector = cssSelectors[i];
+    leaderSetup(leader, selector);
+    game.onClick(selector, {
+      active: leader,
+      player: leader.player,
+      team: leader.team,
+      renderId: leader.player.renderId
+    })
+  }
+}
+
+game.onStart((computer, playerPool) => {
+  leaderSetup(computer, '#box1');
+  availablePlayerPool(playerPool);
+})
+
+  .onRoundEnd(function () {
+    game.init();
+  })
+  .onGameOver(function () {
+    game.init();
+  })
+
+
+  .onLoadLocal(function () {
+    console.log('Running Load Local Storage Event');
+    console.log(arguments)
+  })
+
+
+  .onSaveLocal(function () {
+    console.log('Running Save Local Storage Event');
+    console.log(arguments)
+  })
+
+  .init();
+
+
