@@ -29,8 +29,10 @@ This was a group project to make a fantasy football game called G.O.A.T Scale.
 A place where you can still keep the football season alive!! Test your knowledge
 on fantasy football!!!
 
-![picture of game page](assets/images/rmIMG1.png)
 ![picture of landing page](assets/images/rmIMG2.png)
+![Snapshot of the Desktop version](assets/images/desktop.png)
+![Snapshot of the Tablet version](assets/images/tablet.png)
+![Snapshot of the Mobile version](assets/images/mobile.png)
 
 ## Roles
 ### Frontend
